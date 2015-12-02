@@ -1,0 +1,317 @@
+@font-face {
+    font-family: SofiaProBold;
+    src: url(../fonts/Mostardesign%20-%20Sofia%20Pro%20Bold_0.otf);
+}
+
+@font-face {
+    font-family: SofiaPro;
+    src: url(../fonts/Mostardesign%20-%20Sofia%20Pro%20Regular_0.otf);
+}
+
+.pt-perspective {
+    position: relative;
+    width: 320px;
+    height: 480px;
+    perspective: 1200px;
+    transform-style: preserve-3d;
+}
+
+.pt-page {
+    width: 320px;
+    height: 480px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    visibility: hidden;
+    overflow: hidden;
+    backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
+}
+
+.pt-page-current,
+.no-js .pt-page {
+    visibility: visible;
+}
+
+.no-js body {
+    overflow: hidden;
+}
+
+.pt-page-ontop {
+    z-index: 999;
+}
+
+.bold {
+    font-family: SofiaProBold, serif;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: SofiaPro, serif;
+    color: #fff;
+    overflow: hidden;
+}
+
+#tracer {
+    background: url(../img/rms-sb-01-05-female-final.jpg) #016dad no-repeat;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.5;
+    z-index: 3;
+}
+
+#jar, #rma-widget, #tracer {
+    width: 320px;
+    height: 480px;
+    overflow: hidden;
+}
+
+#jar {
+    background: #016dad;
+    z-index: 2;
+}
+
+.ff .header, .ff .footer, .ff .content, .absolute {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+}
+
+.absolute {
+    position: absolute;
+    height: 480px;
+    width: 160px;
+    z-index: 9;
+}
+
+span {
+    display: block;
+}
+
+.hide {
+    display: none;
+}
+
+.block {
+    width: 320px;
+    height: 222px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background: url(../img/block.png);
+    z-index: 10;
+}
+
+.action {
+    background: url(../img/swipe.png) no-repeat;
+    height: 108px;
+    width: 108px;
+    right: -26px;
+    top: 167px;
+    z-index: 11;
+    -webkit-transition: opacity 0.3s linear;
+    -moz-transition: opacity 0.3s linear;
+    -ms-transition: opacity 0.3s linear;
+    -o-transition: opacity 0.3s linear;
+    transition: opacity 0.3s linear;
+}
+
+.logo {
+    background: url(../img/logo.png) no-repeat;
+    height: 55px;
+    width: 65px;
+    right: 20px;
+    top: 15px;
+}
+
+/* First Frame */
+.ff .bg {
+    width: 320px;
+    height: 362px;
+    background: url(../img/bg.jpg) #016dad no-repeat;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+.ff .ra_click {
+    left: 160px;
+}
+
+.ff .header {
+    padding-top: 9px;
+}
+
+.ff .header .baru {
+    font-size: 38px;
+}
+
+.ff .header .rexmotion {
+    line-height: 17px;
+    font-size: 23px;
+}
+
+.ff .header .pilih {
+    padding-top: 21px;
+}
+
+.ff .content {
+    top: 10px;
+}
+
+.ff .separator {
+    width: 30px;
+}
+
+.ff .content div {
+    display: inline-block;
+}
+
+.ff .content div span {
+    font-size: 23px;
+    line-height: 20px;
+}
+
+.ff .footer {
+    padding-top: 25px;
+}
+
+/* Mass Frames */
+.header span.title {
+    padding-top: 28px;
+    padding-left: 18px;
+    font-size: 20px;
+    line-height: 22px;
+}
+
+.timeline.absolute {
+    background: url(../img/lines.png) no-repeat;
+    height: 77px;
+    z-index: 13;
+    bottom: 20px;
+    left: 34px;
+    width: 1px;
+    font-size: 14px;
+    -webkit-transition: width 0.9s linear;
+    -moz-transition: width 0.9s linear;
+    -ms-transition: width 0.9s linear;
+    -o-transition: width 0.9s linear;
+    transition: width 0.9s linear;
+}
+
+.timeline.two {
+    width: 71px;
+}
+
+.timeline.three {
+    width: 150px;
+}
+
+.timeline .first {
+    position: absolute;
+    top: -58px;
+    left: -17px;
+}
+
+.timeline .second {
+    position: absolute;
+    top: -58px;
+    left: 54px;
+}
+
+.timeline .third {
+    position: absolute;
+    top: -58px;
+    left: 117px;
+}
+
+.timeline .bubble {
+    margin: 0 auto;
+    height: 30px;
+    width: 30px;
+    -webkit-transition: opacity 0.8s linear;
+    -moz-transition: opacity 0.8s linear;
+    -ms-transition: opacity 0.8s linear;
+    -o-transition: opacity 0.8s linear;
+    transition: opacity 0.8s linear;
+}
+
+.timeline > div {
+    -webkit-transition: opacity 0.8s linear;
+    -moz-transition: opacity 0.8s linear;
+    -ms-transition: opacity 0.8s linear;
+    -o-transition: opacity 0.8s linear;
+    transition: opacity 0.8s linear;
+}
+
+.timeline.one .first, .timeline.two .first, .timeline.two .second, .timeline.three .second, .timeline.three .third {
+    opacity: 1;
+}
+
+.timeline.one .first .bubble {
+    background: url(../img/bubble-1.png) no-repeat;
+}
+
+.timeline.two .first .bubble {
+    background: url(../img/bubble-2.png) no-repeat;
+}
+
+.timeline.two .second .bubble {
+    background: url(../img/bubble-1.png) no-repeat;
+}
+
+.timeline.three .second .bubble {
+    background: url(../img/bubble-2.png) no-repeat;
+}
+
+.timeline.three .third .bubble {
+    background: url(../img/bubble-1.png) no-repeat;
+}
+
+.timeline.one .second, .timeline.one .third, .timeline.two .third {
+    opacity: 0;
+}
+
+.timeline.three .first .bubble {
+    opacity: 0;
+}
+
+.image.absolute {
+    -webkit-transition: background 0.8s linear;
+    -moz-transition: background 0.8s linear;
+    -ms-transition: background 0.8s linear;
+    -o-transition: background 0.8s linear;
+    transition: background 0.8s linear;
+}
+
+.male-run .bg {
+    width: 320px;
+    height: 362px;
+    background: url(../img/bg-land.png) no-repeat;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+.male-run .image.absolute {
+    height: 300px;
+    width: 500px;
+    left: -180px;
+    top: 115px;
+}
+
+.male-run .image.absolute.male-run-1 {
+    background: url(../img/male-run-1.png) no-repeat;
+}
+
+.male-run .image.absolute.male-run-2 {
+    background: url(../img/male-run-2.png) no-repeat;
+}
+
+.male-run .image.absolute.male-run-3 {
+    background: url(../img/male-run-3.png) no-repeat;
+}
