@@ -22,6 +22,8 @@ window.PageTransitions = (function () {
 
     function init() {
 
+        //$pages = $main.children('div.pt-page');
+
         $pages.each(function () {
             var $page = $(this);
             $page.data('originalClassList', $page.attr('class'));
@@ -60,9 +62,8 @@ window.PageTransitions = (function () {
         isAnimating = true;
 
         var $currPage = $pages.eq(current);
-
         if (options.showPage) {
-            if (options.showPage < pagesCount - 1) {
+            if (options.showPage <= pagesCount - 1) {
                 current = options.showPage;
             }
             else {
@@ -381,7 +382,8 @@ window.PageTransitions = (function () {
         endNextPage = false;
         resetPage($outpage, $inpage);
         isAnimating = false;
-        finished();
+        if (finished)
+            finished();
     }
 
     function resetPage($outpage, $inpage) {

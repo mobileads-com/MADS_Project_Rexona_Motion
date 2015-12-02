@@ -34,6 +34,8 @@ var mads = function () {
 
     /* URL Path */
     this.path = typeof rma != 'undefined' ? rma.customize.src : '';
+
+
 };
 
 /* Generate unique ID */
@@ -122,6 +124,7 @@ var testunit = function () {
     console.log(typeof app.path != 'undefined');
     console.log(typeof app.contentTag != 'undefined');
 
+
     app.loadJs('https://code.jquery.com/jquery-1.11.3.min.js', function () {
         console.log(typeof window.jQuery != 'undefined');
     });
@@ -138,36 +141,248 @@ var testunit = function () {
     app.linkOpener('http://www.google.com');
 };
 
+var playMolecule = function (selector) {
+    var moleculeImg = new Image();
+    moleculeImg.src = 'img/bubblesprite.png';
+    function moleculeSprite(options) {
+        var that = {},
+            frameIndex = 0,
+            tickCount = 0,
+            ticksPerFrame = options.ticksPerFrame || 0,
+            numberOfFrames = options.numberOfFrames || 1;
+        that.context = options.context;
+        that.width = options.width;
+        that.height = options.height;
+        that.image = options.image;
+
+        that.render = function () {
+            that.context.clearRect(0, 0, that.width, that.height);
+            that.context.drawImage(
+                that.image,
+                frameIndex * that.width / numberOfFrames,
+                0,
+                that.width / numberOfFrames,
+                that.height,
+                0,
+                0,
+                that.width / numberOfFrames,
+                that.height
+            );
+        };
+
+        that.loop = options.loop;
+
+        that.update = function () {
+            tickCount += 1;
+            if (tickCount > ticksPerFrame) {
+                tickCount = 0;
+                if (frameIndex < numberOfFrames - 1) {
+                    frameIndex += 1;
+                } else if (that.loop) {
+                    frameIndex = 0;
+                }
+            }
+        };
+
+        return that;
+    }
+
+    var canvas = $(selector)[0];
+    canvas.width = 43;
+    canvas.height = 50;
+
+    var molecule = moleculeSprite({
+        context: canvas.getContext('2d'),
+        width: 946,
+        height: 50,
+        image: moleculeImg,
+        numberOfFrames: 22,
+        ticksPerFrame: 1
+    });
+
+    moleculeImg.onload = function () {
+        function playBubble() {
+            window.requestAnimationFrame(playBubble);
+            molecule.update();
+            molecule.render();
+        }
+
+        playBubble();
+    };
+};
+
 var rexonamotion = function () {
     var app = new mads();
+    app.autoTimeout = null;
     app.loadJs('js/njswipe-1.0.0.min.js');
     app.loadJs('js/jquery-1.11.3.min.js', function () {
         if (typeof window.jQuery === 'undefined') return false;
 
         (function ($) {
             var $container = $(app.contentTag);
+            var $delayFirst = 300,
+                $delaySecond = 300;
             $container.load('tpl/template.html');
-
+            app.loadJs('js/ninjoe.ytComponent.js');
             app.loadJs('js/modernizr.custom.js', function () {
                 app.loadJs('js/pagetransitions.js', function () {
+                    var $pt = PageTransitions || null;
                     $('.ra_click').on('click', function () {
-                        var $pt = window.PageTransitions || null;
-                        $('.male-run-1').addClass('pt-page-2');
                         $pt.nextPage({
                             animation: 46, finished: function () {
+                                var maleFirst = function () {
+                                    var q = $.Deferred();
+                                    $('.male-run')[0].addEventListener('swipeleft', function () {
+                                        $('.male-run .action').css('opacity', 0);
+                                        $('.male-run .timeline').removeClass('one').addClass('two');
+                                        $('.male-run .image').removeClass('male-run-1').addClass('male-run-2');
+
+                                        playMolecule('.male-run .timeline .first .bubble');
+                                        setTimeout(function () {
+                                            playMolecule('.male-run .timeline .second .bubble');
+                                            setTimeout(function () {
+                                                playMolecule('.male-run .timeline .third .bubble');
+                                            }, $delaySecond);
+                                        }, $delayFirst);
+
+
+                                        setTimeout(function () {
+                                            $('.male-run .timeline').removeClass('two').addClass('three');
+                                            $('.male-run .image').removeClass('male-run-2').addClass('male-run-3');
+
+                                            setTimeout(function () {
+                                                q.resolve();
+                                            }, 4000);
+                                        }, 550);
+                                    });
+
+                                    return q.promise();
+                                };
+                                var maleSecond = function () {
+                                    var q = $.Deferred();
+                                    $pt.nextPage({
+                                        animation: 46,
+                                        finished: function () {
+                                            var animateMusic = function () {
+                                                $('.male-music .action').css('opacity', 0);
+                                                $('.male-music .timeline').removeClass('one').addClass('two');
+                                                $('.male-music .image').removeClass('male-music-1').addClass('male-music-2');
+
+                                                playMolecule('.male-music .timeline .first .bubble');
+                                                setTimeout(function () {
+                                                    playMolecule('.male-music .timeline .second .bubble');
+                                                    setTimeout(function () {
+                                                        playMolecule('.male-music .timeline .third .bubble');
+                                                    }, $delaySecond);
+                                                }, $delayFirst);
+
+
+                                                setTimeout(function () {
+                                                    $('.male-music .timeline').removeClass('two').addClass('three');
+                                                    $('.male-music .image').removeClass('male-music-2').addClass('male-music-3');
+
+                                                    setTimeout(function () {
+                                                        q.resolve();
+                                                    }, 4000);
+                                                }, 550);
+                                            };
+                                            var shaked = false;
+                                            if (!shaked) {
+                                                shaked = true;
+                                                if (window.DeviceMotionEvent) {
+                                                    window.addEventListener('devicemotion', function (e) {
+                                                        var rotation = e.rotationRate;
+                                                        if ((rotation.alpha > 15 || rotation.alpha < -15) || (rotation.beta > 15 || rotation.beta < -15) || (rotation.gamma > 15 || rotation.gamma < -15)) {
+                                                            animateMusic();
+                                                            window.removeEventListener('devicemotion', arguments.callee, false);
+                                                            clearTimeout(app.autoTimeout);
+                                                        }
+                                                    }, false);
+                                                } else {
+                                                    console.log('DeviceMotionEvent is not supported.');
+                                                }
+                                                app.autoTimeout = setTimeout(function () {
+                                                    animateMusic();
+                                                }, 10000);
+                                            }
+                                        }
+                                    });
+
+                                    return q.promise();
+                                };
+                                var maleThird = function () {
+                                    var q = $.Deferred();
+                                    $pt.nextPage({
+                                        animation: 46,
+                                        finished: function () {
+                                            var animateIdea = function () {
+                                                $('.male-idea .action').css('opacity', 0);
+                                                $('.male-idea .timeline').removeClass('one').addClass('two');
+                                                $('.male-idea .image').removeClass('male-idea-1').addClass('male-idea-2');
+
+                                                playMolecule('.male-idea .timeline .first .bubble');
+                                                setTimeout(function () {
+                                                    playMolecule('.male-idea .timeline .second .bubble');
+                                                    setTimeout(function () {
+                                                        playMolecule('.male-idea .timeline .third .bubble');
+                                                    }, $delaySecond);
+                                                }, $delayFirst);
+
+
+                                                setTimeout(function () {
+                                                    $('.male-idea .timeline').removeClass('two').addClass('three');
+                                                    $('.male-idea .image').removeClass('male-idea-2').addClass('male-idea-3');
+
+                                                    setTimeout(function () {
+                                                        //window.removeEventListener('deviceorientation', arguments.callee, false);
+                                                        q.resolve();
+                                                    }, 4000)
+                                                }, 550);
+                                            };
+                                            var tilted = false;
+                                            if (!tilted) {
+                                                tilted = true;
+                                                if (window.DeviceOrientationEvent) {
+                                                    window.addEventListener("deviceorientation", function (event) {
+                                                        var betka = Math.round(event.beta);
+                                                        if (betka > 60) {
+                                                            animateIdea();
+                                                            window.removeEventListener('deviceorientation', arguments.callee, false);
+                                                            clearTimeout(app.autoTimeout);
+                                                        }
+                                                    });
+                                                } else {
+                                                    console.log('DeviceOrientationEvent is not supported.');
+                                                }
+                                                app.autoTimeout = setTimeout(function () {
+                                                    animateIdea();
+                                                }, 10000);
+                                            }
+                                        }
+                                    });
+
+                                    return q.promise();
+                                };
+                                maleFirst()
+                                    .then(maleSecond)
+                                    .then(maleThird)
+                                    .then(function () {
+                                        $pt.nextPage({
+                                            showPage: 7,
+                                            animation: 8
+                                        })
+                                    });
                             }
                         });
-
-                        $('.male-run')[0].addEventListener('swipeleft', function () {
-                            $('.male-run .action').css('opacity', '0');
-                            $('.male-run .timeline').removeClass('one').addClass('two');
-                            $('.male-run .image').removeClass('male-run-1').addClass('male-run-2');
-                            setTimeout(function () {
-                                $('.male-run .timeline').removeClass('two').addClass('three');
-                                $('.male-run .image').removeClass('male-run-2').addClass('male-run-3');
-                            }, 1000)
-                        }, false);
                     });
+                    $('.la_click').on('click', function () {
+                        $pt.nextPage({
+                            showPage: 4,
+                            animation: 47, finished: function () {
+
+                            }
+                        });
+                    })
                 });
             });
         })(jQuery);
