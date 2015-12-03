@@ -274,7 +274,7 @@ var rexonamotion = function () {
             app.loadJs('js/jquery.jrumble.1.3.min.js');
             app.loadJs('js/modernizr.custom.js', function () {
                 app.loadJs('js/pagetransitions.js', function () {
-                    window.$video = new ytComponent({
+                    var $video = new ytComponent({
                         'container':'player',
                         'width': '320',
                         'height':'185',
@@ -435,7 +435,8 @@ var rexonamotion = function () {
                                     .then(function () {
                                         $pt.nextPage({
                                             showPage: 7,
-                                            animation: 8
+                                            animation: 8,
+                                            finished: window.onYouTubeIframeAPIReady($video)
                                         })
                                     });
                             }
@@ -596,7 +597,8 @@ var rexonamotion = function () {
                                     .then(function () {
                                         $pt.nextPage({
                                             showPage: 7,
-                                            animation: 8
+                                            animation: 8,
+                                            finished: window.onYouTubeIframeAPIReady($video)
                                         })
                                     });
                             }
@@ -607,14 +609,13 @@ var rexonamotion = function () {
         })(jQuery);
     });
 
-
-
     app.loadCss('css/animations.css');
     app.loadCss('css/style.css');
 };
 
-function onYouTubeIframeAPIReady() {
-    window.$video.loadVideo();
-}
+window.onYouTubeIframeAPIReady = function(vid) {
+    if (vid)
+        vid.loadVideo();
+};
 
 rexonamotion();
