@@ -369,7 +369,7 @@ var rexonamotion = function () {
                                                 tilted = true;
                                                 if (window.DeviceOrientationEvent) {
                                                     window.addEventListener("deviceorientation", function (event) {
-                                                        var betka = Math.round(event.alpha);
+                                                        var betka = Math.round(event.beta);
                                                         if (betka > 60) {
                                                             animateIdea();
                                                             window.removeEventListener('deviceorientation', arguments.callee, false);
@@ -522,7 +522,7 @@ var rexonamotion = function () {
                                                 tilted = true;
                                                 if (window.DeviceOrientationEvent) {
                                                     window.addEventListener("deviceorientation", function (event) {
-                                                        var betka = Math.round(event.alpha);
+                                                        var betka = Math.round(event.beta);
                                                         if (betka > 60) {
                                                             animateIdea();
                                                             window.removeEventListener('deviceorientation', arguments.callee, false);
