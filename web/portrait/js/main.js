@@ -7,163 +7,6 @@
  * https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
  *
  */
-!function (t) {
-    function e() {
-        D("Executed emptyFunc, which does nothing.")
-    }
-
-    function n() {
-        return b ? (w.apply(L, arguments), !0) : (D(arguments), !1)
-    }
-
-    function i(e, n, o) {
-        var s = e.shift();
-        return o = o || n, n(s), 0 === e.length ? !0 : t.setTimeout(function () {
-            return i(e, o, n)
-        }, s)
-    }
-
-    function o(t) {
-        var e, n = 0, i = 0;
-        for (i = 0, e = t.length; e > i; i += 1)n += t[i];
-        return function (e) {
-            var i, o, s = e / n, r = [];
-            for (i = 0, o = t.length; o > i; i += 1)r.push(t[i] * s);
-            T.vibrate(r)
-        }
-    }
-
-    function s() {
-        var e = arguments, n = arguments.length;
-        return function (i) {
-            function o() {
-                e[s](r)
-            }
-
-            var s = 0, r = i / n;
-            for (s = 0; n > s; s += 1)t.setTimeout(o, r)
-        }
-    }
-
-    function r() {
-        var t, n, r, u = arguments;
-        for (t = u.length, n = 0; t > n; n += 1)"function" != typeof u[n] && (u[n] = o(u[n]));
-        return r = s(u), function (t) {
-            "number" == typeof t ? r(t) : i(t, r, e)
-        }
-    }
-
-    function u(t) {
-        function n(n) {
-            "number" == typeof n ? t(n) : i(n, t, e)
-        }
-
-        if (arguments.length > 1)t = r.apply(this, arguments); else if (t && "function" != typeof t && t.length)t = o(t); else if (t && "function" != typeof t)return null;
-        return n
-    }
-
-    function a(t) {
-        t.preventDefault(), E.push(new Date)
-    }
-
-    function h() {
-        E = [], t.addEventListener("touchstart", a, !1), t.addEventListener("touchend", a, !1), t.addEventListener("mousedown", a, !1), t.addEventListener("mouseup", a, !1)
-    }
-
-    function f() {
-        D(E), t.removeEventListener("touchstart", a), t.removeEventListener("touchend", a), t.removeEventListener("mousedown", a), t.removeEventListener("mouseup", a), E.length % 2 !== 0 && E.push(new Date);
-        var e, n, i, o = [];
-        for (e = 0, i = E.length; i > e && (n = e + 1, !(n >= i)); e += 2)o.push(E[n] - E[e]);
-        return o
-    }
-
-    function l(t) {
-        var e, i, o = [];
-        if (100 > t)o = t; else for (e = t / 100, i = 1; 10 >= i; i += 1)o.push(i * e), 10 > i && o.push((10 - i) * e);
-        n(o)
-    }
-
-    function c(t) {
-        var e, i, o = [];
-        if (100 > t)o = t; else {
-            for (e = t / 100, i = 1; 10 >= i; i += 1)o.push(i * e), 10 > i && o.push((10 - i) * e);
-            o.reverse()
-        }
-        n(o)
-    }
-
-    function p(t) {
-        var e, i, o;
-        e = t / 27, i = 2 * e, o = 3 * e, n([i, e, i, e, i, 2 * e, o, e, o, 2 * e, i, e, i, e, i])
-    }
-
-    function v(t) {
-        var e, i, o;
-        i = t / 60, e = 2 * i, o = 24 * i, n([i, e, o, 2 * e, o, 2 * e, i])
-    }
-
-    function d(t) {
-        var e, i, o;
-        i = 4 * t / 22, e = 2 * i, o = i / 2 * 5, n([i, e, o])
-    }
-
-    function m(t, e, i) {
-        var o = [e];
-        for (t -= e; t > 0;)t -= i, t -= e, o.push(i), o.push(e);
-        n(o)
-    }
-
-    function y(t, n, o) {
-        var s;
-        "number" == typeof t ? m(t, n, o) : (s = function (t) {
-            m(t, n, o)
-        }, i(t, s, e))
-    }
-
-    function g(t, e) {
-        return function (n) {
-            y(n, t, e)
-        }
-    }
-
-    var b, E, w, D, L, T = {};
-    L = t.navigator, D = function () {
-        D.history = D.history || [], D.history.push(arguments), t.console && t.console.log(Array.prototype.slice.call(arguments))
-    }, w = L.vibrate || L.webkitVibrate || L.mozVibrate || L.msVibrate, b = !!w, T.enabled = b, T.record = h, T.finish = f, T.fadeIn = u(l), T.fadeOut = u(c), T.notification = u(p), T.heartbeat = u(v), T.clunk = u(d), T.pwm = y, T.createPatternPWM = g, T.createPattern = u, T.vibrate = n, t.Haptics = T
-}(this), !function (t, e) {
-    "function" == typeof define && define.amd ? define(function () {
-        return e(t, t.document)
-    }) : "undefined" != typeof module && module.exports ? module.exports = e(t, t.document) : t.Shake = e(t, t.document)
-}("undefined" != typeof window ? window : this, function (t, e) {
-    "use strict";
-    function n(n) {
-        if (this.hasDeviceMotion = "ondevicemotion" in t, this.options = {
-                threshold: 15,
-                timeout: 1e3
-            }, "object" == typeof n)for (var i in n)n.hasOwnProperty(i) && (this.options[i] = n[i]);
-        if (this.lastTime = new Date, this.lastX = null, this.lastY = null, this.lastZ = null, "function" == typeof e.CustomEvent)this.event = new e.CustomEvent("shake", {
-            bubbles: !0,
-            cancelable: !0
-        }); else {
-            if ("function" != typeof e.createEvent)return !1;
-            this.event = e.createEvent("Event"), this.event.initEvent("shake", !0, !0)
-        }
-    }
-
-    return n.prototype.reset = function () {
-        this.lastTime = new Date, this.lastX = null, this.lastY = null, this.lastZ = null
-    }, n.prototype.start = function () {
-        this.reset(), this.hasDeviceMotion && t.addEventListener("devicemotion", this, !1)
-    }, n.prototype.stop = function () {
-        this.hasDeviceMotion && t.removeEventListener("devicemotion", this, !1), this.reset()
-    }, n.prototype.devicemotion = function (e) {
-        var n, i, o = e.accelerationIncludingGravity, s = 0, r = 0, u = 0;
-        return null === this.lastX && null === this.lastY && null === this.lastZ ? (this.lastX = o.x, this.lastY = o.y, void(this.lastZ = o.z)) : (s = Math.abs(this.lastX - o.x), r = Math.abs(this.lastY - o.y), u = Math.abs(this.lastZ - o.z), (s > this.options.threshold && r > this.options.threshold || s > this.options.threshold && u > this.options.threshold || r > this.options.threshold && u > this.options.threshold) && (n = new Date, i = n.getTime() - this.lastTime.getTime(), i > this.options.timeout && (t.dispatchEvent(this.event), this.lastTime = new Date)), this.lastX = o.x, this.lastY = o.y, void(this.lastZ = o.z))
-    }, n.prototype.handleEvent = function (t) {
-        return "function" == typeof this[t.type] ? this[t.type](t) : void 0
-    }, n
-});
-
 var mads = function () {
     /* Get Tracker */
     if (typeof custTracker == 'undefined' && typeof rma != 'undefined') {
@@ -343,6 +186,10 @@ var playMolecule = function (selector, opt) {
                 } else {
                     if (opt && opt.after && !brk) {
                         brk = true;
+                        if (req) {
+                            window.cancelAnimFrame(req);
+                            req = undefined;
+                        }
                         opt.after();
                     }
                 }
@@ -373,14 +220,36 @@ var playMolecule = function (selector, opt) {
         ticksPerFrame: 2
     });
 
+    var req;
+
+    window.cancelAnimFrame = (function () {
+        return window.cancelAnimationFrame ||
+            window.mozCancelAnimationFrame ||
+            window.msCancelAnimationFrame ||
+            window.webkitCancelAnimationFrame ||
+            window.oCancelAnimationFrame ||
+            function (callback) {
+                window.setTimeout(callback, 1000 / 60);
+            }
+    });
+    window.requestAnimFrame = (function () {
+        return window.requestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            window.msRequestAnimationFrame ||
+            window.oRequestAnimationFrame ||
+            function (callback) {
+                window.setTimeout(callback, 1000 / 60);
+            };
+    })();
+
     moleculeImg.onload = function () {
         function playBubble() {
-            window.requestAnimationFrame(playBubble);
+            req = window.requestAnimFrame(playBubble);
             molecule.update();
             molecule.render();
         }
 
-        //var shakeTimeout;
         $(selector).jrumble({
             x: 0.4,
             y: 0.4,
@@ -499,19 +368,13 @@ var rexonamotion = function () {
     }
     var app = new mads();
     app.autoTimeout = null;
-    app.loadJs('js/njswipe-1.0.0.min.js');
-    app.loadJs('js/jquery-1.11.3.min.js', function () {
+    app.loadJs('js/libs.js', function () {
         if (typeof window.jQuery === 'undefined') return false;
         (function ($) {
             var $container = $(app.contentTag);
-            var $delayFirst = 400,
-                $delaySecond = 400,
-                $delayEachFrame = 1500,
+            var $delayEachFrame = 1500,
                 $sensitivity = 10;
-            $container.load('tpl/template.html');
-            app.loadJs('js/ninjoe.ytComponent.js');
-            app.loadJs('js/jquery.jrumble.1.3.min.js');
-            app.loadJs('js/modernizr.custom.js', function () {
+            $container.load('tpl/template.html', function () {
                 app.loadJs('js/pagetransitions.js', function () {
                     var $video = new ytComponent({
                         'container': 'player',
@@ -521,7 +384,7 @@ var rexonamotion = function () {
                         'autoplay': false,
                         'tracker': app.tracker
                     });
-                    var $pt = PageTransitions || null;
+                    var $pt = window.PageTransitions || null;
                     var firstTimeout,
                         secondTimeout;
                     $('.ra_click').on('click', function () {
@@ -949,7 +812,7 @@ var rexonamotion = function () {
                                     });
                             }
                         });
-                    })
+                    });
                 });
             });
         })(jQuery);
