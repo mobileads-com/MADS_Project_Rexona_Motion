@@ -248,6 +248,11 @@ div[class*="idea"] .action {
     margin-top: 12px;
 }
 
+.lf .content {
+    z-index: 25;
+    position: relative;
+}
+
 .lf .footer {
     position: absolute;
     bottom: 0;
@@ -324,11 +329,11 @@ div[class*="idea"] .action {
     left: 34px;
     width: 1px;
     font-size: 14px;
-    -webkit-transition: width 0.7s linear;
-    -moz-transition: width 0.7s linear;
-    -ms-transition: width 0.7s linear;
-    -o-transition: width 0.7s linear;
-    transition: width 0.7s linear;
+    -webkit-transition: width 0.5s ease-in;
+    -moz-transition: width 0.5s ease-in;
+    -ms-transition: width 0.5s ease-in;
+    -o-transition: width 0.5s ease-in;
+    transition: width 0.5s ease-in;
 }
 
 .timeline.two {
@@ -359,11 +364,11 @@ div[class*="idea"] .action {
 
 .timeline .bubble {
     margin: 0 auto;
-    -webkit-transition: opacity 1s linear;
-    -moz-transition: opacity 1s linear;
-    -ms-transition: opacity 1s linear;
-    -o-transition: opacity 1s linear;
-    transition: opacity 1s linear;
+    /*-webkit-transition: opacity 1s linear;*/
+    /*-moz-transition: opacity 1s linear;*/
+    /*-ms-transition: opacity 1s linear;*/
+    /*-o-transition: opacity 1s linear;*/
+    /*transition: opacity 1s linear;*/
 }
 
 .timeline > div {
@@ -387,9 +392,9 @@ canvas.bubble {
     opacity: 0;
 }
 
-.timeline.three .first .bubble {
-    opacity: 0;
-}
+/*.timeline.three .first .bubble {*/
+    /*opacity: 0;*/
+/*}*/
 
 .image.absolute {
     -webkit-transition: background 1s linear;

@@ -141,7 +141,7 @@ var testunit = function () {
     app.linkOpener('http://www.google.com');
 };
 
-var playMolecule = function (selector) {
+var playMolecule = function (selector, opt) {
     var moleculeImg = new Image();
     moleculeImg.src = 'img/bubblesprite.png';
     function moleculeSprite(options) {
@@ -172,6 +172,8 @@ var playMolecule = function (selector) {
 
         that.loop = options.loop;
 
+        var brk = false;
+
         that.update = function () {
             tickCount += 1;
             if (tickCount > ticksPerFrame) {
@@ -180,6 +182,11 @@ var playMolecule = function (selector) {
                     frameIndex += 1;
                 } else if (that.loop) {
                     frameIndex = 0;
+                } else {
+                    if (opt && opt.after && !brk) {
+                        brk = true;
+                        opt.after();
+                    }
                 }
             }
         };
@@ -197,17 +204,27 @@ var playMolecule = function (selector) {
         height: 50,
         image: moleculeImg,
         numberOfFrames: 22,
-        ticksPerFrame: 1
+        ticksPerFrame: 2
     });
 
     moleculeImg.onload = function () {
         function playBubble() {
             window.requestAnimationFrame(playBubble);
+
             molecule.update();
             molecule.render();
         }
 
+        var shakeTimeout;
+        $(selector).jrumble();
+        clearTimeout(shakeTimeout);
+        $(selector).trigger('startRumble');
         playBubble();
+        shakeTimeout = setTimeout(function () {
+            $(selector).trigger('stopRumble');
+        }, 1200);
+
+
     };
 };
 
@@ -216,9 +233,10 @@ var playCharacter = function (selector, options) {
     var el = selector.replace('.', '');
     var d = options.duration || 20;
     var i = 0;
+
     function loop() {
         setTimeout(function () {
-            $(selector + ' .image').removeClass(el+'-'+iterate).addClass(el+'-'+(iterate === 3 ? 1:iterate+1));
+            $(selector + ' .image').removeClass(el + '-' + iterate).addClass(el + '-' + (iterate === 3 ? 1 : iterate + 1));
             i++;
             if (iterate === 3) {
                 iterate = 1
@@ -230,6 +248,7 @@ var playCharacter = function (selector, options) {
             }
         }, options.speed || 250);
     }
+
     loop();
 };
 
@@ -242,12 +261,23 @@ var rexonamotion = function () {
 
         (function ($) {
             var $container = $(app.contentTag);
-            var $delayFirst = 300,
-                $delaySecond = 300;
+
+            var $delayFirst = 400,
+                $delaySecond = 400,
+                $delayEachFrame = 1500;
             $container.load('tpl/template.html');
             app.loadJs('js/ninjoe.ytComponent.js');
+            app.loadJs('js/jquery.jrumble.1.3.min.js');
             app.loadJs('js/modernizr.custom.js', function () {
                 app.loadJs('js/pagetransitions.js', function () {
+                    window.$video = new ytComponent({
+                        'container':'player',
+                        'width': '320',
+                        'height':'185',
+                        'videoId': 'hUjMb5z2JR8',
+                        'autoplay': false,
+                        'tracker': app.tracker
+                    });
                     var $pt = PageTransitions || null;
                     $('.ra_click').on('click', function () {
                         $pt.nextPage({
@@ -256,26 +286,28 @@ var rexonamotion = function () {
                                     var q = $.Deferred();
                                     $('.male-run')[0].addEventListener('swipeleft', function () {
                                         $('.male-run .action').css('opacity', 0);
-                                        $('.male-run .timeline').removeClass('one').addClass('two');
-                                        $('.male-run .image').removeClass('male-run-1').addClass('male-run-2');
-
-                                        playMolecule('.male-run .timeline .first .bubble');
-                                        setTimeout(function () {
-                                            playMolecule('.male-run .timeline .second .bubble');
-                                            setTimeout(function () {
-                                                playMolecule('.male-run .timeline .third .bubble');
-                                            }, $delaySecond);
-                                        }, $delayFirst);
-
-
-                                        setTimeout(function () {
-                                            $('.male-run .timeline').removeClass('two').addClass('three');
-                                            $('.male-run .image').removeClass('male-run-2').addClass('male-run-3');
-
-                                            setTimeout(function () {
-                                                q.resolve();
-                                            }, 2000);
-                                        }, 550);
+                                        playMolecule('.male-run .timeline .first .bubble', {
+                                            after: function () {
+                                                $('.male-run .timeline .first .bubble').css('opacity', 0);
+                                                $('.male-run .timeline').removeClass('one').addClass('two');
+                                                $('.male-run .image').removeClass('male-run-1').addClass('male-run-2');
+                                                setTimeout(function () {
+                                                    playMolecule('.male-run .timeline .second .bubble', {
+                                                        after: function () {
+                                                            $('.male-run .image').removeClass('male-run-2').addClass('male-run-3');
+                                                            $('.male-run .timeline').removeClass('two').addClass('three');
+                                                            $('.male-run .timeline .second .bubble').css('opacity', 0);
+                                                            setTimeout(function () {
+                                                                playMolecule('.male-run .timeline .third .bubble');
+                                                                setTimeout(function () {
+                                                                    q.resolve();
+                                                                }, $delayEachFrame);
+                                                            }, $delaySecond);
+                                                        }
+                                                    });
+                                                }, $delayFirst);
+                                            }
+                                        });
                                     });
 
                                     return q.promise();
@@ -287,29 +319,32 @@ var rexonamotion = function () {
                                         finished: function () {
                                             var animateMusic = function () {
                                                 $('.male-music .action').css('opacity', 0);
-                                                $('.male-music .timeline').removeClass('one').addClass('two');
-                                                $('.male-music .image').removeClass('male-music-1').addClass('male-music-2');
-
-                                                playMolecule('.male-music .timeline .first .bubble');
-                                                setTimeout(function () {
-                                                    playMolecule('.male-music .timeline .second .bubble');
-                                                    setTimeout(function () {
-                                                        playMolecule('.male-music .timeline .third .bubble');
-                                                    }, $delaySecond);
-                                                }, $delayFirst);
-
 
                                                 playCharacter('.male-music', {
-                                                   duration: 20
+                                                    duration: 20
                                                 });
-
-                                                setTimeout(function () {
-                                                    $('.male-music .timeline').removeClass('two').addClass('three');
-                                                }, 550);
-
-                                                setTimeout(function () {
-                                                    q.resolve();
-                                                }, 4000);
+                                                playMolecule('.male-music .timeline .first .bubble', {
+                                                    after: function () {
+                                                        $('.male-music .timeline .first .bubble').css('opacity', 0);
+                                                        $('.male-music .timeline').removeClass('one').addClass('two');
+                                                        $('.male-music .image').removeClass('male-music-1').addClass('male-music-2');
+                                                        setTimeout(function () {
+                                                            playMolecule('.male-music .timeline .second .bubble', {
+                                                                after: function () {
+                                                                    $('.male-music .image').removeClass('male-music-2').addClass('male-music-3');
+                                                                    $('.male-music .timeline').removeClass('two').addClass('three');
+                                                                    $('.male-music .timeline .second .bubble').css('opacity', 0);
+                                                                    setTimeout(function () {
+                                                                        playMolecule('.male-music .timeline .third .bubble');
+                                                                        setTimeout(function () {
+                                                                            q.resolve();
+                                                                        }, $delayEachFrame);
+                                                                    }, $delaySecond);
+                                                                }
+                                                            });
+                                                        }, $delayFirst);
+                                                    }
+                                                });
                                             };
                                             var shaked = false;
                                             if (!shaked) {
@@ -342,27 +377,29 @@ var rexonamotion = function () {
                                         finished: function () {
                                             var animateIdea = function () {
                                                 $('.male-idea .action').css('opacity', 0);
-                                                $('.male-idea .timeline').removeClass('one').addClass('two');
-                                                $('.male-idea .image').removeClass('male-idea-1').addClass('male-idea-2');
 
-                                                playMolecule('.male-idea .timeline .first .bubble');
-                                                setTimeout(function () {
-                                                    playMolecule('.male-idea .timeline .second .bubble');
-                                                    setTimeout(function () {
-                                                        playMolecule('.male-idea .timeline .third .bubble');
-                                                    }, $delaySecond);
-                                                }, $delayFirst);
-
-
-                                                setTimeout(function () {
-                                                    $('.male-idea .timeline').removeClass('two').addClass('three');
-                                                    $('.male-idea .image').removeClass('male-idea-2').addClass('male-idea-3');
-
-                                                    setTimeout(function () {
-                                                        //window.removeEventListener('deviceorientation', arguments.callee, false);
-                                                        q.resolve();
-                                                    }, 2000)
-                                                }, 550);
+                                                playMolecule('.male-idea .timeline .first .bubble', {
+                                                    after: function () {
+                                                        $('.male-idea .timeline .first .bubble').css('opacity', 0);
+                                                        $('.male-idea .timeline').removeClass('one').addClass('two');
+                                                        $('.male-idea .image').removeClass('male-idea-1').addClass('male-idea-2');
+                                                        setTimeout(function () {
+                                                            playMolecule('.male-idea .timeline .second .bubble', {
+                                                                after: function () {
+                                                                    $('.male-idea .image').removeClass('male-idea-2').addClass('male-idea-3');
+                                                                    $('.male-idea .timeline').removeClass('two').addClass('three');
+                                                                    $('.male-idea .timeline .second .bubble').css('opacity', 0);
+                                                                    setTimeout(function () {
+                                                                        playMolecule('.male-idea .timeline .third .bubble');
+                                                                        setTimeout(function () {
+                                                                            q.resolve();
+                                                                        }, $delayEachFrame);
+                                                                    }, $delaySecond);
+                                                                }
+                                                            });
+                                                        }, $delayFirst);
+                                                    }
+                                                });
                                             };
                                             var tilted = false;
                                             if (!tilted) {
@@ -408,26 +445,28 @@ var rexonamotion = function () {
                                     var q = $.Deferred();
                                     $('.female-run')[0].addEventListener('swipeleft', function () {
                                         $('.female-run .action').css('opacity', 0);
-                                        $('.female-run .timeline').removeClass('one').addClass('two');
-                                        $('.female-run .image').removeClass('female-run-1').addClass('female-run-2');
-
-                                        playMolecule('.female-run .timeline .first .bubble');
-                                        setTimeout(function () {
-                                            playMolecule('.female-run .timeline .second .bubble');
-                                            setTimeout(function () {
-                                                playMolecule('.female-run .timeline .third .bubble');
-                                            }, $delaySecond);
-                                        }, $delayFirst);
-
-
-                                        setTimeout(function () {
-                                            $('.female-run .timeline').removeClass('two').addClass('three');
-                                            $('.female-run .image').removeClass('female-run-2').addClass('female-run-3');
-
-                                            setTimeout(function () {
-                                                q.resolve();
-                                            }, 2000);
-                                        }, 550);
+                                        playMolecule('.female-run .timeline .first .bubble', {
+                                            after: function () {
+                                                $('.female-run .timeline .first .bubble').css('opacity', 0);
+                                                $('.female-run .timeline').removeClass('one').addClass('two');
+                                                $('.female-run .image').removeClass('female-run-1').addClass('female-run-2');
+                                                setTimeout(function () {
+                                                    playMolecule('.female-run .timeline .second .bubble', {
+                                                        after: function () {
+                                                            $('.female-run .image').removeClass('female-run-2').addClass('female-run-3');
+                                                            $('.female-run .timeline').removeClass('two').addClass('three');
+                                                            $('.female-run .timeline .second .bubble').css('opacity', 0);
+                                                            setTimeout(function () {
+                                                                playMolecule('.female-run .timeline .third .bubble');
+                                                                setTimeout(function () {
+                                                                    q.resolve();
+                                                                }, $delayEachFrame);
+                                                            }, $delaySecond);
+                                                        }
+                                                    });
+                                                }, $delayFirst);
+                                            }
+                                        });
                                     });
 
                                     return q.promise();
@@ -436,32 +475,37 @@ var rexonamotion = function () {
                                     var q = $.Deferred();
                                     $pt.nextPage({
                                         showPage: 5,
-                                        animation: 46,
+                                        animation: 47,
                                         finished: function () {
                                             var animateMusic = function () {
                                                 $('.female-music .action').css('opacity', 0);
-                                                $('.female-music .timeline').removeClass('one').addClass('two');
-                                                $('.female-music .image').removeClass('female-music-1').addClass('female-music-2');
-
-                                                playMolecule('.female-music .timeline .first .bubble');
-                                                setTimeout(function () {
-                                                    playMolecule('.female-music .timeline .second .bubble');
-                                                    setTimeout(function () {
-                                                        playMolecule('.female-music .timeline .third .bubble');
-                                                    }, $delaySecond);
-                                                }, $delayFirst);
-
                                                 playCharacter('.female-music', {
                                                     duration: 20
                                                 });
+                                                playMolecule('.female-music .timeline .first .bubble', {
+                                                    after: function () {
+                                                        $('.female-music .timeline .first .bubble').css('opacity', 0);
+                                                        $('.female-music .timeline').removeClass('one').addClass('two');
+                                                        $('.female-music .image').removeClass('female-music-1').addClass('female-music-2');
+                                                        setTimeout(function () {
+                                                            playMolecule('.female-music .timeline .second .bubble', {
+                                                                after: function () {
+                                                                    $('.female-music .image').removeClass('female-music-2').addClass('female-music-3');
+                                                                    $('.female-music .timeline').removeClass('two').addClass('three');
+                                                                    $('.female-music .timeline .second .bubble').css('opacity', 0);
+                                                                    setTimeout(function () {
+                                                                        playMolecule('.female-music .timeline .third .bubble');
+                                                                        setTimeout(function () {
+                                                                            q.resolve();
+                                                                        }, $delayEachFrame);
+                                                                    }, $delaySecond);
+                                                                }
+                                                            });
+                                                        }, $delayFirst);
+                                                    }
+                                                });
 
-                                                setTimeout(function () {
-                                                    $('.female-music .timeline').removeClass('two').addClass('three');
-                                                }, 550);
 
-                                                setTimeout(function () {
-                                                    q.resolve();
-                                                }, 2000);
                                             };
                                             var shaked = false;
                                             if (!shaked) {
@@ -491,31 +535,32 @@ var rexonamotion = function () {
                                     var q = $.Deferred();
                                     $pt.nextPage({
                                         showPage: 6,
-                                        animation: 46,
+                                        animation: 47,
                                         finished: function () {
                                             var animateIdea = function () {
                                                 $('.female-idea .action').css('opacity', 0);
-                                                $('.female-idea .timeline').removeClass('one').addClass('two');
-                                                $('.female-idea .image').removeClass('female-idea-1').addClass('female-idea-2');
-
-                                                playMolecule('.female-idea .timeline .first .bubble');
-                                                setTimeout(function () {
-                                                    playMolecule('.female-idea .timeline .second .bubble');
-                                                    setTimeout(function () {
-                                                        playMolecule('.female-idea .timeline .third .bubble');
-                                                    }, $delaySecond);
-                                                }, $delayFirst);
-
-
-                                                setTimeout(function () {
-                                                    $('.female-idea .timeline').removeClass('two').addClass('three');
-                                                    $('.female-idea .image').removeClass('female-idea-2').addClass('female-idea-3');
-
-                                                    setTimeout(function () {
-                                                        //window.removeEventListener('deviceorientation', arguments.callee, false);
-                                                        q.resolve();
-                                                    }, 2000)
-                                                }, 550);
+                                                playMolecule('.female-idea .timeline .first .bubble', {
+                                                    after: function () {
+                                                        $('.female-idea .timeline .first .bubble').css('opacity', 0);
+                                                        $('.female-idea .timeline').removeClass('one').addClass('two');
+                                                        $('.female-idea .image').removeClass('female-idea-1').addClass('female-idea-2');
+                                                        setTimeout(function () {
+                                                            playMolecule('.female-idea .timeline .second .bubble', {
+                                                                after: function () {
+                                                                    $('.female-idea .image').removeClass('female-idea-2').addClass('female-idea-3');
+                                                                    $('.female-idea .timeline').removeClass('two').addClass('three');
+                                                                    $('.female-idea .timeline .second .bubble').css('opacity', 0);
+                                                                    setTimeout(function () {
+                                                                        playMolecule('.female-idea .timeline .third .bubble');
+                                                                        setTimeout(function () {
+                                                                            q.resolve();
+                                                                        }, $delayEachFrame);
+                                                                    }, $delaySecond);
+                                                                }
+                                                            });
+                                                        }, $delayFirst);
+                                                    }
+                                                });
                                             };
                                             var tilted = false;
                                             if (!tilted) {
@@ -558,8 +603,14 @@ var rexonamotion = function () {
         })(jQuery);
     });
 
+
+
     app.loadCss('css/animations.css');
     app.loadCss('css/style.css');
 };
+
+function onYouTubeIframeAPIReady() {
+    window.$video.loadVideo();
+}
 
 rexonamotion();
