@@ -7,6 +7,131 @@
  * https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
  *
  */
+
+(function (global, factory) {
+    if (typeof define === 'function' && define.amd) {
+        define(function () {
+            return factory(global, global.document);
+        });
+    } else if (typeof module !== 'undefined' && module.exports) {
+        module.exports = factory(global, global.document);
+    } else {
+        global.Shake = factory(global, global.document);
+    }
+}(typeof window !== 'undefined' ? window : this, function (window, document) {
+
+    'use strict';
+
+    function Shake(options) {
+        //feature detect
+        this.hasDeviceMotion = 'ondevicemotion' in window;
+
+        this.options = {
+            threshold: 15, //default velocity threshold for shake to register
+            timeout: 1000 //default interval between events
+        };
+
+        if (typeof options === 'object') {
+            for (var i in options) {
+                if (options.hasOwnProperty(i)) {
+                    this.options[i] = options[i];
+                }
+            }
+        }
+
+        //use date to prevent multiple shakes firing
+        this.lastTime = new Date();
+
+        //accelerometer values
+        this.lastX = null;
+        this.lastY = null;
+        this.lastZ = null;
+
+        //create custom event
+        if (typeof document.CustomEvent === 'function') {
+            this.event = new document.CustomEvent('shake', {
+                bubbles: true,
+                cancelable: true
+            });
+        } else if (typeof document.createEvent === 'function') {
+            this.event = document.createEvent('Event');
+            this.event.initEvent('shake', true, true);
+        } else {
+            return false;
+        }
+    }
+
+    //reset timer values
+    Shake.prototype.reset = function () {
+        this.lastTime = new Date();
+        this.lastX = null;
+        this.lastY = null;
+        this.lastZ = null;
+    };
+
+    //start listening for devicemotion
+    Shake.prototype.start = function () {
+        this.reset();
+        if (this.hasDeviceMotion) {
+            window.addEventListener('devicemotion', this, false);
+        }
+    };
+
+    //stop listening for devicemotion
+    Shake.prototype.stop = function () {
+        if (this.hasDeviceMotion) {
+            window.removeEventListener('devicemotion', this, false);
+        }
+        this.reset();
+    };
+
+    //calculates if shake did occur
+    Shake.prototype.devicemotion = function (e) {
+        var current = e.accelerationIncludingGravity;
+        var currentTime;
+        var timeDifference;
+        var deltaX = 0;
+        var deltaY = 0;
+        var deltaZ = 0;
+
+        if ((this.lastX === null) && (this.lastY === null) && (this.lastZ === null)) {
+            this.lastX = current.x;
+            this.lastY = current.y;
+            this.lastZ = current.z;
+            return;
+        }
+
+        deltaX = Math.abs(this.lastX - current.x);
+        deltaY = Math.abs(this.lastY - current.y);
+        deltaZ = Math.abs(this.lastZ - current.z);
+
+        if (((deltaX > this.options.threshold) && (deltaY > this.options.threshold)) || ((deltaX > this.options.threshold) && (deltaZ > this.options.threshold)) || ((deltaY > this.options.threshold) && (deltaZ > this.options.threshold))) {
+            //calculate time in milliseconds since last shake registered
+            currentTime = new Date();
+            timeDifference = currentTime.getTime() - this.lastTime.getTime();
+
+            if (timeDifference > this.options.timeout) {
+                window.dispatchEvent(this.event);
+                this.lastTime = new Date();
+            }
+        }
+
+        this.lastX = current.x;
+        this.lastY = current.y;
+        this.lastZ = current.z;
+
+    };
+
+    //event handler
+    Shake.prototype.handleEvent = function (e) {
+        if (typeof (this[e.type]) === 'function') {
+            return this[e.type](e);
+        }
+    };
+
+    return Shake;
+}));
+
 var mads = function () {
     /* Get Tracker */
     if (typeof custTracker == 'undefined' && typeof rma != 'undefined') {
@@ -256,7 +381,89 @@ var playCharacter = function (selector, options) {
     loop();
 };
 
+var Swiper = function (container) {
+    var touches = {
+        "touchstart": {"x": -1, "y": -1},
+        "touchmove": {"x": -1, "y": -1},
+        "mousedown": {"x": -1, "y": -1},
+        "mousemove": {"x": -1, "y": -1},
+        "touchend": false,
+        "mouseup": false,
+        "direction": "undetermined"
+    };
+
+    var touchHandler = function (event) {
+        var touch;
+        if (typeof event !== 'undefined') {
+            event.preventDefault();
+            if (typeof event.touches !== 'undefined') {
+                touch = event.touches[0];
+                switch (event.type) {
+                    case 'touchstart':
+                    case 'touchmove':
+                        touches[event.type].x = touch.pageX;
+                        touches[event.type].y = touch.pageY;
+                        break;
+                    case 'touchend':
+                        touches[event.type] = true;
+                        if (touches.touchstart.x > -1 && touches.touchmove.x > -1) {
+                            touches.direction = touches.touchstart.x < touches.touchmove.x ? "right" : "left";
+                            if (callback !== null)
+                                callback(touches.direction);
+                            if (fire !== null && fire.direction === touches.direction)
+                                fire.cb();
+                        }
+                        break;
+                }
+            }
+            switch (event.type) {
+                case 'mousedown':
+                case 'mousemove':
+                    touches[event.type].x = event.pageX;
+                    touches[event.type].y = event.pageY;
+                    break;
+                case "mouseup":
+                    touches[event.type] = true;
+                    if (touches.mousedown.x > -1 && touches.mousemove.x > -1) {
+                        touches.direction = touches.mousedown.x < touches.mousemove.x ? "right" : "left";
+                        if (callback !== null)
+                            callback(touches.direction);
+                        if (fire !== null && fire.direction === touches.direction)
+                            fire.cb();
+                    }
+                    break;
+            }
+        }
+    };
+
+    var callback = null;
+    this.__defineSetter__('event', function (val) {
+        callback = val;
+    });
+
+    var fire = {};
+    this.fire = function (direction, cb) {
+        fire.cb = cb;
+        fire.direction = direction;
+    };
+
+    this.init = function () {
+        container.addEventListener('touchstart', touchHandler, false);
+        container.addEventListener('touchmove', touchHandler, false);
+        container.addEventListener('touchend', touchHandler, false);
+        container.addEventListener('mousedown', touchHandler, false);
+        container.addEventListener('mousemove', touchHandler, false);
+        container.addEventListener('mouseup', touchHandler, false);
+    };
+
+    this.init();
+};
+
 var rexonamotion = function () {
+    var id = window.setTimeout(function() {}, 0);
+    while (id--) {
+        window.clearTimeout(id);
+    }
     var app = new mads();
     app.autoTimeout = null;
     app.loadJs('js/njswipe-1.0.0.min.js');
@@ -265,19 +472,19 @@ var rexonamotion = function () {
 
         (function ($) {
             var $container = $(app.contentTag);
-
             var $delayFirst = 400,
                 $delaySecond = 400,
-                $delayEachFrame = 1500;
+                $delayEachFrame = 1500,
+                $sensitivity = 10;
             $container.load('tpl/template.html');
             app.loadJs('js/ninjoe.ytComponent.js');
             app.loadJs('js/jquery.jrumble.1.3.min.js');
             app.loadJs('js/modernizr.custom.js', function () {
                 app.loadJs('js/pagetransitions.js', function () {
                     var $video = new ytComponent({
-                        'container':'player',
+                        'container': 'player',
                         'width': '320',
-                        'height':'185',
+                        'height': '185',
                         'videoId': 'hUjMb5z2JR8',
                         'autoplay': false,
                         'tracker': app.tracker
@@ -290,7 +497,9 @@ var rexonamotion = function () {
                             animation: 46, finished: function () {
                                 var maleFirst = function () {
                                     var q = $.Deferred();
-                                    $('.male-run')[0].addEventListener('swipeleft', function () {
+                                    var pageSwiper = new Swiper($('.male-run')[0]);
+                                    //$('.male-run')[0].addEventListener('swipeleft', function () {
+                                    pageSwiper.fire('left', function () {
                                         clearTimeout(firstTimeout);
                                         clearTimeout(secondTimeout);
                                         $('.male-run .action').css('opacity', 0);
@@ -325,7 +534,13 @@ var rexonamotion = function () {
                                     $pt.nextPage({
                                         animation: 46,
                                         finished: function () {
+                                            var shaked = false;
                                             var animateMusic = function () {
+                                                clearTimeout(app.autoTimeout);
+                                                shaked = true;
+                                                if (myShakeEvent !== 'undefined') {
+                                                    myShakeEvent.stop();
+                                                }
                                                 $('.male-music .action').css('opacity', 0);
                                                 clearTimeout(firstTimeout);
                                                 clearTimeout(secondTimeout);
@@ -355,21 +570,18 @@ var rexonamotion = function () {
                                                     }
                                                 });
                                             };
-                                            var shaked = false;
+
                                             if (!shaked) {
-                                                shaked = true;
-                                                if (window.DeviceMotionEvent) {
-                                                    window.addEventListener('devicemotion', function (e) {
-                                                        var rotation = e.rotationRate;
-                                                        if ((rotation.alpha > 15 || rotation.alpha < -15) || (rotation.beta > 15 || rotation.beta < -15) || (rotation.gamma > 15 || rotation.gamma < -15)) {
-                                                            animateMusic();
-                                                            window.removeEventListener('devicemotion', arguments.callee, false);
-                                                            clearTimeout(app.autoTimeout);
-                                                        }
-                                                    }, false);
-                                                } else {
-                                                    console.log('DeviceMotionEvent is not supported.');
+                                                var myShakeEvent = new Shake({
+                                                    threshold: 15, // optional shake strength threshold
+                                                    timeout: 1000 // optional, determines the frequency of event generation
+                                                });
+                                                myShakeEvent.start();
+                                                window.addEventListener('shake', shakeEventDidOccur, false);
+                                                function shakeEventDidOccur() {
+                                                    animateMusic();
                                                 }
+
                                                 app.autoTimeout = setTimeout(function () {
                                                     //animateMusic();
                                                 }, 10000);
@@ -384,7 +596,10 @@ var rexonamotion = function () {
                                     $pt.nextPage({
                                         animation: 46,
                                         finished: function () {
+                                            var tilted = false;
                                             var animateIdea = function () {
+                                                window.removeEventListener('devicemotion', arguments.callee, false);
+                                                tilted = true;
                                                 $('.male-idea .action').css('opacity', 0);
                                                 clearTimeout(firstTimeout);
                                                 clearTimeout(secondTimeout);
@@ -400,10 +615,14 @@ var rexonamotion = function () {
                                                                     $('.male-idea .timeline').removeClass('two').addClass('three');
                                                                     $('.male-idea .timeline .second .bubble').css('opacity', 0);
                                                                     secondTimeout = setTimeout(function () {
-                                                                        playMolecule('.male-idea .timeline .third .bubble');
-                                                                        setTimeout(function () {
-                                                                            q.resolve();
-                                                                        }, $delayEachFrame);
+                                                                        playMolecule('.male-idea .timeline .third .bubble', {
+                                                                            after: function () {
+                                                                                q.resolve();
+                                                                            }
+                                                                        });
+                                                                        //setTimeout(function () {
+                                                                        //
+                                                                        //}, $delayEachFrame);
                                                                     }, $delaySecond);
                                                                 }
                                                             });
@@ -411,21 +630,27 @@ var rexonamotion = function () {
                                                     }
                                                 });
                                             };
-                                            var tilted = false;
                                             if (!tilted) {
-                                                tilted = true;
-                                                if (window.DeviceOrientationEvent) {
-                                                    window.addEventListener("deviceorientation", function (event) {
-                                                        var betka = Math.round(event.gamma);
-                                                        if (betka > 40 || betka < -40) {
+                                                ax = ay = 0;
+                                                window.addEventListener('devicemotion', function (e) {
+                                                    ax = e.accelerationIncludingGravity.x * $sensitivity;
+                                                    ay = -e.accelerationIncludingGravity.y * $sensitivity;
+                                                    if (ax > 0) {
+                                                        ax -= $sensitivity;
+                                                        if (ax < 0)ax = 0;
+                                                    } else if (ax < 0) {
+                                                        ax += $sensitivity;
+                                                        if (ax > 0)ax = 0;
+                                                    }
+                                                }, false);
+                                                mainLoop = setInterval("tiltme()");
+                                                tiltme = function () {
+                                                    $(document).each(function () {
+                                                        if (parseFloat(ax) > 45 || parseFloat(ax) < -45 ) {
                                                             animateIdea();
-                                                            window.removeEventListener('deviceorientation', arguments.callee, false);
-                                                            clearTimeout(app.autoTimeout);
                                                         }
-                                                    });
-                                                } else {
-                                                    console.log('DeviceOrientationEvent is not supported.');
-                                                }
+                                                    })
+                                                };
                                                 app.autoTimeout = setTimeout(function () {
                                                     //animateIdea();
                                                 }, 10000);
@@ -454,7 +679,9 @@ var rexonamotion = function () {
                             animation: 47, finished: function () {
                                 var femaleFirst = function () {
                                     var q = $.Deferred();
-                                    $('.female-run')[0].addEventListener('swipeleft', function () {
+                                    var pageSwiper = new Swiper($('.female-run')[0]);
+                                    //$('.female-run')[0].addEventListener('swipeleft', function () {
+                                    pageSwiper.fire('left', function () {
                                         $('.female-run .action').css('opacity', 0);
                                         clearTimeout(firstTimeout);
                                         clearTimeout(secondTimeout);
@@ -490,7 +717,13 @@ var rexonamotion = function () {
                                         showPage: 5,
                                         animation: 47,
                                         finished: function () {
+                                            var shaked = false;
                                             var animateMusic = function () {
+                                                clearTimeout(app.autoTimeout);
+                                                shaked = true;
+                                                if (myShakeEvent !== 'undefined') {
+                                                    myShakeEvent.stop();
+                                                }
                                                 $('.female-music .action').css('opacity', 0);
                                                 clearTimeout(firstTimeout);
                                                 clearTimeout(secondTimeout);
@@ -522,20 +755,15 @@ var rexonamotion = function () {
 
 
                                             };
-                                            var shaked = false;
                                             if (!shaked) {
-                                                shaked = true;
-                                                if (window.DeviceMotionEvent) {
-                                                    window.addEventListener('devicemotion', function (e) {
-                                                        var rotation = e.rotationRate;
-                                                        if ((rotation.alpha > 15 || rotation.alpha < -15) || (rotation.beta > 15 || rotation.beta < -15) || (rotation.gamma > 15 || rotation.gamma < -15)) {
-                                                            animateMusic();
-                                                            window.removeEventListener('devicemotion', arguments.callee, false);
-                                                            clearTimeout(app.autoTimeout);
-                                                        }
-                                                    }, false);
-                                                } else {
-                                                    console.log('DeviceMotionEvent is not supported.');
+                                                var myShakeEvent = new Shake({
+                                                    threshold: 15, // optional shake strength threshold
+                                                    timeout: 1000 // optional, determines the frequency of event generation
+                                                });
+                                                myShakeEvent.start();
+                                                window.addEventListener('shake', shakeEventDidOccur, false);
+                                                function shakeEventDidOccur() {
+                                                    animateMusic();
                                                 }
                                                 app.autoTimeout = setTimeout(function () {
                                                     //animateMusic();
@@ -552,7 +780,10 @@ var rexonamotion = function () {
                                         showPage: 6,
                                         animation: 47,
                                         finished: function () {
+                                            var tilted = false;
                                             var animateIdea = function () {
+                                                tilted = true;
+                                                window.removeEventListener('devicemotion', arguments.callee, false);
                                                 $('.female-idea .action').css('opacity', 0);
                                                 clearTimeout(firstTimeout);
                                                 clearTimeout(secondTimeout);
@@ -568,9 +799,13 @@ var rexonamotion = function () {
                                                                     $('.female-idea .timeline').removeClass('two').addClass('three');
                                                                     $('.female-idea .timeline .second .bubble').css('opacity', 0);
                                                                     secondTimeout = setTimeout(function () {
-                                                                        playMolecule('.female-idea .timeline .third .bubble');
+                                                                        playMolecule('.female-idea .timeline .third .bubble', {
+                                                                            after: function () {
+                                                                                q.resolve();
+                                                                            }
+                                                                        });
                                                                         setTimeout(function () {
-                                                                            q.resolve();
+
                                                                         }, $delayEachFrame);
                                                                     }, $delaySecond);
                                                                 }
@@ -579,21 +814,28 @@ var rexonamotion = function () {
                                                     }
                                                 });
                                             };
-                                            var tilted = false;
+
                                             if (!tilted) {
-                                                tilted = true;
-                                                if (window.DeviceOrientationEvent) {
-                                                    window.addEventListener("deviceorientation", function (event) {
-                                                        var betka = Math.round(event.gamma);
-                                                        if (betka > 40 || betka < -40) {
+                                                ax = ay = 0;
+                                                window.addEventListener('devicemotion', function (e) {
+                                                    ax = e.accelerationIncludingGravity.x * $sensitivity;
+                                                    ay = -e.accelerationIncludingGravity.y * $sensitivity;
+                                                    if (ax > 0) {
+                                                        ax -= $sensitivity;
+                                                        if (ax < 0) ax = 0;
+                                                    } else if (ax < 0) {
+                                                        ax += $sensitivity;
+                                                        if (ax > 0) ax = 0;
+                                                    }
+                                                }, false);
+                                                mainLoop = setInterval("tiltme()");
+                                                tiltme = function () {
+                                                    $(document).each(function () {
+                                                        if (parseFloat(ax) > 45 || parseFloat(ax) < -45 ) {
                                                             animateIdea();
-                                                            window.removeEventListener('deviceorientation', arguments.callee, false);
-                                                            clearTimeout(app.autoTimeout);
                                                         }
-                                                    });
-                                                } else {
-                                                    console.log('DeviceOrientationEvent is not supported.');
-                                                }
+                                                    })
+                                                };
                                                 app.autoTimeout = setTimeout(function () {
                                                     //animateIdea();
                                                 }, 10000);
@@ -625,7 +867,7 @@ var rexonamotion = function () {
     app.loadCss('css/style.css');
 };
 
-window.onYouTubeIframeAPIReady = function(vid) {
+window.onYouTubeIframeAPIReady = function (vid) {
     if (vid)
         vid.loadVideo();
 };
