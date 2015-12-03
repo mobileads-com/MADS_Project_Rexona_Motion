@@ -68,7 +68,7 @@ body, html {
 }
 
 #tracer {
-    /*background: url(../img/rms-sb-01-05-female-final.jpg) #016dad no-repeat;*/
+    background: url(../img/rms-sb-01-05-female-final.png) #016dad no-repeat;
     position: absolute;
     top: 0;
     left: 0;
@@ -138,6 +138,30 @@ div[class*="music"] .action {
 
 div[class*="idea"] .action {
     background: url(../img/tilt.png) no-repeat;
+}
+
+.absolute.product-male {
+    height: 150px;
+    bottom: 0;
+    z-index: 11;
+    right: 0;
+    width: 125px;
+}
+
+.absolute.product-female {
+    height: 150px;
+    bottom: 0;
+    z-index: 11;
+    right: 0;
+    width: 120px;
+}
+
+.absolute.product-male img {
+    width: 75px;
+}
+
+.absolute.product-female img {
+    width: 70px;
 }
 
 .logo {
@@ -376,7 +400,7 @@ canvas.bubble {
 }
 
 /* Male Run */
-.male-run .bg {
+.male-run .bg, .female-run .bg {
     width: 320px;
     height: 362px;
     background: url(../img/bg-land.png) no-repeat;
@@ -415,7 +439,7 @@ canvas.bubble {
     font-size: 17px;
 }
 
-.male-music .bg {
+.male-music .bg, .female-music .bg {
     width: 320px;
     height: 362px;
     background: url(../img/bg-room.png) no-repeat;
@@ -428,7 +452,6 @@ canvas.bubble {
 .male-music .image.absolute {
     width: 215px;
     left: 0;
-    background-size: contain;
     -webkit-transition: background 0.2s linear;
     -moz-transition: background 0.2s linear;
     -ms-transition: background 0.2s linear;
@@ -438,7 +461,7 @@ canvas.bubble {
 
 .male-music .image.absolute.male-music-1 {
     background: url(../img/male-music-1.png) no-repeat;
-    top: 99px;
+    top: 91px;
 }
 
 .male-music .image.absolute.male-music-2 {
@@ -448,17 +471,17 @@ canvas.bubble {
 
 .male-music .image.absolute.male-music-3 {
     background: url(../img/male-music-3.png) no-repeat;
-    top: 92px;
+    top: 91px;
 }
 
 /* Male Idea */
-.male-idea .bg {
+.male-idea .bg, .female-idea .bg {
     width: 320px;
     height: 362px;
     background: url(../img/bg-report.png) no-repeat;
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 60px;
+    left: 78px;
     z-index: 0;
 }
 
@@ -478,4 +501,81 @@ canvas.bubble {
 
 .male-idea .image.absolute.male-idea-3 {
     background: url(../img/male-idea-3.png) no-repeat;
+}
+
+
+/* Female Run*/
+.female-run .image.absolute {
+    height: 300px;
+    width: 320px;
+    left: 0;
+    top: 115px;
+    -webkit-transition: background 0.5s linear;
+    -moz-transition: background 0.5s linear;
+    -ms-transition: background 0.5s linear;
+    -o-transition: background 0.5s linear;
+    transition: background 0.5s linear;
+}
+
+.female-run .image.absolute.female-run-1 {
+    background: url(../img/female-run-1.png) no-repeat;
+}
+
+.female-run .image.absolute.female-run-2 {
+    background: url(../img/female-run-2.png) no-repeat;
+}
+
+.female-run .image.absolute.female-run-3 {
+    background: url(../img/female-run-3.png) no-repeat;
+}
+
+/* female Music */
+.female-music .header span.title {
+    font-size: 17px;
+}
+
+.female-music .image.absolute {
+    width: 260px;
+    left: 0;
+    background-size: contain;
+    -webkit-transition: background 0.2s linear;
+    -moz-transition: background 0.2s linear;
+    -ms-transition: background 0.2s linear;
+    -o-transition: background 0.2s linear;
+    transition: background 0.2s linear;
+}
+
+.female-music .image.absolute.female-music-1 {
+    background: url(../img/female-music-1.png) no-repeat;
+    top: 91px;
+}
+
+.female-music .image.absolute.female-music-2 {
+    background: url(../img/female-music-2.png) no-repeat;
+    top: 91px;
+}
+
+.female-music .image.absolute.female-music-3 {
+    background: url(../img/female-music-3.png) no-repeat;
+    top: 91px;
+}
+
+/* Female Idea */
+
+.female-idea .image.absolute {
+    top: 105px;
+    left: 10px;
+    width: 230px;
+}
+
+.female-idea .image.absolute.female-idea-1 {
+    background: url(../img/female-idea-1.png) no-repeat;
+}
+
+.female-idea .image.absolute.female-idea-2 {
+    background: url(../img/female-idea-2.png) no-repeat;
+}
+
+.female-idea .image.absolute.female-idea-3 {
+    background: url(../img/female-idea-3.png) no-repeat;
 }
