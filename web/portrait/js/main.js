@@ -216,13 +216,17 @@ var playMolecule = function (selector, opt) {
         }
 
         var shakeTimeout;
-        $(selector).jrumble();
+        $(selector).jrumble({
+            x: 0.4,
+            y: 0.4,
+            speed: 5
+        });
         clearTimeout(shakeTimeout);
         $(selector).trigger('startRumble');
         playBubble();
         shakeTimeout = setTimeout(function () {
             $(selector).trigger('stopRumble');
-        }, 1200);
+        }, 1000);
 
 
     };
