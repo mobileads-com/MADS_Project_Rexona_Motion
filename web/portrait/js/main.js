@@ -371,7 +371,7 @@ var rexonamotion = function () {
                                                     console.log('DeviceMotionEvent is not supported.');
                                                 }
                                                 app.autoTimeout = setTimeout(function () {
-                                                    animateMusic();
+                                                    //animateMusic();
                                                 }, 10000);
                                             }
                                         }
@@ -416,8 +416,8 @@ var rexonamotion = function () {
                                                 tilted = true;
                                                 if (window.DeviceOrientationEvent) {
                                                     window.addEventListener("deviceorientation", function (event) {
-                                                        var betka = Math.round(event.beta);
-                                                        if (betka > 60) {
+                                                        var betka = Math.round(event.gamma);
+                                                        if (betka > 40 || betka < -40) {
                                                             animateIdea();
                                                             window.removeEventListener('deviceorientation', arguments.callee, false);
                                                             clearTimeout(app.autoTimeout);
@@ -427,7 +427,7 @@ var rexonamotion = function () {
                                                     console.log('DeviceOrientationEvent is not supported.');
                                                 }
                                                 app.autoTimeout = setTimeout(function () {
-                                                    animateIdea();
+                                                    //animateIdea();
                                                 }, 10000);
                                             }
                                         }
@@ -538,7 +538,7 @@ var rexonamotion = function () {
                                                     console.log('DeviceMotionEvent is not supported.');
                                                 }
                                                 app.autoTimeout = setTimeout(function () {
-                                                    animateMusic();
+                                                    //animateMusic();
                                                 }, 10000);
                                             }
                                         }
@@ -584,8 +584,8 @@ var rexonamotion = function () {
                                                 tilted = true;
                                                 if (window.DeviceOrientationEvent) {
                                                     window.addEventListener("deviceorientation", function (event) {
-                                                        var betka = Math.round(event.beta);
-                                                        if (betka > 60) {
+                                                        var betka = Math.round(event.gamma);
+                                                        if (betka > 40 || betka < -40) {
                                                             animateIdea();
                                                             window.removeEventListener('deviceorientation', arguments.callee, false);
                                                             clearTimeout(app.autoTimeout);
@@ -595,7 +595,7 @@ var rexonamotion = function () {
                                                     console.log('DeviceOrientationEvent is not supported.');
                                                 }
                                                 app.autoTimeout = setTimeout(function () {
-                                                    animateIdea();
+                                                    //animateIdea();
                                                 }, 10000);
                                             }
                                         }
