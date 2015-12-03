@@ -444,10 +444,14 @@ var rexonamotion = function () {
                                         animation: 46,
                                         finished: function () {
                                             var shaked = false;
+                                            var dontStart = true;
                                             var animateMusic = function () {
+                                                window.removeEventListener('devicemotion', null, false);
+                                                dontStart = false;
                                                 clearTimeout(app.autoTimeout);
                                                 shaked = true;
-                                                myShakeEvent.stop();
+                                                if (typeof myShakeEvent !== 'undefined')
+                                                    myShakeEvent.stop();
                                                 $('.male-music .action').css('opacity', 0);
                                                 clearTimeout(firstTimeout);
                                                 clearTimeout(secondTimeout);
@@ -490,14 +494,29 @@ var rexonamotion = function () {
                                             };
 
                                             if (!shaked) {
-                                                var myShakeEvent = new Shake({
-                                                    threshold: 5
-                                                });
-                                                myShakeEvent.start();
-                                                window.addEventListener('shake', shakeEventDidOccur, false);
-                                                function shakeEventDidOccur() {
-                                                    animateMusic();
+                                                if (window.DeviceMotionEvent) {
+                                                    window.addEventListener('devicemotion', function (e) {
+                                                        var rotation = e.rotationRate;
+                                                        if ((rotation.alpha > 15 || rotation.alpha < -15) || (rotation.beta > 15 || rotation.beta < -15) || (rotation.gamma > 15 || rotation.gamma < -15)) {
+                                                            if (!shaked)
+                                                                animateMusic();
+                                                            shaked = true;
+                                                        }
+                                                    }, false);
                                                 }
+
+                                                if (dontStart) {
+                                                    var myShakeEvent = new Shake({
+                                                        threshold: 5
+                                                    });
+                                                    myShakeEvent.start();
+                                                    window.addEventListener('shake', shakeEventDidOccur, false);
+                                                    function shakeEventDidOccur() {
+                                                        animateMusic();
+                                                    }
+                                                }
+
+
 
                                                 app.autoTimeout = setTimeout(function () {
                                                     //animateMusic();
@@ -657,10 +676,14 @@ var rexonamotion = function () {
                                         animation: 46,
                                         finished: function () {
                                             var shaked = false;
+                                            var dontStart = true;
                                             var animateMusic = function () {
+                                                window.removeEventListener('devicemotion', null, false);
+                                                dontStart = false;
                                                 clearTimeout(app.autoTimeout);
                                                 shaked = true;
-                                                myShakeEvent.stop();
+                                                if (typeof myShakeEvent !== 'undefined')
+                                                    myShakeEvent.stop();
                                                 $('.female-music .action').css('opacity', 0);
                                                 clearTimeout(firstTimeout);
                                                 clearTimeout(secondTimeout);
@@ -703,15 +726,27 @@ var rexonamotion = function () {
                                             };
 
                                             if (!shaked) {
-                                                var myShakeEvent = new Shake({
-                                                    threshold: 5
-                                                });
-                                                myShakeEvent.start();
-                                                window.addEventListener('shake', shakeEventDidOccur, false);
-                                                function shakeEventDidOccur() {
-                                                    animateMusic();
+                                                if (window.DeviceMotionEvent) {
+                                                    window.addEventListener('devicemotion', function (e) {
+                                                        var rotation = e.rotationRate;
+                                                        if ((rotation.alpha > 15 || rotation.alpha < -15) || (rotation.beta > 15 || rotation.beta < -15) || (rotation.gamma > 15 || rotation.gamma < -15)) {
+                                                            if (!shaked)
+                                                                animateMusic();
+                                                            shaked = true;
+                                                        }
+                                                    }, false);
                                                 }
 
+                                                if (dontStart) {
+                                                    var myShakeEvent = new Shake({
+                                                        threshold: 5
+                                                    });
+                                                    myShakeEvent.start();
+                                                    window.addEventListener('shake', shakeEventDidOccur, false);
+                                                    function shakeEventDidOccur() {
+                                                        animateMusic();
+                                                    }
+                                                }
                                                 app.autoTimeout = setTimeout(function () {
                                                     //animateMusic();
                                                 }, 10000);
