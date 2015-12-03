@@ -274,7 +274,7 @@ var rexonamotion = function () {
 
                                             setTimeout(function () {
                                                 q.resolve();
-                                            }, 4000);
+                                            }, 2000);
                                         }, 550);
                                     });
 
@@ -361,7 +361,7 @@ var rexonamotion = function () {
                                                     setTimeout(function () {
                                                         //window.removeEventListener('deviceorientation', arguments.callee, false);
                                                         q.resolve();
-                                                    }, 4000)
+                                                    }, 2000)
                                                 }, 550);
                                             };
                                             var tilted = false;
@@ -426,7 +426,7 @@ var rexonamotion = function () {
 
                                             setTimeout(function () {
                                                 q.resolve();
-                                            }, 4000);
+                                            }, 2000);
                                         }, 550);
                                     });
 
@@ -461,7 +461,7 @@ var rexonamotion = function () {
 
                                                 setTimeout(function () {
                                                     q.resolve();
-                                                }, 4000);
+                                                }, 2000);
                                             };
                                             var shaked = false;
                                             if (!shaked) {
@@ -514,7 +514,7 @@ var rexonamotion = function () {
                                                     setTimeout(function () {
                                                         //window.removeEventListener('deviceorientation', arguments.callee, false);
                                                         q.resolve();
-                                                    }, 4000)
+                                                    }, 2000)
                                                 }, 550);
                                             };
                                             var tilted = false;

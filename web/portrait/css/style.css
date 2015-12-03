@@ -68,7 +68,7 @@ body, html {
 }
 
 #tracer {
-    background: url(../img/rms-sb-01-05-female-final.png) #016dad no-repeat;
+    /*background: url(../img/rms-sb-01-05-female-final.png) #016dad no-repeat;*/
     position: absolute;
     top: 0;
     left: 0;
