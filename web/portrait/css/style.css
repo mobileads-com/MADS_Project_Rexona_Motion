@@ -402,6 +402,8 @@ canvas.bubble {
     -ms-transition: background 1s linear;
     -o-transition: background 1s linear;
     transition: background 1s linear;
+    border: 0;
+    margin: 0;
 }
 
 /* Male Run */

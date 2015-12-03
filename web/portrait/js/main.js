@@ -283,25 +283,29 @@ var rexonamotion = function () {
                         'tracker': app.tracker
                     });
                     var $pt = PageTransitions || null;
+                    var firstTimeout,
+                        secondTimeout;
                     $('.ra_click').on('click', function () {
                         $pt.nextPage({
                             animation: 46, finished: function () {
                                 var maleFirst = function () {
                                     var q = $.Deferred();
                                     $('.male-run')[0].addEventListener('swipeleft', function () {
+                                        clearTimeout(firstTimeout);
+                                        clearTimeout(secondTimeout);
                                         $('.male-run .action').css('opacity', 0);
                                         playMolecule('.male-run .timeline .first .bubble', {
                                             after: function () {
                                                 $('.male-run .timeline .first .bubble').css('opacity', 0);
                                                 $('.male-run .timeline').removeClass('one').addClass('two');
                                                 $('.male-run .image').removeClass('male-run-1').addClass('male-run-2');
-                                                setTimeout(function () {
+                                                firstTimeout = setTimeout(function () {
                                                     playMolecule('.male-run .timeline .second .bubble', {
                                                         after: function () {
                                                             $('.male-run .image').removeClass('male-run-2').addClass('male-run-3');
                                                             $('.male-run .timeline').removeClass('two').addClass('three');
                                                             $('.male-run .timeline .second .bubble').css('opacity', 0);
-                                                            setTimeout(function () {
+                                                            secondTimeout = setTimeout(function () {
                                                                 playMolecule('.male-run .timeline .third .bubble');
                                                                 setTimeout(function () {
                                                                     q.resolve();
@@ -323,7 +327,8 @@ var rexonamotion = function () {
                                         finished: function () {
                                             var animateMusic = function () {
                                                 $('.male-music .action').css('opacity', 0);
-
+                                                clearTimeout(firstTimeout);
+                                                clearTimeout(secondTimeout);
                                                 playCharacter('.male-music', {
                                                     duration: 20
                                                 });
@@ -332,13 +337,13 @@ var rexonamotion = function () {
                                                         $('.male-music .timeline .first .bubble').css('opacity', 0);
                                                         $('.male-music .timeline').removeClass('one').addClass('two');
                                                         $('.male-music .image').removeClass('male-music-1').addClass('male-music-2');
-                                                        setTimeout(function () {
+                                                        firstTimeout = setTimeout(function () {
                                                             playMolecule('.male-music .timeline .second .bubble', {
                                                                 after: function () {
                                                                     $('.male-music .image').removeClass('male-music-2').addClass('male-music-3');
                                                                     $('.male-music .timeline').removeClass('two').addClass('three');
                                                                     $('.male-music .timeline .second .bubble').css('opacity', 0);
-                                                                    setTimeout(function () {
+                                                                    secondTimeout = setTimeout(function () {
                                                                         playMolecule('.male-music .timeline .third .bubble');
                                                                         setTimeout(function () {
                                                                             q.resolve();
@@ -381,19 +386,20 @@ var rexonamotion = function () {
                                         finished: function () {
                                             var animateIdea = function () {
                                                 $('.male-idea .action').css('opacity', 0);
-
+                                                clearTimeout(firstTimeout);
+                                                clearTimeout(secondTimeout);
                                                 playMolecule('.male-idea .timeline .first .bubble', {
                                                     after: function () {
                                                         $('.male-idea .timeline .first .bubble').css('opacity', 0);
                                                         $('.male-idea .timeline').removeClass('one').addClass('two');
                                                         $('.male-idea .image').removeClass('male-idea-1').addClass('male-idea-2');
-                                                        setTimeout(function () {
+                                                        firstTimeout = setTimeout(function () {
                                                             playMolecule('.male-idea .timeline .second .bubble', {
                                                                 after: function () {
                                                                     $('.male-idea .image').removeClass('male-idea-2').addClass('male-idea-3');
                                                                     $('.male-idea .timeline').removeClass('two').addClass('three');
                                                                     $('.male-idea .timeline .second .bubble').css('opacity', 0);
-                                                                    setTimeout(function () {
+                                                                    secondTimeout = setTimeout(function () {
                                                                         playMolecule('.male-idea .timeline .third .bubble');
                                                                         setTimeout(function () {
                                                                             q.resolve();
@@ -450,18 +456,20 @@ var rexonamotion = function () {
                                     var q = $.Deferred();
                                     $('.female-run')[0].addEventListener('swipeleft', function () {
                                         $('.female-run .action').css('opacity', 0);
+                                        clearTimeout(firstTimeout);
+                                        clearTimeout(secondTimeout);
                                         playMolecule('.female-run .timeline .first .bubble', {
                                             after: function () {
                                                 $('.female-run .timeline .first .bubble').css('opacity', 0);
                                                 $('.female-run .timeline').removeClass('one').addClass('two');
                                                 $('.female-run .image').removeClass('female-run-1').addClass('female-run-2');
-                                                setTimeout(function () {
+                                                firstTimeout = setTimeout(function () {
                                                     playMolecule('.female-run .timeline .second .bubble', {
                                                         after: function () {
                                                             $('.female-run .image').removeClass('female-run-2').addClass('female-run-3');
                                                             $('.female-run .timeline').removeClass('two').addClass('three');
                                                             $('.female-run .timeline .second .bubble').css('opacity', 0);
-                                                            setTimeout(function () {
+                                                            secondTimeout = setTimeout(function () {
                                                                 playMolecule('.female-run .timeline .third .bubble');
                                                                 setTimeout(function () {
                                                                     q.resolve();
@@ -484,6 +492,8 @@ var rexonamotion = function () {
                                         finished: function () {
                                             var animateMusic = function () {
                                                 $('.female-music .action').css('opacity', 0);
+                                                clearTimeout(firstTimeout);
+                                                clearTimeout(secondTimeout);
                                                 playCharacter('.female-music', {
                                                     duration: 20
                                                 });
@@ -492,13 +502,13 @@ var rexonamotion = function () {
                                                         $('.female-music .timeline .first .bubble').css('opacity', 0);
                                                         $('.female-music .timeline').removeClass('one').addClass('two');
                                                         $('.female-music .image').removeClass('female-music-1').addClass('female-music-2');
-                                                        setTimeout(function () {
+                                                        firstTimeout = setTimeout(function () {
                                                             playMolecule('.female-music .timeline .second .bubble', {
                                                                 after: function () {
                                                                     $('.female-music .image').removeClass('female-music-2').addClass('female-music-3');
                                                                     $('.female-music .timeline').removeClass('two').addClass('three');
                                                                     $('.female-music .timeline .second .bubble').css('opacity', 0);
-                                                                    setTimeout(function () {
+                                                                    secondTimeout = setTimeout(function () {
                                                                         playMolecule('.female-music .timeline .third .bubble');
                                                                         setTimeout(function () {
                                                                             q.resolve();
@@ -544,18 +554,20 @@ var rexonamotion = function () {
                                         finished: function () {
                                             var animateIdea = function () {
                                                 $('.female-idea .action').css('opacity', 0);
+                                                clearTimeout(firstTimeout);
+                                                clearTimeout(secondTimeout);
                                                 playMolecule('.female-idea .timeline .first .bubble', {
                                                     after: function () {
                                                         $('.female-idea .timeline .first .bubble').css('opacity', 0);
                                                         $('.female-idea .timeline').removeClass('one').addClass('two');
                                                         $('.female-idea .image').removeClass('female-idea-1').addClass('female-idea-2');
-                                                        setTimeout(function () {
+                                                        firstTimeout = setTimeout(function () {
                                                             playMolecule('.female-idea .timeline .second .bubble', {
                                                                 after: function () {
                                                                     $('.female-idea .image').removeClass('female-idea-2').addClass('female-idea-3');
                                                                     $('.female-idea .timeline').removeClass('two').addClass('three');
                                                                     $('.female-idea .timeline .second .bubble').css('opacity', 0);
-                                                                    setTimeout(function () {
+                                                                    secondTimeout = setTimeout(function () {
                                                                         playMolecule('.female-idea .timeline .third .bubble');
                                                                         setTimeout(function () {
                                                                             q.resolve();
