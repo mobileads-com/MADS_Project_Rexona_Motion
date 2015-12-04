@@ -335,7 +335,7 @@ var rexonamotion = function () {
                                     var maleFirst = function () {
                                         var q = $.Deferred();
                                         var swiped = false;
-                                        $('.male-run')[0].addEventListener('swipeleft', function () {
+                                        var swiper = function () {
                                             if (swiped) return false;
                                             swiped = true;
                                             app.tracker('E', 'swiped');
@@ -376,7 +376,12 @@ var rexonamotion = function () {
                                                     });
                                                 }
                                             });
-                                        }, false);
+                                        };
+
+                                        $('.male-run')[0].addEventListener('swipeleft', swiper, false);
+                                        $('.male-run')[0].addEventListener('swipeup', swiper, false);
+                                        $('.male-run')[0].addEventListener('swipedown', swiper, false);
+                                        $('.male-run')[0].addEventListener('swiperight', swiper, false);
 
 
                                         return q.promise();
@@ -584,7 +589,8 @@ var rexonamotion = function () {
                                     var femaleFirst = function () {
                                         var q = $.Deferred();
                                         var swiped = false;
-                                        $('.female-run')[0].addEventListener('swipeleft', function () {
+
+                                            var swiper = function () {
                                             if (swiped) return false;
                                             swiped = true;
                                             //clearTimeout(firstTimeout);
@@ -628,7 +634,12 @@ var rexonamotion = function () {
                                                     });
                                                 }
                                             });
-                                        }, false);
+                                        };
+
+                                        $('.female-run')[0].addEventListener('swipeleft', swiper, false);
+                                        $('.female-run')[0].addEventListener('swiperight', swiper, false);
+                                        $('.female-run')[0].addEventListener('swipedown', swiper, false);
+                                        $('.female-run')[0].addEventListener('swipeup', swiper, false);
 
                                         return q.promise();
                                     };
