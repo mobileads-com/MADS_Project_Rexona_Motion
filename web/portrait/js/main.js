@@ -202,12 +202,23 @@ var playMolecule = function (selector, opt) {
                     }
                 }
                 var s = selector.split(' ')[0].replace('.', '');
-                if (frameIndex === 5) {
-                    $('.'+s+' .image').removeClass(s+'-1').addClass(s+'-2');
-                }
-
-                if (frameIndex === 17) {
-                    $('.'+s+' .image').removeClass(s+'-2').addClass(s+'-3');
+                if (s.indexOf('music') > -1) {
+                    if (frameIndex === 1) {
+                        $('.'+s+' .image').removeClass(s+'-3').addClass(s+'-1');
+                    }
+                    if (frameIndex === 10) {
+                        $('.'+s+' .image').removeClass(s+'-1').addClass(s+'-2');
+                    }
+                    if (frameIndex === 19) {
+                        $('.'+s+' .image').removeClass(s+'-2').addClass(s+'-3');
+                    }
+                } else {
+                    if (frameIndex === 5) {
+                        $('.'+s+' .image').removeClass(s+'-1').addClass(s+'-2');
+                    }
+                    if (frameIndex === 17) {
+                        $('.'+s+' .image').removeClass(s+'-2').addClass(s+'-3');
+                    }
                 }
             }
         };
