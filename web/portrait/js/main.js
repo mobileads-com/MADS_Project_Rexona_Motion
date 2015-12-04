@@ -338,6 +338,27 @@ var Swiper = function (container) {
     this.init();
 };
 
+var isMobile = {
+    Android: function() {
+        return navigator.userAgent.match(/Android/i);
+    },
+    BlackBerry: function() {
+        return navigator.userAgent.match(/BlackBerry/i);
+    },
+    iOS: function() {
+        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+    },
+    Opera: function() {
+        return navigator.userAgent.match(/Opera Mini/i);
+    },
+    Windows: function() {
+        return navigator.userAgent.match(/IEMobile/i);
+    },
+    any: function() {
+        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+    }
+};
+
 var rexonamotion = function () {
     var id = window.setTimeout(function () {
     }, 0);
@@ -510,10 +531,11 @@ var rexonamotion = function () {
                                                     }
                                                 }
 
-
-                                                app.autoTimeout = setTimeout(function () {
-                                                    //animateMusic();
-                                                }, 10000);
+                                                if (!isMobile.any()) {
+                                                    app.autoTimeout = setTimeout(function () {
+                                                        animateMusic();
+                                                    }, 5000);
+                                                }
                                             }
                                         }
                                     });
@@ -594,9 +616,11 @@ var rexonamotion = function () {
                                                     })
                                                 };
                                                 var mainLoop = setInterval(tiltme, 100);
-                                                app.autoTimeout = setTimeout(function () {
-                                                    //animateIdea();
-                                                }, 10000);
+                                                if (!isMobile.any()) {
+                                                    app.autoTimeout = setTimeout(function () {
+                                                        animateIdea();
+                                                    }, 5000);
+                                                }
                                             }
                                         }
                                     });
@@ -755,9 +779,11 @@ var rexonamotion = function () {
                                                         animateMusic();
                                                     }
                                                 }
-                                                app.autoTimeout = setTimeout(function () {
-                                                    //animateMusic();
-                                                }, 10000);
+                                                if (!isMobile.any()) {
+                                                    app.autoTimeout = setTimeout(function () {
+                                                        animateMusic();
+                                                    }, 10000);
+                                                }
                                             }
                                         }
                                     });
@@ -838,9 +864,11 @@ var rexonamotion = function () {
                                                     })
                                                 };
                                                 var mainLoop = setInterval(tiltme, 100);
-                                                app.autoTimeout = setTimeout(function () {
-                                                    //animateIdea();
-                                                }, 10000);
+                                                if (!isMobile.any()) {
+                                                    app.autoTimeout = setTimeout(function () {
+                                                        animateIdea();
+                                                    }, 10000);
+                                                }
                                             }
                                         }
                                     });
