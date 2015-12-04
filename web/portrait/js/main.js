@@ -349,6 +349,10 @@ var rexonamotion = function () {
     app.loadJs('js/libs.js', function () {
         if (typeof window.jQuery === 'undefined') return false;
         (function ($) {
+            $('.trigger_landing_site').on('click', function () {
+                app.tracker('E','site');
+                app.linkOpener('http://www.rexona.co.id/');
+            });
             var $container = $(app.contentTag);
             var $delayEachFrame = 1500,
                 $sensitivity = 10;
@@ -368,6 +372,7 @@ var rexonamotion = function () {
                         firstTimeout,
                         secondTimeout;
                     $('.ra_click').on('click', function () {
+                        app.tracker('E','male_product');
                         $pt.nextPage({
                             animation: 46, finished: function () {
                                 var maleFirst = function () {
@@ -377,6 +382,7 @@ var rexonamotion = function () {
                                     pageSwiper.fire('left', function () {
                                         if (swiped) return false;
                                         swiped = true;
+                                        app.tracker('E','swiped');
                                         clearTimeout(firstTimeout);
                                         clearTimeout(secondTimeout);
                                         firstTimeout = setTimeout(function () {
@@ -435,6 +441,7 @@ var rexonamotion = function () {
                                                 dontStart = false;
                                                 clearTimeout(app.autoTimeout);
                                                 shaked = true;
+                                                app.tracker('E', 'shaked');
                                                 if (typeof myShakeEvent !== 'undefined')
                                                     myShakeEvent.stop();
                                                 $('.male-music .action').css('opacity', 0);
@@ -528,6 +535,7 @@ var rexonamotion = function () {
                                                 $('.male-idea .action').css('opacity', 0);
                                                 clearTimeout(firstTimeout);
                                                 clearTimeout(secondTimeout);
+                                                app.tracker('E', 'tilt');
                                                 firstTimeout = setTimeout(function () {
                                                     $('.male-idea .image').removeClass('male-idea-1').addClass('male-idea-2');
                                                 }, $firstAnimFrame);
@@ -625,6 +633,7 @@ var rexonamotion = function () {
                                         swiped = true;
                                         clearTimeout(firstTimeout);
                                         clearTimeout(secondTimeout);
+                                        app.tracker('E','swiped');
                                         firstTimeout = setTimeout(function () {
                                             $('.female-run .image').removeClass('female-run-1').addClass('female-run-2');
                                         }, $firstAnimFrame);
@@ -684,6 +693,7 @@ var rexonamotion = function () {
                                                 $('.female-music .action').css('opacity', 0);
                                                 clearTimeout(firstTimeout);
                                                 clearTimeout(secondTimeout);
+                                                app.tracker('E', 'shaked');
                                                 firstTimeout = setTimeout(function () {
                                                     $('.female-music .image').removeClass('female-music-1').addClass('female-music-2');
                                                 }, $firstAnimFrame);
@@ -765,6 +775,7 @@ var rexonamotion = function () {
                                                 $('.female-idea .action').css('opacity', 0);
                                                 clearTimeout(firstTimeout);
                                                 clearTimeout(secondTimeout);
+                                                app.tracker('E', 'tilt');
                                                 firstTimeout = setTimeout(function () {
                                                     $('.female-idea .image').removeClass('female-idea-1').addClass('female-idea-2');
                                                 }, $firstAnimFrame);

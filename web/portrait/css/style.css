@@ -397,6 +397,13 @@ canvas.bubble {
     /*opacity: 0;*/
 /*}*/
 
+.trigger_landing_site {
+    width: 150px;
+    bottom: 0;
+    height: 220px;
+    right: 0;
+}
+
 .image.absolute {
     -webkit-transition: background 0.5s linear;
     -moz-transition: background 0.5s linear;
