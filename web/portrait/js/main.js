@@ -260,28 +260,6 @@ var playMolecule = function (selector, opt) {
     };
 };
 
-var playCharacter = function (selector, options) {
-    var iterate = 1;
-    var el = selector.replace('.', '');
-    var d = options.duration || 20;
-    var i = 0;
-
-    function loop() {
-        $(selector + ' .image').removeClass(el + '-' + iterate).addClass(el + '-' + (iterate === 3 ? 1 : iterate + 1));
-        i++;
-        if (iterate === 3) {
-            iterate = 1
-        } else {
-            iterate++;
-        }
-        if (i < d) {
-            loop();
-        }
-    }
-
-    loop();
-};
-
 var Swiper = function (container) {
     var touches = {
         "touchstart": {"x": -1, "y": -1},
@@ -384,8 +362,10 @@ var rexonamotion = function () {
                         'autoplay': false,
                         'tracker': app.tracker
                     });
-                    var $pt = window.PageTransitions || null;
-                    var firstTimeout,
+                    var $pt = window.PageTransitions || null,
+                        $firstAnimFrame = 400,
+                        $secondAnimFrame = 1100,
+                        firstTimeout,
                         secondTimeout;
                     $('.ra_click').on('click', function () {
                         $pt.nextPage({
@@ -394,47 +374,52 @@ var rexonamotion = function () {
                                     var q = $.Deferred();
                                     var swiped = false;
                                     var pageSwiper = new Swiper($('.male-run')[0]);
-                                    if (!swiped) {
-                                        pageSwiper.fire('left', function () {
-                                            swiped = true;
-                                            clearTimeout(firstTimeout);
-                                            clearTimeout(secondTimeout);
-                                            $('.male-run .action').css('opacity', 0);
-                                            playMolecule('.male-run .timeline .first .bubble', {
-                                                middle: function () {
-                                                    Haptics.vibrate(50);
-                                                },
-                                                after: function () {
-                                                    $('.male-run .timeline .first .bubble').css('opacity', 0);
-                                                    $('.male-run .timeline').removeClass('one').addClass('two');
-                                                    $('.male-run .image').removeClass('male-run-1').addClass('male-run-2');
-                                                    playMolecule('.male-run .timeline .second .bubble', {
-                                                        middle: function () {
-                                                            Haptics.vibrate(50);
-                                                        },
-                                                        after: function () {
-                                                            $('.male-run .image').removeClass('male-run-2').addClass('male-run-3');
-                                                            $('.male-run .timeline').removeClass('two').addClass('three');
-                                                            $('.male-run .timeline .second .bubble').css('opacity', 0);
-                                                            playMolecule('.male-run .timeline .third .bubble', {
-                                                                middle: function () {
-                                                                    Haptics.vibrate(50);
-                                                                },
-                                                                after: function () {
-                                                                    setTimeout(function () {
-                                                                        Haptics.vibrate(200);
-                                                                        clearTimeout(firstTimeout);
-                                                                        clearTimeout(secondTimeout);
-                                                                        q.resolve();
-                                                                    }, $delayEachFrame);
-                                                                }
-                                                            });
-                                                        }
-                                                    });
-                                                }
-                                            });
+                                    pageSwiper.fire('left', function () {
+                                        if (swiped) return false;
+                                        swiped = true;
+                                        clearTimeout(firstTimeout);
+                                        clearTimeout(secondTimeout);
+                                        firstTimeout = setTimeout(function () {
+                                            $('.male-run .image').removeClass('male-run-1').addClass('male-run-2');
+                                        }, $firstAnimFrame);
+                                        secondTimeout = setTimeout(function () {
+                                            $('.male-run .image').removeClass('male-run-2').addClass('male-run-3');
+                                        }, $secondAnimFrame);
+                                        $('.male-run .action').css('opacity', 0);
+                                        playMolecule('.male-run .timeline .first .bubble', {
+                                            middle: function () {
+                                                Haptics.vibrate(50);
+                                            },
+                                            after: function () {
+                                                $('.male-run .timeline .first .bubble').css('opacity', 0);
+                                                $('.male-run .timeline').removeClass('one').addClass('two');
+
+                                                playMolecule('.male-run .timeline .second .bubble', {
+                                                    middle: function () {
+                                                        Haptics.vibrate(50);
+                                                    },
+                                                    after: function () {
+                                                        $('.male-run .timeline').removeClass('two').addClass('three');
+                                                        $('.male-run .timeline .second .bubble').css('opacity', 0);
+                                                        playMolecule('.male-run .timeline .third .bubble', {
+                                                            middle: function () {
+                                                                Haptics.vibrate(50);
+                                                            },
+                                                            after: function () {
+                                                                setTimeout(function () {
+                                                                    Haptics.vibrate(200);
+                                                                    clearTimeout(firstTimeout);
+                                                                    clearTimeout(secondTimeout);
+                                                                    q.resolve();
+                                                                }, $delayEachFrame);
+                                                            }
+                                                        });
+                                                    }
+                                                });
+                                            }
                                         });
-                                    }
+                                    });
+
 
                                     return q.promise();
                                 };
@@ -455,9 +440,15 @@ var rexonamotion = function () {
                                                 $('.male-music .action').css('opacity', 0);
                                                 clearTimeout(firstTimeout);
                                                 clearTimeout(secondTimeout);
-                                                playCharacter('.male-music', {
-                                                    duration: 10
-                                                });
+                                                firstTimeout = setTimeout(function () {
+                                                    $('.male-music .image').removeClass('male-music-1').addClass('male-music-2');
+                                                }, $firstAnimFrame);
+                                                secondTimeout = setTimeout(function () {
+                                                    $('.male-music .image').removeClass('male-music-2').addClass('male-music-3');
+                                                }, $secondAnimFrame);
+                                                //playCharacter('.male-music', {
+                                                //    duration: 1000
+                                                //});
                                                 playMolecule('.male-music .timeline .first .bubble', {
                                                     middle: function () {
                                                         Haptics.vibrate(50);
@@ -465,13 +456,13 @@ var rexonamotion = function () {
                                                     after: function () {
                                                         $('.male-music .timeline .first .bubble').css('opacity', 0);
                                                         $('.male-music .timeline').removeClass('one').addClass('two');
-                                                        $('.male-music .image').removeClass('male-music-1').addClass('male-music-2');
+
                                                         playMolecule('.male-music .timeline .second .bubble', {
                                                             middle: function () {
                                                                 Haptics.vibrate(50);
                                                             },
                                                             after: function () {
-                                                                $('.male-music .image').removeClass('male-music-2').addClass('male-music-3');
+
                                                                 $('.male-music .timeline').removeClass('two').addClass('three');
                                                                 $('.male-music .timeline .second .bubble').css('opacity', 0);
                                                                 playMolecule('.male-music .timeline .third .bubble', {
@@ -517,7 +508,6 @@ var rexonamotion = function () {
                                                 }
 
 
-
                                                 app.autoTimeout = setTimeout(function () {
                                                     //animateMusic();
                                                 }, 10000);
@@ -538,6 +528,12 @@ var rexonamotion = function () {
                                                 $('.male-idea .action').css('opacity', 0);
                                                 clearTimeout(firstTimeout);
                                                 clearTimeout(secondTimeout);
+                                                firstTimeout = setTimeout(function () {
+                                                    $('.male-idea .image').removeClass('male-idea-1').addClass('male-idea-2');
+                                                }, $firstAnimFrame);
+                                                secondTimeout = setTimeout(function () {
+                                                    $('.male-idea .image').removeClass('male-idea-2').addClass('male-idea-3');
+                                                }, $secondAnimFrame);
                                                 playMolecule('.male-idea .timeline .first .bubble', {
                                                     middle: function () {
                                                         Haptics.vibrate(50);
@@ -545,13 +541,11 @@ var rexonamotion = function () {
                                                     after: function () {
                                                         $('.male-idea .timeline .first .bubble').css('opacity', 0);
                                                         $('.male-idea .timeline').removeClass('one').addClass('two');
-                                                        $('.male-idea .image').removeClass('male-idea-1').addClass('male-idea-2');
                                                         playMolecule('.male-idea .timeline .second .bubble', {
                                                             middle: function () {
                                                                 Haptics.vibrate(50);
                                                             },
                                                             after: function () {
-                                                                $('.male-idea .image').removeClass('male-idea-2').addClass('male-idea-3');
                                                                 $('.male-idea .timeline').removeClass('two').addClass('three');
                                                                 $('.male-idea .timeline .second .bubble').css('opacity', 0);
                                                                 playMolecule('.male-idea .timeline .third .bubble', {
@@ -626,47 +620,50 @@ var rexonamotion = function () {
                                     var q = $.Deferred();
                                     var swiped = false;
                                     var pageSwiper = new Swiper($('.female-run')[0]);
-                                    if (!swiped) {
-                                        pageSwiper.fire('left', function () {
-                                            swiped = true;
-                                            clearTimeout(firstTimeout);
-                                            clearTimeout(secondTimeout);
-                                            $('.female-run .action').css('opacity', 0);
-                                            playMolecule('.female-run .timeline .first .bubble', {
-                                                middle: function () {
-                                                    Haptics.vibrate(50);
-                                                },
-                                                after: function () {
-                                                    $('.female-run .timeline .first .bubble').css('opacity', 0);
-                                                    $('.female-run .timeline').removeClass('one').addClass('two');
-                                                    $('.female-run .image').removeClass('female-run-1').addClass('female-run-2');
-                                                    playMolecule('.female-run .timeline .second .bubble', {
-                                                        middle: function () {
-                                                            Haptics.vibrate(50);
-                                                        },
-                                                        after: function () {
-                                                            $('.female-run .image').removeClass('female-run-2').addClass('female-run-3');
-                                                            $('.female-run .timeline').removeClass('two').addClass('three');
-                                                            $('.female-run .timeline .second .bubble').css('opacity', 0);
-                                                            playMolecule('.female-run .timeline .third .bubble', {
-                                                                middle: function () {
-                                                                    Haptics.vibrate(50);
-                                                                },
-                                                                after: function () {
-                                                                    setTimeout(function () {
-                                                                        Haptics.vibrate(200);
-                                                                        clearTimeout(firstTimeout);
-                                                                        clearTimeout(secondTimeout);
-                                                                        q.resolve();
-                                                                    }, $delayEachFrame);
-                                                                }
-                                                            });
-                                                        }
-                                                    });
-                                                }
-                                            });
+                                    pageSwiper.fire('left', function () {
+                                        if (swiped) return false;
+                                        swiped = true;
+                                        clearTimeout(firstTimeout);
+                                        clearTimeout(secondTimeout);
+                                        firstTimeout = setTimeout(function () {
+                                            $('.female-run .image').removeClass('female-run-1').addClass('female-run-2');
+                                        }, $firstAnimFrame);
+                                        secondTimeout = setTimeout(function () {
+                                            $('.female-run .image').removeClass('male-run-2').addClass('female-run-3');
+                                        }, $secondAnimFrame);
+                                        $('.female-run .action').css('opacity', 0);
+                                        playMolecule('.female-run .timeline .first .bubble', {
+                                            middle: function () {
+                                                Haptics.vibrate(50);
+                                            },
+                                            after: function () {
+                                                $('.female-run .timeline .first .bubble').css('opacity', 0);
+                                                $('.female-run .timeline').removeClass('one').addClass('two');
+                                                playMolecule('.female-run .timeline .second .bubble', {
+                                                    middle: function () {
+                                                        Haptics.vibrate(50);
+                                                    },
+                                                    after: function () {
+                                                        $('.female-run .timeline').removeClass('two').addClass('three');
+                                                        $('.female-run .timeline .second .bubble').css('opacity', 0);
+                                                        playMolecule('.female-run .timeline .third .bubble', {
+                                                            middle: function () {
+                                                                Haptics.vibrate(50);
+                                                            },
+                                                            after: function () {
+                                                                setTimeout(function () {
+                                                                    Haptics.vibrate(200);
+                                                                    clearTimeout(firstTimeout);
+                                                                    clearTimeout(secondTimeout);
+                                                                    q.resolve();
+                                                                }, $delayEachFrame);
+                                                            }
+                                                        });
+                                                    }
+                                                });
+                                            }
                                         });
-                                    }
+                                    });
 
                                     return q.promise();
                                 };
@@ -687,9 +684,12 @@ var rexonamotion = function () {
                                                 $('.female-music .action').css('opacity', 0);
                                                 clearTimeout(firstTimeout);
                                                 clearTimeout(secondTimeout);
-                                                playCharacter('.female-music', {
-                                                    duration: 10
-                                                });
+                                                firstTimeout = setTimeout(function () {
+                                                    $('.female-music .image').removeClass('female-music-1').addClass('female-music-2');
+                                                }, $firstAnimFrame);
+                                                secondTimeout = setTimeout(function () {
+                                                    $('.female-music .image').removeClass('male-music-2').addClass('female-music-3');
+                                                }, $secondAnimFrame);
                                                 playMolecule('.female-music .timeline .first .bubble', {
                                                     middle: function () {
                                                         Haptics.vibrate(50);
@@ -697,13 +697,11 @@ var rexonamotion = function () {
                                                     after: function () {
                                                         $('.female-music .timeline .first .bubble').css('opacity', 0);
                                                         $('.female-music .timeline').removeClass('one').addClass('two');
-                                                        $('.female-music .image').removeClass('female-music-1').addClass('female-music-2');
                                                         playMolecule('.female-music .timeline .second .bubble', {
                                                             middle: function () {
                                                                 Haptics.vibrate(50);
                                                             },
                                                             after: function () {
-                                                                $('.female-music .image').removeClass('female-music-2').addClass('female-music-3');
                                                                 $('.female-music .timeline').removeClass('two').addClass('three');
                                                                 $('.female-music .timeline .second .bubble').css('opacity', 0);
                                                                 playMolecule('.female-music .timeline .third .bubble', {
@@ -767,6 +765,12 @@ var rexonamotion = function () {
                                                 $('.female-idea .action').css('opacity', 0);
                                                 clearTimeout(firstTimeout);
                                                 clearTimeout(secondTimeout);
+                                                firstTimeout = setTimeout(function () {
+                                                    $('.female-idea .image').removeClass('female-idea-1').addClass('female-idea-2');
+                                                }, $firstAnimFrame);
+                                                secondTimeout = setTimeout(function () {
+                                                    $('.female-idea .image').removeClass('female-idea-2').addClass('female-idea-3');
+                                                }, $secondAnimFrame);
                                                 playMolecule('.female-idea .timeline .first .bubble', {
                                                     middle: function () {
                                                         Haptics.vibrate(50);
@@ -774,16 +778,13 @@ var rexonamotion = function () {
                                                     after: function () {
                                                         $('.female-idea .timeline .first .bubble').css('opacity', 0);
                                                         $('.female-idea .timeline').removeClass('one').addClass('two');
-                                                        $('.female-idea .image').removeClass('female-idea-1').addClass('female-idea-2');
                                                         playMolecule('.female-idea .timeline .second .bubble', {
                                                             middle: function () {
                                                                 Haptics.vibrate(50);
                                                             },
                                                             after: function () {
-                                                                $('.female-idea .image').removeClass('female-idea-2').addClass('female-idea-3');
                                                                 $('.female-idea .timeline').removeClass('two').addClass('three');
                                                                 $('.female-idea .timeline .second .bubble').css('opacity', 0);
-                                                                //secondTimeout = setTimeout(function () {
                                                                 playMolecule('.female-idea .timeline .third .bubble', {
                                                                     middle: function () {
                                                                         Haptics.vibrate(50);
