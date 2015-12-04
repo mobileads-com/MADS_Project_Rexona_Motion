@@ -349,10 +349,6 @@ var rexonamotion = function () {
     app.loadJs('js/libs.js', function () {
         if (typeof window.jQuery === 'undefined') return false;
         (function ($) {
-            $('.trigger_landing_site').on('click', function () {
-                app.tracker('E','site');
-                app.linkOpener('http://www.rexona.co.id/');
-            });
             var $container = $(app.contentTag);
             var $delayEachFrame = 1500,
                 $sensitivity = 10;
@@ -611,6 +607,10 @@ var rexonamotion = function () {
                                     .then(maleSecond)
                                     .then(maleThird)
                                     .then(function () {
+                                        $('.trigger_landing_site').on('click', function () {
+                                            app.tracker('E','site');
+                                            app.linkOpener('http://www.rexona.co.id/');
+                                        }).css('z-index', 199);
                                         $pt.nextPage({
                                             showPage: 7,
                                             animation: 8,
@@ -851,6 +851,10 @@ var rexonamotion = function () {
                                     .then(femaleSecond)
                                     .then(femaleThird)
                                     .then(function () {
+                                        $('.trigger_landing_site').on('click', function () {
+                                            app.tracker('E','site');
+                                            app.linkOpener('http://www.rexona.co.id/');
+                                        }).css('z-index', 199);
                                         $pt.nextPage({
                                             showPage: 7,
                                             animation: 8,

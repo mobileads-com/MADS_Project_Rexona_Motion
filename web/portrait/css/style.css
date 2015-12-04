@@ -402,7 +402,6 @@ canvas.bubble {
     bottom: 0;
     height: 220px;
     right: 0;
-    z-index: 199;
 }
 
 .image.absolute {
