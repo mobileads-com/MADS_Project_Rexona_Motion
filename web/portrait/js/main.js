@@ -260,83 +260,6 @@ var playMolecule = function (selector, opt) {
     };
 };
 
-var Swiper = function (container) {
-    var touches = {
-        "touchstart": {"x": -1, "y": -1},
-        "touchmove": {"x": -1, "y": -1},
-        "mousedown": {"x": -1, "y": -1},
-        "mousemove": {"x": -1, "y": -1},
-        "touchend": false,
-        "mouseup": false,
-        "direction": "undetermined"
-    };
-
-    var touchHandler = function (event) {
-        var touch;
-        if (typeof event !== 'undefined') {
-            event.preventDefault();
-            if (typeof event.touches !== 'undefined') {
-                touch = event.touches[0];
-                switch (event.type) {
-                    case 'touchstart':
-                    case 'touchmove':
-                        touches[event.type].x = touch.pageX;
-                        touches[event.type].y = touch.pageY;
-                        break;
-                    case 'touchend':
-                        touches[event.type] = true;
-                        if (touches.touchstart.x > -1 && touches.touchmove.x > -1) {
-                            touches.direction = touches.touchstart.x < touches.touchmove.x ? "right" : "left";
-                            if (callback !== null)
-                                callback(touches.direction);
-                            if (fire !== null && fire.direction === touches.direction)
-                                fire.cb();
-                        }
-                        break;
-                }
-            }
-            switch (event.type) {
-                case 'mousedown':
-                case 'mousemove':
-                    touches[event.type].x = event.pageX;
-                    touches[event.type].y = event.pageY;
-                    break;
-                case "mouseup":
-                    touches[event.type] = true;
-                    if (touches.mousedown.x > -1 && touches.mousemove.x > -1) {
-                        touches.direction = touches.mousedown.x < touches.mousemove.x ? "right" : "left";
-                        if (callback !== null)
-                            callback(touches.direction);
-                        if (fire !== null && fire.direction === touches.direction)
-                            fire.cb();
-                    }
-                    break;
-            }
-        }
-    };
-
-    var callback = null;
-    this.__defineSetter__('event', function (val) {
-        callback = val;
-    });
-
-    var fire = {};
-    this.fire = function (direction, cb) {
-        fire.cb = cb;
-        fire.direction = direction;
-    };
-
-    this.init = function () {
-        container.addEventListener('touchstart', touchHandler, false);
-        container.addEventListener('touchmove', touchHandler, false);
-        container.addEventListener('touchend', touchHandler, false);
-        container.addEventListener('mousedown', touchHandler, false);
-        container.addEventListener('mousemove', touchHandler, false);
-        container.addEventListener('mouseup', touchHandler, false);
-    };
-
-    this.init();
-};
 
 var isMobile = {
     Android: function() {
@@ -395,8 +318,8 @@ var rexonamotion = function () {
                                 var maleFirst = function () {
                                     var q = $.Deferred();
                                     var swiped = false;
-                                    var pageSwiper = new Swiper($('.male-run')[0]);
-                                    pageSwiper.fire('left', function () {
+
+                                    $('.male-run')[0].addEventListener('swipeleft', function () {
                                         if (swiped) return false;
                                         swiped = true;
                                         app.tracker('E','swiped');
@@ -441,7 +364,7 @@ var rexonamotion = function () {
                                                 });
                                             }
                                         });
-                                    });
+                                    }, false);
 
 
                                     return q.promise();
@@ -651,8 +574,7 @@ var rexonamotion = function () {
                                 var femaleFirst = function () {
                                     var q = $.Deferred();
                                     var swiped = false;
-                                    var pageSwiper = new Swiper($('.female-run')[0]);
-                                    pageSwiper.fire('left', function () {
+                                    $('.female-run')[0].addEventListener('swipeleft', function () {
                                         if (swiped) return false;
                                         swiped = true;
                                         clearTimeout(firstTimeout);
@@ -696,7 +618,7 @@ var rexonamotion = function () {
                                                 });
                                             }
                                         });
-                                    });
+                                    }, false);
 
                                     return q.promise();
                                 };
