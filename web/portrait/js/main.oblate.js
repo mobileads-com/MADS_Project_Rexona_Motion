@@ -316,20 +316,21 @@ var rexonamotion = function () {
             var $container = $(app.contentTag);
             var $delayEachFrame = 1500,
                 $sensitivity = 10;
-            $container.load('tpl/template.html', function () {
+            $container[0].innerHTML = '<div id="jar" class="pt-perspective"> <div class="pt-page ff"> <div class="bg"></div><div class="la_click absolute" data-select="female"></div><div class="ra_click absolute" data-select="male"></div><div class="header"><span class="bold baru">BARU!</span><span class="bold rexmotion">REXONA MOTIONSENSE&#8482;</span><span class="pilih">PILIH SALAH SATU</span> </div><div class="content"> <div class="female"><img src="img/fem-product.png" alt="Rexona Motionsense Wanita"/><span class="bold wanita">WANITA</span></div><div class="separator"></div><div class="male"><img src="img/mal-product.png" alt="Rexona Motionsense Pria"/><span class="bold pria">PRIA</span></div></div><div class="footer"><span class="bold seharian">SEHARIAN BERAKTIVITAS</span><span class="bold akan">AKAN MEMBUATMU BERKERINGAT</span><span class="cari">CARI TAHU CARA TETAP SEGAR</span><span class="si">DI SETIAP GERAKMU</span></div></div><div class="pt-page male-run"> <div class="bg"></div><div class="absolute product-male"><img src="img/mal-product.png" alt="Rexona Motionsense Pria"/></div><div class="header"> <span class="bold title">KETIKA<br>BEROLAHRAGA</span> <div class="logo absolute"></div></div><div class="footer"> <div class="block"> <div class="vertical-lines absolute"></div><div class="timeline absolute one"> <div class="first"> <canvas class="bubble"></canvas> <span class="bold">06:00</span></div><div class="second"> <canvas class="bubble"></canvas> <span class="bold">06:15</span></div><div class="third"> <canvas class="bubble"></canvas> <span class="bold">06:30</span></div></div></div></div><div class="absolute image male-run-1"></div><div class="action absolute"></div></div><div class="pt-page male-music"> <div class="bg"></div><div class="absolute product-male"><img src="img/mal-product.png" alt="Rexona Motionsense Pria"/></div><div class="header"> <span class="bold title">MENARI SAMBIL<br>MENDENGARKAN MUSIK</span> <div class="logo absolute"></div></div><div class="footer"> <div class="block"> <div class="vertical-lines absolute"></div><div class="timeline absolute one"> <div class="first"> <canvas class="bubble"></canvas> <span class="bold">10:00</span></div><div class="second"> <canvas class="bubble"></canvas> <span class="bold">10:15</span></div><div class="third"> <canvas class="bubble"></canvas> <span class="bold">10:30</span></div></div></div></div><div class="absolute image male-music-1"></div><div class="action absolute"></div></div><div class="pt-page male-idea"> <div class="bg"></div><div class="absolute product-male"><img src="img/mal-product.png" alt="Rexona Motionsense Pria"/></div><div class="header"> <span class="bold title">ATAU KETIKA<br>MEETING</span> <div class="logo absolute"></div></div><div class="footer"> <div class="block"> <div class="vertical-lines absolute"></div><div class="timeline absolute one"> <div class="first"> <canvas class="bubble"></canvas> <span class="bold">17:00</span></div><div class="second"> <canvas class="bubble"></canvas> <span class="bold">17:15</span></div><div class="third"> <canvas class="bubble"></canvas> <span class="bold">17:30</span></div></div></div></div><div class="absolute image male-idea-1"></div><div class="action absolute"></div></div><div class="pt-page female-run"> <div class="bg"></div><div class="absolute product-female"><img src="img/fem-product.png" alt="Rexona Motionsense Wanita"/></div><div class="header"> <span class="bold title">KETIKA<br>BEROLAHRAGA</span> <div class="logo absolute"></div></div><div class="footer"> <div class="block"> <div class="vertical-lines absolute"></div><div class="timeline absolute one"> <div class="first"> <canvas class="bubble"></canvas> <span class="bold">06:00</span></div><div class="second"> <canvas class="bubble"></canvas> <span class="bold">06:15</span></div><div class="third"> <canvas class="bubble"></canvas> <span class="bold">06:30</span></div></div></div></div><div class="absolute image female-run-1"></div><div class="action absolute"></div></div><div class="pt-page female-music"> <div class="bg"></div><div class="absolute product-female"><img src="img/fem-product.png" alt="Rexona Motionsense Wanita"/></div><div class="header"> <span class="bold title">MENARI SAMBIL<br>MENDENGARKAN MUSIK</span> <div class="logo absolute"></div></div><div class="footer"> <div class="block"> <div class="vertical-lines absolute"></div><div class="timeline absolute one"> <div class="first"> <canvas class="bubble"></canvas> <span class="bold">10:00</span></div><div class="second"> <canvas class="bubble"></canvas> <span class="bold">10:15</span></div><div class="third"> <canvas class="bubble"></canvas> <span class="bold">10:30</span></div></div></div></div><div class="absolute image female-music-1"></div><div class="action absolute"></div></div><div class="pt-page female-idea"> <div class="bg"></div><div class="absolute product-female"><img src="img/fem-product.png" alt="Rexona Motionsense Wanita"/></div><div class="header"> <span class="bold title">ATAU KETIKA<br>MEETING</span> <div class="logo absolute"></div></div><div class="footer"> <div class="block"> <div class="vertical-lines absolute"></div><div class="timeline absolute one"> <div class="first"> <canvas class="bubble"></canvas> <span class="bold">17:00</span></div><div class="second"> <canvas class="bubble"></canvas> <span class="bold">17:15</span></div><div class="third"> <canvas class="bubble"></canvas> <span class="bold">17:30</span></div></div></div></div><div class="absolute image female-idea-1"></div><div class="action absolute"></div></div><div class="pt-page lf"> <div class="bg"></div><div class="header"> <span class="bold title">BARU REXONA<br>MOTIONSENSE&#8482;</span> <span class="medium sub">MENJAGAMU TETAP<br>SEGAR DI SETIAP<br>GERAKAN</span> </div><div class="content"><div id="player"></div></div><div class="footer"> <div class="products"> <div class="female"><img src="img/fem-product.png" alt="Rexona Motionsense Wanita"/><span class="bold wanita">WANITA</span></div><div class="male"><img src="img/mal-product.png" alt="Rexona Motionsense Pria"/><span class="bold pria">PRIA</span></div></div><div class="actions"> <button class="bold">TAP DI SINI</button> <span class="bold">UNTUK INFO <br>& TIPS MENARIK</span> </div><div class="logo-motion"></div></div><div class="trigger_landing_site absolute"></div></div></div>';
+            //$container.load('tpl/template.html', function () {
                 app.loadJs('js/libs.js', function () {
                     app.loadJs('js/pagetransitions.js', function () {
                         var $video = new ytComponent({
                             'container': 'player',
                             'width': '320',
                             'height': '185',
-                            'videoId': 'hUjMb5z2JR8',
+                            'videoId': '42Y5u7VH1Bw',
                             'autoplay': false,
                             'tracker': app.tracker
                         });
                         var $pt = window.PageTransitions || null;
                         $('.ra_click').on('click', function () {
-                            app.tracker('E', 'male_product');
+                            app.tracker('E', 'pria');
                             $pt.nextPage({
                                 animation: 46, finished: function () {
                                     var maleFirst = function () {
@@ -338,13 +339,7 @@ var rexonamotion = function () {
                                         var swiper = function () {
                                             if (swiped) return false;
                                             swiped = true;
-                                            app.tracker('E', 'swiped');
-                                            //window.setTimeout(function () {
-                                            //    $('.male-run .image').removeClass('male-run-1').addClass('male-run-2');
-                                            //}, $firstAnimFrame);
-                                            //window.setTimeout(function () {
-                                            //    $('.male-run .image').removeClass('male-run-2').addClass('male-run-3');
-                                            //}, $secondAnimFrame);
+                                            app.tracker('E', 'pria_swipe');
                                             $('.male-run .action').css('opacity', 0);
                                             playMolecule('.male-run .timeline .first .bubble', {
                                                 middle: function () {
@@ -398,7 +393,7 @@ var rexonamotion = function () {
                                                     dontStart = false;
                                                     clearTimeout(app.autoTimeout);
                                                     shaked = true;
-                                                    app.tracker('E', 'shaked');
+                                                    app.tracker('E', 'pria_shake');
                                                     if (typeof myShakeEvent !== 'undefined')
                                                         myShakeEvent.stop();
                                                     $('.male-music .action').css('opacity', 0);
@@ -491,7 +486,7 @@ var rexonamotion = function () {
                                                     $('.male-idea .action').css('opacity', 0);
                                                     //clearTimeout(firstTimeout);
                                                     //clearTimeout(secondTimeout);
-                                                    app.tracker('E', 'tilt');
+                                                    app.tracker('E', 'pria_tilt');
                                                     //firstTimeout = setTimeout(function () {
                                                     //    $('.male-idea .image').removeClass('male-idea-1').addClass('male-idea-2');
                                                     //}, $firstAnimFrame);
@@ -570,7 +565,7 @@ var rexonamotion = function () {
                                         .then(maleThird)
                                         .then(function () {
                                             $('.trigger_landing_site').on('click', function () {
-                                                app.tracker('E', 'site');
+                                                app.tracker('E', 'rexona_lp');
                                                 app.linkOpener('http://www.rexona.co.id/');
                                             }).css('z-index', 199);
                                             $pt.nextPage({
@@ -583,6 +578,7 @@ var rexonamotion = function () {
                             });
                         });
                         $('.la_click').on('click', function () {
+                            app.tracker('E', 'wanita');
                             $pt.nextPage({
                                 showPage: 4,
                                 animation: 47, finished: function () {
@@ -595,7 +591,7 @@ var rexonamotion = function () {
                                             swiped = true;
                                             //clearTimeout(firstTimeout);
                                             //clearTimeout(secondTimeout);
-                                            app.tracker('E', 'swiped');
+                                            app.tracker('E', 'wanita_swipe');
                                             //firstTimeout = setTimeout(function () {
                                             //    $('.female-run .image').removeClass('female-run-1').addClass('female-run-2');
                                             //}, $firstAnimFrame);
@@ -660,7 +656,7 @@ var rexonamotion = function () {
                                                     $('.female-music .action').css('opacity', 0);
                                                     //clearTimeout(firstTimeout);
                                                     //clearTimeout(secondTimeout);
-                                                    app.tracker('E', 'shaked');
+                                                    app.tracker('E', 'wanita_shake');
                                                     //firstTimeout = setTimeout(function () {
                                                     //    $('.female-music .image').removeClass('female-music-1').addClass('female-music-2');
                                                     //}, $firstAnimFrame);
@@ -744,7 +740,7 @@ var rexonamotion = function () {
                                                     $('.female-idea .action').css('opacity', 0);
                                                     //clearTimeout(firstTimeout);
                                                     //clearTimeout(secondTimeout);
-                                                    app.tracker('E', 'tilt');
+                                                    app.tracker('E', 'wanita_tilt');
                                                     //firstTimeout = setTimeout(function () {
                                                     //    $('.female-idea .image').removeClass('female-idea-1').addClass('female-idea-2');
                                                     //}, $firstAnimFrame);
@@ -823,7 +819,7 @@ var rexonamotion = function () {
                                         .then(femaleThird)
                                         .then(function () {
                                             $('.trigger_landing_site').on('click', function () {
-                                                app.tracker('E', 'site');
+                                                app.tracker('E', 'rexona_lp');
                                                 app.linkOpener('http://www.rexona.co.id/');
                                             }).css('z-index', 199);
                                             $pt.nextPage({
@@ -837,7 +833,7 @@ var rexonamotion = function () {
                         });
                     });
                 });
-            });
+            //});
         })(jQuery);
     });
 
