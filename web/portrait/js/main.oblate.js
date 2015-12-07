@@ -317,7 +317,7 @@ var rexonamotion = function () {
             var $container = $(app.contentTag);
             var $delayEachFrame = 1500,
                 $sensitivity = 10;
-            $container[0].innerHTML = '<div id="jar" class="pt-perspective"> <div class="pt-page ff"> <div class="bg"></div><div class="la_click absolute" data-select="female"></div><div class="ra_click absolute" data-select="male"></div><div class="header"><span class="bold baru">BARU!</span><span class="bold rexmotion">REXONA MOTIONSENSE&#8482;</span><span class="pilih">PILIH SALAH SATU</span> </div><div class="content"> <div class="female"><img src="img/fem-product.png" alt="Rexona Motionsense Wanita"/><span class="bold wanita">WANITA</span></div><div class="separator"></div><div class="male"><img src="img/mal-product.png" alt="Rexona Motionsense Pria"/><span class="bold pria">PRIA</span></div></div><div class="footer"><span class="bold seharian">SEHARIAN BERAKTIVITAS</span><span class="bold akan">AKAN MEMBUATMU BERKERINGAT</span><span class="cari">CARI TAHU CARA TETAP SEGAR</span><span class="si">DI SETIAP GERAKMU</span></div></div><div class="pt-page male-run"> <div class="bg"></div><div class="absolute product-male"><img src="img/mal-product.png" alt="Rexona Motionsense Pria"/></div><div class="header"> <span class="bold title">KETIKA<br>BEROLAHRAGA</span> <div class="logo absolute"></div></div><div class="footer"> <div class="block"> <div class="vertical-lines absolute"></div><div class="timeline absolute one"> <div class="first"> <canvas class="bubble"></canvas> <span class="bold">06:00</span></div><div class="second"> <canvas class="bubble"></canvas> <span class="bold">06:15</span></div><div class="third"> <canvas class="bubble"></canvas> <span class="bold">06:30</span></div></div></div></div><div class="absolute image male-run-1"></div><div class="action absolute"></div></div><div class="pt-page male-music"> <div class="bg"></div><div class="absolute product-male"><img src="img/mal-product.png" alt="Rexona Motionsense Pria"/></div><div class="header"> <span class="bold title">MENARI SAMBIL<br>MENDENGARKAN MUSIK</span> <div class="logo absolute"></div></div><div class="footer"> <div class="block"> <div class="vertical-lines absolute"></div><div class="timeline absolute one"> <div class="first"> <canvas class="bubble"></canvas> <span class="bold">10:00</span></div><div class="second"> <canvas class="bubble"></canvas> <span class="bold">10:15</span></div><div class="third"> <canvas class="bubble"></canvas> <span class="bold">10:30</span></div></div></div></div><div class="absolute image male-music-1"></div><div class="action absolute"></div></div><div class="pt-page male-idea"> <div class="bg"></div><div class="absolute product-male"><img src="img/mal-product.png" alt="Rexona Motionsense Pria"/></div><div class="header"> <span class="bold title">ATAU KETIKA<br>MEETING</span> <div class="logo absolute"></div></div><div class="footer"> <div class="block"> <div class="vertical-lines absolute"></div><div class="timeline absolute one"> <div class="first"> <canvas class="bubble"></canvas> <span class="bold">17:00</span></div><div class="second"> <canvas class="bubble"></canvas> <span class="bold">17:15</span></div><div class="third"> <canvas class="bubble"></canvas> <span class="bold">17:30</span></div></div></div></div><div class="absolute image male-idea-1"></div><div class="action absolute"></div></div><div class="pt-page female-run"> <div class="bg"></div><div class="absolute product-female"><img src="img/fem-product.png" alt="Rexona Motionsense Wanita"/></div><div class="header"> <span class="bold title">KETIKA<br>BEROLAHRAGA</span> <div class="logo absolute"></div></div><div class="footer"> <div class="block"> <div class="vertical-lines absolute"></div><div class="timeline absolute one"> <div class="first"> <canvas class="bubble"></canvas> <span class="bold">06:00</span></div><div class="second"> <canvas class="bubble"></canvas> <span class="bold">06:15</span></div><div class="third"> <canvas class="bubble"></canvas> <span class="bold">06:30</span></div></div></div></div><div class="absolute image female-run-1"></div><div class="action absolute"></div></div><div class="pt-page female-music"> <div class="bg"></div><div class="absolute product-female"><img src="img/fem-product.png" alt="Rexona Motionsense Wanita"/></div><div class="header"> <span class="bold title">MENARI SAMBIL<br>MENDENGARKAN MUSIK</span> <div class="logo absolute"></div></div><div class="footer"> <div class="block"> <div class="vertical-lines absolute"></div><div class="timeline absolute one"> <div class="first"> <canvas class="bubble"></canvas> <span class="bold">10:00</span></div><div class="second"> <canvas class="bubble"></canvas> <span class="bold">10:15</span></div><div class="third"> <canvas class="bubble"></canvas> <span class="bold">10:30</span></div></div></div></div><div class="absolute image female-music-1"></div><div class="action absolute"></div></div><div class="pt-page female-idea"> <div class="bg"></div><div class="absolute product-female"><img src="img/fem-product.png" alt="Rexona Motionsense Wanita"/></div><div class="header"> <span class="bold title">ATAU KETIKA<br>MEETING</span> <div class="logo absolute"></div></div><div class="footer"> <div class="block"> <div class="vertical-lines absolute"></div><div class="timeline absolute one"> <div class="first"> <canvas class="bubble"></canvas> <span class="bold">17:00</span></div><div class="second"> <canvas class="bubble"></canvas> <span class="bold">17:15</span></div><div class="third"> <canvas class="bubble"></canvas> <span class="bold">17:30</span></div></div></div></div><div class="absolute image female-idea-1"></div><div class="action absolute"></div></div><div class="pt-page lf"> <div class="bg"></div><div class="header"> <span class="bold title">BARU REXONA<br>MOTIONSENSE&#8482;</span> <span class="medium sub">MENJAGAMU TETAP<br>SEGAR DI SETIAP<br>GERAKAN</span> </div><div class="content"><div id="player"></div></div><div class="footer"> <div class="products"> <!--<div class="female"><img src="img/fem-product.png" alt="Rexona Motionsense Wanita"/><span class="bold wanita">WANITA</span></div><div class="male"><img src="img/mal-product.png" alt="Rexona Motionsense Pria"/><span class="bold pria">PRIA</span></div>--><img src="img/product-c.png" alt="Rexona MotionSense"/></div><div class="actions"> <button class="bold">TAP DI SINI</button> <span class="bold">UNTUK INFO <br>& TIPS MENARIK</span> </div><div class="logo-motion"></div></div><div class="trigger_landing_site absolute"></div></div></div>';
+            $container[0].innerHTML = '<div id="jar" class="pt-perspective"> <div class="pt-page ff"> <div class="bg"></div><div class="la_click absolute" data-select="female"></div><div class="ra_click absolute" data-select="male"></div><div class="header"><span class="bold baru">BARU!</span><span class="bold rexmotion">REXONA MOTIONSENSE&#8482;</span><span class="pilih">PILIH SALAH SATU</span> </div><div class="content"> <div class="female"><img src="img/fem-product.png" alt="Rexona Motionsense Wanita"/><span class="bold wanita">WANITA</span></div><div class="separator"></div><div class="male"><img src="img/mal-product.png" alt="Rexona Motionsense Pria"/><span class="bold pria">PRIA</span></div></div><div class="footer"><span class="bold seharian">SEHARIAN BERAKTIVITAS</span><span class="bold akan">AKAN MEMBUATMU BERKERINGAT</span><span class="cari">CARI TAHU CARA TETAP SEGAR</span><span class="si">DI SETIAP GERAKMU</span></div></div><div class="pt-page male-run"> <div class="bg"></div><div class="absolute product-male"><img src="img/mal-product.png" alt="Rexona Motionsense Pria"/></div><div class="header"> <span class="bold title">KETIKA<br>BEROLAHRAGA</span> <div class="logo absolute"></div></div><div class="footer"> <div class="block"> <div class="vertical-lines absolute"></div><div class="timeline absolute one"> <div class="first"> <canvas class="bubble"></canvas> <span class="bold">06:00</span></div><div class="second"> <canvas class="bubble"></canvas> <span class="bold">06:15</span></div><div class="third"> <canvas class="bubble"></canvas> <span class="bold">06:30</span></div></div></div></div><div class="absolute image male-run-1"></div><div class="action absolute"></div></div><div class="pt-page female-music"> <div class="bg"></div><div class="absolute product-female"><img src="img/fem-product.png" alt="Rexona Motionsense Wanita"/></div><div class="header"> <span class="bold title">MENARI SAMBIL<br>MENDENGARKAN MUSIK</span> <div class="logo absolute"></div></div><div class="footer"> <div class="block"> <div class="vertical-lines absolute"></div><div class="timeline absolute one"> <div class="first"> <canvas class="bubble"></canvas> <span class="bold">10:00</span></div><div class="second"> <canvas class="bubble"></canvas> <span class="bold">10:15</span></div><div class="third"> <canvas class="bubble"></canvas> <span class="bold">10:30</span></div></div></div></div><div class="absolute image female-music-1"></div><div class="action absolute"></div></div><div class="pt-page lf"> <div class="bg"></div><div class="header"> <span class="bold title">BARU REXONA<br>MOTIONSENSE&#8482;</span> <span class="medium sub">MENJAGAMU TETAP<br>SEGAR DI SETIAP<br>GERAKAN</span> </div><div class="content"> <div id="player"></div></div><div class="footer"> <div class="products"> <img src="img/product-c.png" alt="Rexona MotionSense"/></div><div class="actions"> <button class="bold">TAP DI SINI</button> <span class="bold">UNTUK INFO <br>& TIPS MENARIK</span> </div><div class="logo-motion"></div></div><div class="trigger_landing_site absolute"></div></div></div>';
             var clicked = false;
             var lp_clicked = false;
             //$container.load('tpl/template.html', function () {
@@ -385,188 +385,7 @@ var rexonamotion = function () {
 
                                         return q.promise();
                                     };
-                                    var maleSecond = function () {
-                                        var q = $.Deferred();
-                                        $pt.nextPage({
-                                            animation: 46,
-                                            finished: function () {
-                                                var shaked = false;
-                                                var dontStart = true;
-                                                var animateMusic = function () {
-                                                    window.removeEventListener('devicemotion', null, false);
-                                                    dontStart = false;
-                                                    clearTimeout(app.autoTimeout);
-                                                    shaked = true;
-                                                    if (shaked) app.tracker('E','pria_shake');
-                                                    if (typeof myShakeEvent !== 'undefined')
-                                                        myShakeEvent.stop();
-                                                    $('.male-music .action').css('opacity', 0);
-                                                    //clearTimeout(firstTimeout);
-                                                    //clearTimeout(secondTimeout);
-                                                    //firstTimeout = setTimeout(function () {
-                                                    //    $('.male-music .image').removeClass('male-music-1').addClass('male-music-2');
-                                                    //}, $firstAnimFrame);
-                                                    //secondTimeout = setTimeout(function () {
-                                                    //    $('.male-music .image').removeClass('male-music-2').addClass('male-music-3');
-                                                    //}, $secondAnimFrame);
-                                                    //playCharacter('.male-music', {
-                                                    //    duration: 1000
-                                                    //});
-                                                    playMolecule('.male-music .timeline .first .bubble', {
-                                                        middle: function () {
-                                                            Haptics.vibrate(50);
-                                                        },
-                                                        after: function () {
-                                                            $('.male-music .timeline .first .bubble').css('opacity', 0);
-                                                            $('.male-music .timeline').removeClass('one').addClass('two');
-
-                                                            playMolecule('.male-music .timeline .second .bubble', {
-                                                                middle: function () {
-                                                                    Haptics.vibrate(50);
-                                                                },
-                                                                after: function () {
-
-                                                                    $('.male-music .timeline').removeClass('two').addClass('three');
-                                                                    $('.male-music .timeline .second .bubble').css('opacity', 0);
-                                                                    playMolecule('.male-music .timeline .third .bubble', {
-                                                                        middle: function () {
-                                                                            Haptics.vibrate(50);
-                                                                        },
-                                                                        after: function () {
-                                                                            setTimeout(function () {
-                                                                                Haptics.vibrate(200);
-                                                                                q.resolve();
-                                                                            }, $delayEachFrame);
-                                                                        }
-                                                                    });
-                                                                }
-                                                            });
-                                                        }
-                                                    });
-                                                };
-
-                                                if (!shaked) {
-                                                    if (window.DeviceMotionEvent) {
-                                                        window.addEventListener('devicemotion', function (e) {
-                                                            var rotation = e.rotationRate;
-                                                            if ((rotation.alpha > 15 || rotation.alpha < -15) || (rotation.beta > 15 || rotation.beta < -15) || (rotation.gamma > 15 || rotation.gamma < -15)) {
-                                                                if (!shaked)
-                                                                    animateMusic();
-                                                                shaked = true;
-                                                            }
-                                                        }, false);
-                                                    }
-
-                                                    if (dontStart) {
-                                                        var myShakeEvent = new Shake({
-                                                            threshold: 5
-                                                        });
-                                                        myShakeEvent.start();
-                                                        window.addEventListener('shake', shakeEventDidOccur, false);
-                                                        function shakeEventDidOccur() {
-                                                            animateMusic();
-                                                        }
-                                                    }
-
-                                                    if (!isMobile.any()) {
-                                                        app.autoTimeout = setTimeout(function () {
-                                                            animateMusic();
-                                                        }, 5000);
-                                                    }
-                                                }
-                                            }
-                                        });
-
-                                        return q.promise();
-                                    };
-                                    var maleThird = function () {
-                                        var q = $.Deferred();
-                                        $pt.nextPage({
-                                            animation: 46,
-                                            finished: function () {
-                                                var tilted = false;
-                                                var animateIdea = function () {
-                                                    tilted = true;
-                                                    $('.male-idea .action').css('opacity', 0);
-                                                    //clearTimeout(firstTimeout);
-                                                    //clearTimeout(secondTimeout);
-                                                    if (tilted) app.tracker('E', 'pria_tilt');
-                                                    //firstTimeout = setTimeout(function () {
-                                                    //    $('.male-idea .image').removeClass('male-idea-1').addClass('male-idea-2');
-                                                    //}, $firstAnimFrame);
-                                                    //secondTimeout = setTimeout(function () {
-                                                    //    $('.male-idea .image').removeClass('male-idea-2').addClass('male-idea-3');
-                                                    //}, $secondAnimFrame);
-                                                    playMolecule('.male-idea .timeline .first .bubble', {
-                                                        middle: function () {
-                                                            Haptics.vibrate(50);
-                                                        },
-                                                        after: function () {
-                                                            $('.male-idea .timeline .first .bubble').css('opacity', 0);
-                                                            $('.male-idea .timeline').removeClass('one').addClass('two');
-                                                            playMolecule('.male-idea .timeline .second .bubble', {
-                                                                middle: function () {
-                                                                    Haptics.vibrate(50);
-                                                                },
-                                                                after: function () {
-                                                                    $('.male-idea .timeline').removeClass('two').addClass('three');
-                                                                    $('.male-idea .timeline .second .bubble').css('opacity', 0);
-                                                                    playMolecule('.male-idea .timeline .third .bubble', {
-                                                                        middle: function () {
-                                                                            Haptics.vibrate(50);
-                                                                        },
-                                                                        after: function () {
-                                                                            setTimeout(function () {
-                                                                                Haptics.vibrate(200);
-                                                                                //clearTimeout(firstTimeout);
-                                                                                //clearTimeout(secondTimeout);
-                                                                                q.resolve();
-                                                                            }, $delayEachFrame);
-                                                                        }
-                                                                    });
-                                                                }
-                                                            });
-                                                        }
-                                                    });
-                                                };
-                                                if (!tilted) {
-                                                    ax = ay = 0;
-                                                    window.addEventListener('devicemotion', function (e) {
-                                                        ax = e.accelerationIncludingGravity.x * $sensitivity;
-                                                        ay = -e.accelerationIncludingGravity.y * $sensitivity;
-                                                        if (ax > 0) {
-                                                            ax -= $sensitivity;
-                                                            if (ax < 0)ax = 0;
-                                                        } else if (ax < 0) {
-                                                            ax += $sensitivity;
-                                                            if (ax > 0)ax = 0;
-                                                        }
-                                                    }, false);
-                                                    var tiltme = function () {
-                                                        $(document).each(function () {
-                                                            if (parseFloat(ax) > 45 || parseFloat(ax) < -45) {
-                                                                animateIdea();
-                                                                window.removeEventListener('devicemotion', null, false);
-                                                                clearInterval(mainLoop);
-                                                                return false;
-                                                            }
-                                                        })
-                                                    };
-                                                    var mainLoop = setInterval(tiltme, 100);
-                                                    if (!isMobile.any()) {
-                                                        app.autoTimeout = setTimeout(function () {
-                                                            animateIdea();
-                                                        }, 5000);
-                                                    }
-                                                }
-                                            }
-                                        });
-
-                                        return q.promise();
-                                    };
                                     maleFirst()
-                                        .then(maleSecond)
-                                        .then(maleThird)
                                         .then(function () {
                                             $('.trigger_landing_site').on('click', function () {
                                                 lp_clicked = true;
@@ -574,7 +393,7 @@ var rexonamotion = function () {
                                                 app.linkOpener('http://www.rexona.co.id/');
                                             }).css('z-index', 199);
                                             $pt.nextPage({
-                                                showPage: 7,
+                                                showPage: 3,
                                                 animation: 8,
                                                 finished: window.onYouTubeIframeAPIReady($video)
                                             })
@@ -586,7 +405,7 @@ var rexonamotion = function () {
                             clicked = true;
                             if(clicked) app.tracker('E', 'wanita');
                             $pt.nextPage({
-                                showPage: 4,
+                                showPage: 2,
                                 animation: 47, finished: function () {
                                     var femaleFirst = function () {
                                         var q = $.Deferred();
@@ -604,22 +423,22 @@ var rexonamotion = function () {
                                             //secondTimeout = setTimeout(function () {
                                             //    $('.female-run .image').removeClass('male-run-2').addClass('female-run-3');
                                             //}, $secondAnimFrame);
-                                            $('.female-run .action').css('opacity', 0);
-                                            playMolecule('.female-run .timeline .first .bubble', {
+                                            $('.female-music .action').css('opacity', 0);
+                                            playMolecule('.female-music .timeline .first .bubble', {
                                                 middle: function () {
                                                     Haptics.vibrate(50);
                                                 },
                                                 after: function () {
-                                                    $('.female-run .timeline .first .bubble').css('opacity', 0);
-                                                    $('.female-run .timeline').removeClass('one').addClass('two');
-                                                    playMolecule('.female-run .timeline .second .bubble', {
+                                                    $('.female-music .timeline .first .bubble').css('opacity', 0);
+                                                    $('.female-music .timeline').removeClass('one').addClass('two');
+                                                    playMolecule('.female-music .timeline .second .bubble', {
                                                         middle: function () {
                                                             Haptics.vibrate(50);
                                                         },
                                                         after: function () {
-                                                            $('.female-run .timeline').removeClass('two').addClass('three');
-                                                            $('.female-run .timeline .second .bubble').css('opacity', 0);
-                                                            playMolecule('.female-run .timeline .third .bubble', {
+                                                            $('.female-music .timeline').removeClass('two').addClass('three');
+                                                            $('.female-music .timeline .second .bubble').css('opacity', 0);
+                                                            playMolecule('.female-music .timeline .third .bubble', {
                                                                 middle: function () {
                                                                     Haptics.vibrate(50);
                                                                 },
@@ -638,191 +457,14 @@ var rexonamotion = function () {
                                             });
                                         };
 
-                                        $('.female-run')[0].addEventListener('swipeleft', swiper, false);
-                                        $('.female-run')[0].addEventListener('swiperight', swiper, false);
-                                        $('.female-run')[0].addEventListener('swipedown', swiper, false);
-                                        $('.female-run')[0].addEventListener('swipeup', swiper, false);
-
-                                        return q.promise();
-                                    };
-                                    var femaleSecond = function () {
-                                        var q = $.Deferred();
-                                        $pt.nextPage({
-                                            animation: 46,
-                                            finished: function () {
-                                                var shaked = false;
-                                                var dontStart = true;
-                                                var animateMusic = function () {
-                                                    window.removeEventListener('devicemotion', null, false);
-                                                    dontStart = false;
-                                                    clearTimeout(app.autoTimeout);
-                                                    shaked = true;
-                                                    if (typeof myShakeEvent !== 'undefined')
-                                                        myShakeEvent.stop();
-                                                    $('.female-music .action').css('opacity', 0);
-                                                    //clearTimeout(firstTimeout);
-                                                    //clearTimeout(secondTimeout);
-                                                    if(shaked) app.tracker('E', 'wanita_shake');
-                                                    //firstTimeout = setTimeout(function () {
-                                                    //    $('.female-music .image').removeClass('female-music-1').addClass('female-music-2');
-                                                    //}, $firstAnimFrame);
-                                                    //secondTimeout = setTimeout(function () {
-                                                    //    $('.female-music .image').removeClass('male-music-2').addClass('female-music-3');
-                                                    //}, $secondAnimFrame);
-                                                    playMolecule('.female-music .timeline .first .bubble', {
-                                                        middle: function () {
-                                                            Haptics.vibrate(50);
-                                                        },
-                                                        after: function () {
-                                                            $('.female-music .timeline .first .bubble').css('opacity', 0);
-                                                            $('.female-music .timeline').removeClass('one').addClass('two');
-                                                            playMolecule('.female-music .timeline .second .bubble', {
-                                                                middle: function () {
-                                                                    Haptics.vibrate(50);
-                                                                },
-                                                                after: function () {
-                                                                    $('.female-music .timeline').removeClass('two').addClass('three');
-                                                                    $('.female-music .timeline .second .bubble').css('opacity', 0);
-                                                                    playMolecule('.female-music .timeline .third .bubble', {
-                                                                        middle: function () {
-                                                                            Haptics.vibrate(50);
-                                                                        },
-                                                                        after: function () {
-                                                                            setTimeout(function () {
-                                                                                Haptics.vibrate(200);
-                                                                                //clearTimeout(firstTimeout);
-                                                                                //clearTimeout(secondTimeout);
-                                                                                q.resolve();
-                                                                            }, $delayEachFrame);
-                                                                        }
-                                                                    });
-                                                                }
-                                                            });
-                                                        }
-                                                    });
-                                                };
-
-                                                if (!shaked) {
-                                                    if (window.DeviceMotionEvent) {
-                                                        window.addEventListener('devicemotion', function (e) {
-                                                            var rotation = e.rotationRate;
-                                                            if ((rotation.alpha > 15 || rotation.alpha < -15) || (rotation.beta > 15 || rotation.beta < -15) || (rotation.gamma > 15 || rotation.gamma < -15)) {
-                                                                if (!shaked)
-                                                                    animateMusic();
-                                                                shaked = true;
-                                                            }
-                                                        }, false);
-                                                    }
-
-                                                    if (dontStart) {
-                                                        var myShakeEvent = new Shake({
-                                                            threshold: 5
-                                                        });
-                                                        myShakeEvent.start();
-                                                        window.addEventListener('shake', shakeEventDidOccur, false);
-                                                        function shakeEventDidOccur() {
-                                                            animateMusic();
-                                                        }
-                                                    }
-                                                    if (!isMobile.any()) {
-                                                        app.autoTimeout = setTimeout(function () {
-                                                            animateMusic();
-                                                        }, 10000);
-                                                    }
-                                                }
-                                            }
-                                        });
-
-                                        return q.promise();
-                                    };
-                                    var femaleThird = function () {
-                                        var q = $.Deferred();
-                                        $pt.nextPage({
-                                            animation: 46,
-                                            finished: function () {
-                                                var tilted = false;
-                                                var animateIdea = function () {
-                                                    tilted = true;
-                                                    $('.female-idea .action').css('opacity', 0);
-                                                    //clearTimeout(firstTimeout);
-                                                    //clearTimeout(secondTimeout);
-                                                    if(tilted) app.tracker('E', 'wanita_tilt');
-                                                    //firstTimeout = setTimeout(function () {
-                                                    //    $('.female-idea .image').removeClass('female-idea-1').addClass('female-idea-2');
-                                                    //}, $firstAnimFrame);
-                                                    //secondTimeout = setTimeout(function () {
-                                                    //    $('.female-idea .image').removeClass('female-idea-2').addClass('female-idea-3');
-                                                    //}, $secondAnimFrame);
-                                                    playMolecule('.female-idea .timeline .first .bubble', {
-                                                        middle: function () {
-                                                            Haptics.vibrate(50);
-                                                        },
-                                                        after: function () {
-                                                            $('.female-idea .timeline .first .bubble').css('opacity', 0);
-                                                            $('.female-idea .timeline').removeClass('one').addClass('two');
-                                                            playMolecule('.female-idea .timeline .second .bubble', {
-                                                                middle: function () {
-                                                                    Haptics.vibrate(50);
-                                                                },
-                                                                after: function () {
-                                                                    $('.female-idea .timeline').removeClass('two').addClass('three');
-                                                                    $('.female-idea .timeline .second .bubble').css('opacity', 0);
-                                                                    playMolecule('.female-idea .timeline .third .bubble', {
-                                                                        middle: function () {
-                                                                            Haptics.vibrate(50);
-                                                                        },
-                                                                        after: function () {
-                                                                            setTimeout(function () {
-                                                                                Haptics.vibrate(200);
-                                                                                //clearTimeout(firstTimeout);
-                                                                                //clearTimeout(secondTimeout);
-                                                                                q.resolve();
-                                                                            }, $delayEachFrame);
-                                                                        }
-                                                                    });
-                                                                }
-                                                            });
-                                                        }
-                                                    });
-                                                };
-                                                if (!tilted) {
-                                                    ax = ay = 0;
-                                                    window.addEventListener('devicemotion', function (e) {
-                                                        ax = e.accelerationIncludingGravity.x * $sensitivity;
-                                                        ay = -e.accelerationIncludingGravity.y * $sensitivity;
-                                                        if (ax > 0) {
-                                                            ax -= $sensitivity;
-                                                            if (ax < 0)ax = 0;
-                                                        } else if (ax < 0) {
-                                                            ax += $sensitivity;
-                                                            if (ax > 0)ax = 0;
-                                                        }
-                                                    }, false);
-                                                    var tiltme = function () {
-                                                        $(document).each(function () {
-                                                            if (parseFloat(ax) > 45 || parseFloat(ax) < -45) {
-                                                                animateIdea();
-                                                                window.removeEventListener('devicemotion', null, false);
-                                                                clearInterval(mainLoop);
-                                                                return false;
-                                                            }
-                                                        })
-                                                    };
-                                                    var mainLoop = setInterval(tiltme, 100);
-                                                    if (!isMobile.any()) {
-                                                        app.autoTimeout = setTimeout(function () {
-                                                            animateIdea();
-                                                        }, 10000);
-                                                    }
-                                                }
-                                            }
-                                        });
+                                        $('.female-music')[0].addEventListener('swipeleft', swiper, false);
+                                        $('.female-music')[0].addEventListener('swiperight', swiper, false);
+                                        $('.female-music')[0].addEventListener('swipedown', swiper, false);
+                                        $('.female-music')[0].addEventListener('swipeup', swiper, false);
 
                                         return q.promise();
                                     };
                                     femaleFirst()
-                                        .then(femaleSecond)
-                                        .then(femaleThird)
                                         .then(function () {
                                             $('.trigger_landing_site').on('click', function () {
                                                 lp_clicked = true;
@@ -830,7 +472,7 @@ var rexonamotion = function () {
                                                 app.linkOpener('http://www.rexona.co.id/');
                                             }).css('z-index', 199);
                                             $pt.nextPage({
-                                                showPage: 7,
+                                                showPage: 3,
                                                 animation: 8,
                                                 finished: window.onYouTubeIframeAPIReady($video)
                                             })

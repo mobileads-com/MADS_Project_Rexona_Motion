@@ -163,7 +163,7 @@ span {
 }
 
 div[class*="music"] .action {
-    background: url(../img/shake.png) no-repeat;
+    background: url(../img/swipe.png) no-repeat;
 }
 
 div[class*="idea"] .action {
