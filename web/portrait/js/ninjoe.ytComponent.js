@@ -138,6 +138,7 @@ ytComponent.prototype.videoPlayLength = function () {
     if (perc == 25 && this.playTimeDone.indexOf(perc) == -1) {
         /* tracking */
         this.tracker('E', 'play_25');
+        this.tracker('E', 'rexona_video');
     } else if (perc == 50 && this.playTimeDone.indexOf(perc) == -1) {
         /* tracking */
         this.tracker('E', 'play_50');

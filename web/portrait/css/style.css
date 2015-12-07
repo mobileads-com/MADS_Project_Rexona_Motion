@@ -1,6 +1,6 @@
 body:after {
     display: none;
-    content: url(../img/bg.jpg) url(../img/bg-land.png) url(../img/bg-report.png) url(../img/bg-room.png) url(../img/block.png) url(../img/fem-product.png) url(../img/female-idea-1.png) url(../img/female-idea-2.png) url(../img/female-idea-3.png) url(../img/female-music-1.png) url(../img/female-music-2.png) url(../img/female-music-3.png) url(../img/female-run-1.png) url(../img/female-run-2.png) url(../img/female-run-3.png) url(../img/lines.png) url(../img/logo.png) url(../img/mal-product.png) url(../img/male-idea-1.png) url(../img/male-idea-2.png) url(../img/male-idea-3.png) url(../img/male-music-1.png) url(../img/male-music-2.png) url(../img/male-music-3.png) url(../img/male-run-1.png) url(../img/male-run-2.png) url(../img/male-run-3.png) url(../img/shake.png) url(../img/swipe.png) url(../img/tilt.png) url(../img/bg-last.jpg) url(../img/bubblesprite.png) url(../img/logo-motion.png);
+    content: url(../img/bg.jpg) url(../img/bg-land.png) url(../img/bg-report.png) url(../img/bg-room.png) url(../img/block.png) /* url(../img/fem-product.png)*/ url(../img/female-idea-1.png) url(../img/female-idea-2.png) url(../img/female-idea-3.png) url(../img/female-music-1.png) url(../img/female-music-2.png) url(../img/female-music-3.png) url(../img/female-run-1.png) url(../img/female-run-2.png) url(../img/female-run-3.png) url(../img/lines.png) url(../img/logo-motion.png) /* url(../img/mal-product.png)*/ url(../img/male-idea-1.png) url(../img/male-idea-2.png) url(../img/male-idea-3.png) url(../img/male-music-1.png) url(../img/male-music-2.png) url(../img/male-music-3.png) url(../img/male-run-1.png) url(../img/male-run-2.png) url(../img/male-run-3.png) url(../img/shake.png) url(../img/swipe.png) url(../img/tilt.png) url(../img/bg-last.jpg) url(../img/bubblesprite.png) url(../img/logo-motion.png) url(../img/product-c.png);
 }
 
 @font-face {
@@ -119,6 +119,32 @@ span {
     z-index: 10;
 }
 
+@-webkit-keyframes blink {
+    to {
+        visibility: hidden;
+    }
+
+}
+
+@-o-keyframes blink {
+    to {
+        visibility: hidden;
+    }
+}
+
+@-moz-keyframes blink {
+    to {
+        visibility: hidden;
+    }
+}
+
+@keyframes blink {
+    to {
+        visibility: hidden;
+    }
+
+}
+
 .action {
     background: url(../img/swipe.png) no-repeat;
     height: 108px;
@@ -131,6 +157,9 @@ span {
     -ms-transition: opacity 0.3s linear;
     -o-transition: opacity 0.3s linear;
     transition: opacity 0.3s linear;
+    -webkit-animation: blink 1s steps(5, start) infinite;
+    -o-animation: blink 1s steps(5, start) infinite;
+    animation: blink 1s steps(5, start) infinite;
 }
 
 div[class*="music"] .action {
@@ -166,9 +195,9 @@ div[class*="idea"] .action {
 }
 
 .logo {
-    background: url(../img/logo.png) no-repeat;
-    height: 55px;
-    width: 65px;
+    background: url(../img/logo-motion.png) no-repeat;
+    height: 80px;
+    width: 70px;
     right: 20px;
     top: 15px;
 }
@@ -398,10 +427,10 @@ canvas.bubble {
 /*}*/
 
 .trigger_landing_site {
-    width: 150px;
+    width: 320px;
     bottom: 0;
     height: 220px;
-    right: 0;
+    left: 0;
 }
 
 .image.absolute {
