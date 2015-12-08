@@ -149,20 +149,19 @@ span {
     width: 108px;
     right: -26px;
     top: 167px;
-    z-index: 11;
+    z-index: 0;
     -webkit-transition: opacity 0.3s linear;
     -moz-transition: opacity 0.3s linear;
     -ms-transition: opacity 0.3s linear;
     -o-transition: opacity 0.3s linear;
     transition: opacity 0.3s linear;
-
     -webkit-animation: blink 1s steps(5, start) infinite;
     -o-animation: blink 1s steps(5, start) infinite;
     animation: blink 1s steps(5, start) infinite;
 }
 
-.pt-page-current > .action {
-    visibility: visible;
+.pt-page-current .action {
+    z-index: 11;
 }
 
 .absolute.product-male {
