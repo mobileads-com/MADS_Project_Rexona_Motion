@@ -155,13 +155,14 @@ span {
     -ms-transition: opacity 0.3s linear;
     -o-transition: opacity 0.3s linear;
     transition: opacity 0.3s linear;
+
     -webkit-animation: blink 1s steps(5, start) infinite;
     -o-animation: blink 1s steps(5, start) infinite;
     animation: blink 1s steps(5, start) infinite;
 }
 
-div[class*="music"] .action {
-    background: url(../img/swipe.png) no-repeat;
+div[class*="run"] > .action, div[class*="music"] > .action {
+    visibility: visible;
 }
 
 .absolute.product-male {
