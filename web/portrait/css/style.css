@@ -161,7 +161,7 @@ span {
     animation: blink 1s steps(5, start) infinite;
 }
 
-div[class*="run"] > .action, div[class*="music"] > .action {
+.pt-page-current > .action {
     visibility: visible;
 }
 
