@@ -157,9 +157,9 @@ span {
     -ms-transition: opacity 0.3s linear;
     -o-transition: opacity 0.3s linear;
     transition: opacity 0.3s linear;
-    -webkit-animation: blink 1s steps(5, start) infinite;
-    -o-animation: blink 1s steps(5, start) infinite;
-    animation: blink 1s steps(5, start) infinite;
+    -webkit-animation: blink 3s steps(10, start) infinite;
+    -o-animation: blink 3s steps(10, start) infinite;
+    animation: blink 3s steps(10, start) infinite;
 }
 
 div[class*="music"] .action {
