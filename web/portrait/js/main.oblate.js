@@ -308,8 +308,6 @@ var rexonamotion = function () {
     }
     var app = new mads();
     app.autoTimeout = null;
-    app.loadCss('css/animations.css');
-    app.loadCss('css/style.min.css');
 
     app.loadJs('js/jquery-1.11.3.min.js', function () {
         if (typeof window.jQuery === 'undefined') return false;
@@ -320,172 +318,183 @@ var rexonamotion = function () {
             $container[0].innerHTML = '<div id="jar" class="pt-perspective"> <div class="pt-page ff"> <div class="bg"></div><div class="la_click absolute" data-select="female"></div><div class="ra_click absolute" data-select="male"></div><div class="header"><span class="bold baru">BARU!</span><span class="bold rexmotion">REXONA MOTIONSENSE&#8482;</span><span class="pilih">PILIH SALAH SATU</span> </div><div class="content"> <div class="female"><img src="img/fem-product.png" alt="Rexona Motionsense Wanita"/><span class="bold wanita">WANITA</span></div><div class="separator"></div><div class="male"><img src="img/mal-product.png" alt="Rexona Motionsense Pria"/><span class="bold pria">PRIA</span></div></div><div class="footer"><span class="bold seharian">SEHARIAN BERAKTIVITAS</span><span class="bold akan">AKAN MEMBUATMU BERKERINGAT</span><span class="cari">CARI TAHU CARA TETAP SEGAR</span><span class="si">DI SETIAP GERAKMU</span></div></div><div class="pt-page male-run"> <div class="bg"></div><div class="absolute product-male"><img src="img/mal-product.png" alt="Rexona Motionsense Pria"/></div><div class="header"> <span class="bold title">KETIKA<br>BEROLAHRAGA</span> <div class="logo absolute"></div></div><div class="footer"> <div class="block"> <div class="vertical-lines absolute"></div><div class="timeline absolute one"> <div class="first"> <canvas class="bubble"></canvas> <span class="bold">06:00</span></div><div class="second"> <canvas class="bubble"></canvas> <span class="bold">06:15</span></div><div class="third"> <canvas class="bubble"></canvas> <span class="bold">06:30</span></div></div></div></div><div class="absolute image male-run-1"></div><div class="action absolute"></div></div><div class="pt-page female-music"> <div class="bg"></div><div class="absolute product-female"><img src="img/fem-product.png" alt="Rexona Motionsense Wanita"/></div><div class="header"> <span class="bold title">MENARI SAMBIL<br>MENDENGARKAN MUSIK</span> <div class="logo absolute"></div></div><div class="footer"> <div class="block"> <div class="vertical-lines absolute"></div><div class="timeline absolute one"> <div class="first"> <canvas class="bubble"></canvas> <span class="bold">10:00</span></div><div class="second"> <canvas class="bubble"></canvas> <span class="bold">10:15</span></div><div class="third"> <canvas class="bubble"></canvas> <span class="bold">10:30</span></div></div></div></div><div class="absolute image female-music-1"></div><div class="action absolute"></div></div><div class="pt-page lf"> <div class="bg"></div><div class="header"> <span class="bold title">BARU REXONA<br>MOTIONSENSE&#8482;</span> <span class="medium sub">MENJAGAMU TETAP<br>SEGAR DI SETIAP<br>GERAKAN</span> </div><div class="content"> <div id="player"></div></div><div class="footer"> <div class="products"> <img src="img/product-c.png" alt="Rexona MotionSense"/></div><div class="actions"> <button class="bold">TAP DI SINI</button> <span class="bold">UNTUK INFO <br>& TIPS MENARIK</span> </div><div class="logo-motion"></div></div><div class="trigger_landing_site absolute"></div></div></div>';
             var clicked = false;
             var lp_clicked = false;
-            //$container.load('tpl/template.html', function () {
-                app.loadJs('js/libs.js', function () {
-                    app.loadJs('js/pagetransitions.js', function () {
-                        var $video = new ytComponent({
-                            'container': 'player',
-                            'width': '320',
-                            'height': '185',
-                            'videoId': '42Y5u7VH1Bw',
-                            'autoplay': false,
-                            'tracker': app.tracker
-                        });
-                        var $pt = window.PageTransitions || null;
-                        $('.ra_click').on('click', function () {
-                            clicked = true;
-                            if (clicked) app.tracker('E','pria');
-                            $pt.nextPage({
-                                animation: 46, finished: function () {
-                                    var maleFirst = function () {
-                                        var q = $.Deferred();
-                                        var swiped = false;
-                                        var swiper = function () {
-                                            if (swiped) return false;
-                                            swiped = true;
-                                            if (swiped) app.tracker('E','pria_swipe');
-                                            $('.male-run .action').css('opacity', 0);
-                                            playMolecule('.male-run .timeline .first .bubble', {
-                                                middle: function () {
-                                                    Haptics.vibrate(50);
-                                                },
-                                                after: function () {
-                                                    $('.male-run .timeline .first .bubble').css('opacity', 0);
-                                                    $('.male-run .timeline').removeClass('one').addClass('two');
+            app.loadJs('js/libs.js', function () {
+                app.loadJs('js/pagetransitions.js', function () {
+                    var $video = new ytComponent({
+                        'container': 'player',
+                        'width': '320',
+                        'height': '185',
+                        'videoId': '42Y5u7VH1Bw',
+                        'autoplay': false,
+                        'tracker': app.tracker
+                    });
+                    var $pt = window.PageTransitions || null;
+                    $('.ra_click').on('click', function () {
+                        clicked = true;
+                        if (clicked) app.tracker('E', 'pria');
+                        $pt.nextPage({
+                            animation: 46, finished: function () {
+                                var registerEvent = function (cb) {
+                                    $('.male-run')[0].addEventListener('swipeleft', cb, false);
+                                    $('.male-run')[0].addEventListener('swipeup', cb, false);
+                                    $('.male-run')[0].addEventListener('swipedown', cb, false);
+                                    $('.male-run')[0].addEventListener('swiperight', cb, false);
+                                };
 
-                                                    playMolecule('.male-run .timeline .second .bubble', {
-                                                        middle: function () {
-                                                            Haptics.vibrate(50);
-                                                        },
-                                                        after: function () {
-                                                            $('.male-run .timeline').removeClass('two').addClass('three');
-                                                            $('.male-run .timeline .second .bubble').css('opacity', 0);
-                                                            playMolecule('.male-run .timeline .third .bubble', {
-                                                                middle: function () {
-                                                                    Haptics.vibrate(50);
-                                                                },
-                                                                after: function () {
-                                                                    setTimeout(function () {
-                                                                        Haptics.vibrate(200);
-                                                                        q.resolve();
-                                                                    }, $delayEachFrame);
-                                                                }
-                                                            });
-                                                        }
-                                                    });
-                                                }
-                                            });
-                                        };
+                                var unregisterEvent = function (cb) {
+                                    $('.male-run')[0].removeEventListener('swipeleft', cb, false);
+                                    $('.male-run')[0].removeEventListener('swipeup', cb, false);
+                                    $('.male-run')[0].removeEventListener('swipedown', cb, false);
+                                    $('.male-run')[0].removeEventListener('swiperight', cb, false);
+                                };
 
-                                        $('.male-run')[0].addEventListener('swipeleft', swiper, false);
-                                        $('.male-run')[0].addEventListener('swipeup', swiper, false);
-                                        $('.male-run')[0].addEventListener('swipedown', swiper, false);
-                                        $('.male-run')[0].addEventListener('swiperight', swiper, false);
-
-
-                                        return q.promise();
-                                    };
-                                    maleFirst()
-                                        .then(function () {
-                                            $('.trigger_landing_site').on('click', function () {
-                                                lp_clicked = true;
-                                                if (lp_clicked) app.tracker('E', 'rexona_lp');
-                                                app.linkOpener('http://www.rexona.co.id/');
-                                            }).css('z-index', 199);
-                                            $pt.nextPage({
-                                                showPage: 3,
-                                                animation: 8,
-                                                finished: window.onYouTubeIframeAPIReady($video)
-                                            })
+                                var maleFirst = function () {
+                                    var swiper = function () {
+                                        unregisterEvent(swiper);
+                                        $('.male-run .action').css('opacity', 0);
+                                        playMolecule('.male-run .timeline .first .bubble', {
+                                            middle: function () {
+                                                Haptics.vibrate(50);
+                                            },
+                                            after: function () {
+                                                $('.male-run .timeline .first .bubble').css('opacity', 0);
+                                                $('.male-run .timeline').removeClass('one').addClass('two');
+                                                $('.male-run .action').css('opacity', 1);
+                                                registerEvent(swiper2);
+                                            }
                                         });
-                                }
-                            });
-                        });
-                        $('.la_click').on('click', function () {
-                            clicked = true;
-                            if(clicked) app.tracker('E', 'wanita');
-                            $pt.nextPage({
-                                showPage: 2,
-                                animation: 47, finished: function () {
-                                    var femaleFirst = function () {
-                                        var q = $.Deferred();
-                                        var swiped = false;
-
-                                            var swiper = function () {
-                                            if (swiped) return false;
-                                            swiped = true;
-                                            //clearTimeout(firstTimeout);
-                                            //clearTimeout(secondTimeout);
-                                            if(swiped) app.tracker('E', 'wanita_swipe');
-                                            //firstTimeout = setTimeout(function () {
-                                            //    $('.female-run .image').removeClass('female-run-1').addClass('female-run-2');
-                                            //}, $firstAnimFrame);
-                                            //secondTimeout = setTimeout(function () {
-                                            //    $('.female-run .image').removeClass('male-run-2').addClass('female-run-3');
-                                            //}, $secondAnimFrame);
-                                            $('.female-music .action').css('opacity', 0);
-                                            playMolecule('.female-music .timeline .first .bubble', {
-                                                middle: function () {
-                                                    Haptics.vibrate(50);
-                                                },
-                                                after: function () {
-                                                    $('.female-music .timeline .first .bubble').css('opacity', 0);
-                                                    $('.female-music .timeline').removeClass('one').addClass('two');
-                                                    playMolecule('.female-music .timeline .second .bubble', {
-                                                        middle: function () {
-                                                            Haptics.vibrate(50);
-                                                        },
-                                                        after: function () {
-                                                            $('.female-music .timeline').removeClass('two').addClass('three');
-                                                            $('.female-music .timeline .second .bubble').css('opacity', 0);
-                                                            playMolecule('.female-music .timeline .third .bubble', {
-                                                                middle: function () {
-                                                                    Haptics.vibrate(50);
-                                                                },
-                                                                after: function () {
-                                                                    setTimeout(function () {
-                                                                        Haptics.vibrate(200);
-                                                                        //clearTimeout(firstTimeout);
-                                                                        //clearTimeout(secondTimeout);
-                                                                        q.resolve();
-                                                                    }, $delayEachFrame);
-                                                                }
-                                                            });
-                                                        }
-                                                    });
-                                                }
-                                            });
-                                        };
-
-                                        $('.female-music')[0].addEventListener('swipeleft', swiper, false);
-                                        $('.female-music')[0].addEventListener('swiperight', swiper, false);
-                                        $('.female-music')[0].addEventListener('swipedown', swiper, false);
-                                        $('.female-music')[0].addEventListener('swipeup', swiper, false);
-
-                                        return q.promise();
                                     };
-                                    femaleFirst()
-                                        .then(function () {
-                                            $('.trigger_landing_site').on('click', function () {
-                                                lp_clicked = true;
-                                                if(lp_clicked) app.tracker('E', 'rexona_lp');
-                                                app.linkOpener('http://www.rexona.co.id/');
-                                            }).css('z-index', 199);
-                                            $pt.nextPage({
-                                                showPage: 3,
-                                                animation: 8,
-                                                finished: window.onYouTubeIframeAPIReady($video)
-                                            })
+
+                                    registerEvent(swiper);
+
+                                    var swiper2 = function () {
+                                        unregisterEvent(swiper2);
+                                        $('.male-run .action').css('opacity', 0);
+                                        playMolecule('.male-run .timeline .second .bubble', {
+                                            middle: function () {
+                                                Haptics.vibrate(50);
+                                            },
+                                            after: function () {
+                                                $('.male-run .timeline').removeClass('two').addClass('three');
+                                                $('.male-run .timeline .second .bubble').css('opacity', 0);
+                                                $('.male-run .action').css('opacity',1);
+                                                registerEvent(swiper3);
+                                            }
                                         });
-                                }
-                            });
+                                    };
+
+                                    var swiper3 = function () {
+                                        unregisterEvent(swiper3);
+                                        $('.male-run .action').css('opacity', 0);
+                                        playMolecule('.male-run .timeline .third .bubble', {
+                                            middle: function () {
+                                                Haptics.vibrate(50);
+                                            },
+                                            after: function () {
+                                                Haptics.vibrate(200);
+                                                $('.trigger_landing_site').on('click', function () {
+                                                    lp_clicked = true;
+                                                    if (lp_clicked) app.tracker('E', 'rexona_lp');
+                                                    app.linkOpener('http://www.rexona.co.id/');
+                                                }).css('z-index', 199);
+                                                $pt.nextPage({
+                                                    showPage: 3,
+                                                    animation: 8,
+                                                    finished: window.onYouTubeIframeAPIReady($video)
+                                                });
+                                            }
+                                        });
+                                    };
+                                }();
+                            }
+                        });
+                    });
+                    $('.la_click').on('click', function () {
+                        clicked = true;
+                        if (clicked) app.tracker('E', 'wanita');
+                        $pt.nextPage({
+                            showPage: 2,
+                            animation: 47, finished: function () {
+                                var registerEvent = function (cb) {
+                                    $('.female-music')[0].addEventListener('swipeleft', cb, false);
+                                    $('.female-music')[0].addEventListener('swipeup', cb, false);
+                                    $('.female-music')[0].addEventListener('swipedown', cb, false);
+                                    $('.female-music')[0].addEventListener('swiperight', cb, false);
+                                };
+                                var unregisterEvent = function (cb) {
+                                    $('.female-music')[0].removeEventListener('swipeleft', cb, false);
+                                    $('.female-music')[0].removeEventListener('swipeup', cb, false);
+                                    $('.female-music')[0].removeEventListener('swipedown', cb, false);
+                                    $('.female-music')[0].removeEventListener('swiperight', cb, false);
+                                };
+                                var femaleFirst = function () {
+                                    var swiper = function () {
+                                        unregisterEvent(swiper);
+                                        $('.female-music .action').css('opacity', 0);
+                                        playMolecule('.female-music .timeline .first .bubble', {
+                                            middle: function () {
+                                                Haptics.vibrate(50);
+                                            },
+                                            after: function () {
+                                                $('.female-music .timeline .first .bubble').css('opacity', 0);
+                                                $('.female-music .timeline').removeClass('one').addClass('two');
+                                                $('.female-music .action').css('opacity', 1);
+                                                registerEvent(swiper2);
+                                            }
+                                        });
+                                    };
+
+                                    registerEvent(swiper);
+
+                                    var swiper2 = function () {
+                                        unregisterEvent(swiper2);
+                                        $('.female-music .action').css('opacity', 0);
+                                        playMolecule('.female-music .timeline .second .bubble', {
+                                            middle: function () {
+                                                Haptics.vibrate(50);
+                                            },
+                                            after: function () {
+                                                $('.female-music .timeline').removeClass('two').addClass('three');
+                                                $('.female-music .timeline .second .bubble').css('opacity', 0);
+                                                $('.female-music .action').css('opacity', 1);
+                                                registerEvent(swiper3);
+                                            }
+                                        });
+                                    };
+
+                                    var swiper3 = function () {
+                                        unregisterEvent(swiper3);
+                                        $('.female-music .action').css('opacity', 0);
+                                        playMolecule('.female-music .timeline .third .bubble', {
+                                            middle: function () {
+                                                Haptics.vibrate(50);
+                                            },
+                                            after: function () {
+                                                Haptics.vibrate(200);
+                                                $('.trigger_landing_site').on('click', function () {
+                                                    lp_clicked = true;
+                                                    if (lp_clicked) app.tracker('E', 'rexona_lp');
+                                                    app.linkOpener('http://www.rexona.co.id/');
+                                                }).css('z-index', 199);
+                                                $pt.nextPage({
+                                                    showPage: 3,
+                                                    animation: 8,
+                                                    finished: window.onYouTubeIframeAPIReady($video)
+                                                });
+                                            }
+                                        });
+                                    };
+
+                                }();
+                            }
                         });
                     });
                 });
-            //});
+            });
         })(jQuery);
     });
-
+    app.loadCss('css/animations.css');
+    app.loadCss('css/style.min.css');
 
 };
 

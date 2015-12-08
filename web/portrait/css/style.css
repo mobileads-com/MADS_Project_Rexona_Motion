@@ -1,6 +1,6 @@
 body:after {
     display: none;
-    content: url(../img/bg.jpg) url(../img/bg-land.png) url(../img/bg-report.png) url(../img/bg-room.png) url(../img/block.png) /* url(../img/fem-product.png)*/ url(../img/female-idea-1.png) url(../img/female-idea-2.png) url(../img/female-idea-3.png) url(../img/female-music-1.png) url(../img/female-music-2.png) url(../img/female-music-3.png) url(../img/female-run-1.png) url(../img/female-run-2.png) url(../img/female-run-3.png) url(../img/lines.png) url(../img/logo-motion.png) /* url(../img/mal-product.png)*/ url(../img/male-idea-1.png) url(../img/male-idea-2.png) url(../img/male-idea-3.png) url(../img/male-music-1.png) url(../img/male-music-2.png) url(../img/male-music-3.png) url(../img/male-run-1.png) url(../img/male-run-2.png) url(../img/male-run-3.png) url(../img/swipe.png) url(../img/bg-last.jpg) url(../img/bubblesprite.png) url(../img/logo-motion.png) url(../img/product-c.png);
+    content: url(../img/bg.jpg) url(../img/bg-land.png) url(../img/bg-report.png) url(../img/bg-room.png) url(../img/block.png) url(../img/female-idea-1.png) url(../img/female-idea-2.png) url(../img/female-idea-3.png) url(../img/female-music-1.png) url(../img/female-music-2.png) url(../img/female-music-3.png) url(../img/female-run-1.png) url(../img/female-run-2.png) url(../img/female-run-3.png) url(../img/lines.png) url(../img/logo-motion.png) /* url(../img/mal-product.png)*/ url(../img/male-idea-1.png) url(../img/male-idea-2.png) url(../img/male-idea-3.png) url(../img/male-music-1.png) url(../img/male-music-2.png) url(../img/male-music-3.png) url(../img/male-run-1.png) url(../img/male-run-2.png) url(../img/male-run-3.png) url(../img/swipe.png) url(../img/bg-last.jpg) url(../img/bubblesprite.png) url(../img/logo-motion.png) url(../img/product-c.png);
 }
 
 @font-face {
@@ -123,7 +123,6 @@ span {
     to {
         visibility: hidden;
     }
-
 }
 
 @-o-keyframes blink {
@@ -142,7 +141,6 @@ span {
     to {
         visibility: hidden;
     }
-
 }
 
 .action {
@@ -157,17 +155,13 @@ span {
     -ms-transition: opacity 0.3s linear;
     -o-transition: opacity 0.3s linear;
     transition: opacity 0.3s linear;
-    -webkit-animation: blink 3s steps(10, start) infinite;
-    -o-animation: blink 3s steps(10, start) infinite;
-    animation: blink 3s steps(10, start) infinite;
+    -webkit-animation: blink 1s steps(5, start) infinite;
+    -o-animation: blink 1s steps(5, start) infinite;
+    animation: blink 1s steps(5, start) infinite;
 }
 
 div[class*="music"] .action {
     background: url(../img/swipe.png) no-repeat;
-}
-
-div[class*="idea"] .action {
-    background: url(../img/tilt.png) no-repeat;
 }
 
 .absolute.product-male {
@@ -394,11 +388,6 @@ div[class*="idea"] .action {
 
 .timeline .bubble {
     margin: 0 auto;
-    /*-webkit-transition: opacity 1s linear;*/
-    /*-moz-transition: opacity 1s linear;*/
-    /*-ms-transition: opacity 1s linear;*/
-    /*-o-transition: opacity 1s linear;*/
-    /*transition: opacity 1s linear;*/
 }
 
 .timeline > div {
