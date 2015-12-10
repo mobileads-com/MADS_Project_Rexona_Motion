@@ -1,5 +1,4 @@
 window.PageTransitions = (function () {
-
     var $main = $('#jar'),
         $pages = $main.children('div.pt-page'),
         $iterate = $('#iterateEffects'),
@@ -21,7 +20,6 @@ window.PageTransitions = (function () {
         support = Modernizr.cssanimations;
 
     function init() {
-
         //$pages = $main.children('div.pt-page');
 
         $pages.each(function () {
@@ -83,7 +81,6 @@ window.PageTransitions = (function () {
             outClass = '', inClass = '';
 
         switch (animation) {
-
             case 1:
                 outClass = 'pt-page-moveToLeft';
                 inClass = 'pt-page-moveFromRight';
@@ -398,4 +395,4 @@ window.PageTransitions = (function () {
         nextPage: nextPage
     };
 
-})();
+});

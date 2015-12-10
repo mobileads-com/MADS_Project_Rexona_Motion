@@ -1,3 +1,73 @@
+.pt-page-fade {
+    -webkit-animation: fade .7s ease both;
+    animation: fade .7s ease both;
+}
+.pt-page-moveFromTop {
+    -webkit-animation: moveFromTop .6s ease both;
+    animation: moveFromTop .6s ease both;
+}
+.pt-page-rotateFoldRight {
+    -webkit-transform-origin: 0% 50%;
+    transform-origin: 0% 50%;
+    -webkit-animation: rotateFoldRight .7s both ease;
+    animation: rotateFoldRight .7s both ease;
+}
+.pt-page-rotateFoldLeft {
+    -webkit-transform-origin: 100% 50%;
+    transform-origin: 100% 50%;
+    -webkit-animation: rotateFoldLeft .7s both ease;
+    animation: rotateFoldLeft .7s both ease;
+}
+.pt-page-moveFromRightFade {
+    -webkit-animation: moveFromRightFade .7s ease both;
+    animation: moveFromRightFade .7s ease both;
+}
+.pt-page-moveFromLeftFade {
+    -webkit-animation: moveFromLeftFade .7s ease both;
+    animation: moveFromLeftFade .7s ease both;
+}
+@-webkit-keyframes moveFromLeftFade {
+    from { opacity: 0.3; -webkit-transform: translateX(-100%); }
+}
+@keyframes moveFromLeftFade {
+    from { opacity: 0.3; -webkit-transform: translateX(-100%); transform: translateX(-100%); }
+}
+@-webkit-keyframes rotateFoldLeft {
+    from { }
+    to { opacity: 0; -webkit-transform: translateX(-100%) rotateY(-90deg); }
+}
+@keyframes rotateFoldLeft {
+    from { }
+    to { opacity: 0; -webkit-transform: translateX(-100%) rotateY(-90deg); transform: translateX(-100%) rotateY(-90deg); }
+}
+@-webkit-keyframes rotateFoldRight {
+    from { }
+    to { opacity: 0; -webkit-transform: translateX(100%) rotateY(90deg); }
+}
+@keyframes rotateFoldRight {
+    from { }
+    to { opacity: 0; -webkit-transform: translateX(100%) rotateY(90deg); transform: translateX(100%) rotateY(90deg); }
+}
+@-webkit-keyframes moveFromRightFade {
+    from { opacity: 0.3; -webkit-transform: translateX(100%); }
+}
+@keyframes moveFromRightFade {
+    from { opacity: 0.3; -webkit-transform: translateX(100%); transform: translateX(100%); }
+}
+@-webkit-keyframes moveFromTop {
+    from { -webkit-transform: translateY(-100%); }
+}
+@keyframes moveFromTop {
+    from { -webkit-transform: translateY(-100%); transform: translateY(-100%); }
+}
+@-webkit-keyframes fade {
+    from { }
+    to { opacity: 0.3; }
+}
+@keyframes fade {
+    from { }
+    to { opacity: 0.3; }
+}
 body:after {
     display: none;
     content: url(../img/bg.jpg) url(../img/bg-land.png) url(../img/bg-report.png) url(../img/bg-room.png) url(../img/block.png) url(../img/female-idea-1.png) url(../img/female-idea-2.png) url(../img/female-idea-3.png) url(../img/female-music-1.png) url(../img/female-music-2.png) url(../img/female-music-3.png) url(../img/female-run-1.png) url(../img/female-run-2.png) url(../img/female-run-3.png) url(../img/lines.png) url(../img/logo-motion.png) /* url(../img/mal-product.png)*/ url(../img/male-idea-1.png) url(../img/male-idea-2.png) url(../img/male-idea-3.png) url(../img/male-music-1.png) url(../img/male-music-2.png) url(../img/male-music-3.png) url(../img/male-run-1.png) url(../img/male-run-2.png) url(../img/male-run-3.png) url(../img/swipe.png) url(../img/bg-last.jpg) url(../img/bubblesprite.png) url(../img/logo-motion.png) url(../img/product-c.png);
