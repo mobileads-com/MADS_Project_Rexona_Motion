@@ -65,7 +65,7 @@ mads.prototype.linkOpener = function (url) {
 /* tracker */
 mads.prototype.tracker = function (tt, type, name, value) {
 
-    //console.log(type);
+    console.log(type);
     /* 
      * name is used to make sure that particular tracker is tracked for only once
      * there might have the same type in different location, so it will need the name to differentiate them
