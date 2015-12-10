@@ -104,7 +104,8 @@ ytComponent.prototype.onPlayerStateChange = function (event) {
         if (!this.replay) {
             /* Start RealTime */
             this.realTime = setInterval(this.curry(this.videoPlayLength, this), 100);
-
+            this.tracker('E','rexona_video');
+            console.log('rexona_video');
             this.tracker('E', 'playing');
         } else {
             this.tracker('E', 'replay');
