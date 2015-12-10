@@ -298,8 +298,10 @@ var rexonamotion = function () {
     $container.innerHTML = '<div id="jar" class="pt-perspective"> <div class="pt-page ff"> <div class="bg"></div><div class="la_click absolute" data-select="female"></div><div class="ra_click absolute" data-select="male"></div><div class="header"><span class="bold baru">BARU!</span><span class="bold rexmotion">REXONA MOTIONSENSE&#8482;</span><span class="pilih">PILIH SALAH SATU</span> </div><div class="content"> <div class="female"><img src="img/fem-product.png" alt="Rexona Motionsense Wanita"/><span class="bold wanita">WANITA</span></div><div class="separator"></div><div class="male"><img src="img/mal-product.png" alt="Rexona Motionsense Pria"/><span class="bold pria">PRIA</span></div></div><div class="footer"><span class="bold seharian">SEHARIAN BERAKTIVITAS</span><span class="bold akan">AKAN MEMBUATMU BERKERINGAT</span><span class="cari">CARI TAHU CARA TETAP SEGAR</span><span class="si">DI SETIAP GERAKMU</span></div></div><div class="pt-page male-run"> <div class="bg"></div><div class="absolute product-male"><img src="img/mal-product.png" alt="Rexona Motionsense Pria"/></div><div class="header"> <span class="bold title">KETIKA<br>BEROLAHRAGA</span> <div class="logo absolute"></div></div><div class="footer"> <div class="block"> <div class="vertical-lines absolute"></div><div class="timeline absolute one"> <div class="first"> <canvas class="bubble"></canvas> <span class="bold">06:00</span></div><div class="second"> <canvas class="bubble"></canvas> <span class="bold">06:15</span></div><div class="third"> <canvas class="bubble"></canvas> <span class="bold">06:30</span></div></div></div></div><div class="absolute image male-run-1"></div><div class="action absolute"></div></div><div class="pt-page female-music"> <div class="bg"></div><div class="absolute product-female"><img src="img/fem-product.png" alt="Rexona Motionsense Wanita"/></div><div class="header"> <span class="bold title">MENARI SAMBIL<br>MENDENGARKAN MUSIK</span> <div class="logo absolute"></div></div><div class="footer"> <div class="block"> <div class="vertical-lines absolute"></div><div class="timeline absolute one"> <div class="first"> <canvas class="bubble"></canvas> <span class="bold">10:00</span></div><div class="second"> <canvas class="bubble"></canvas> <span class="bold">10:15</span></div><div class="third"> <canvas class="bubble"></canvas> <span class="bold">10:30</span></div></div></div></div><div class="absolute image female-music-1"></div><div class="action absolute"></div></div><div class="pt-page lf"> <div class="bg"></div><div class="header"> <span class="bold title">BARU REXONA<br>MOTIONSENSE&#8482;</span> <span class="medium sub">MENJAGAMU TETAP<br>SEGAR DI SETIAP<br>GERAKAN</span> </div><div class="content"> <div id="player"></div></div><div class="footer"> <div class="products"> <img src="img/product-c.png" alt="Rexona MotionSense"/></div><div class="actions"> <button class="bold">TAP DI SINI</button> <span class="bold">UNTUK INFO <br>& TIPS MENARIK</span> </div><div class="logo-motion"></div></div><div class="trigger_landing_site absolute"></div></div></div>';
 
     //app.loadJs('js/libs.js', function () {
-    var clicked = false;
-    var lp_clicked = false;
+    var clicked = false,
+        lp_clicked = false,
+        pria_swipe = false,
+        wanita_swipe = false;
     var $video = new ytComponent({
         'container': 'player',
         'width': '320',
@@ -331,7 +333,8 @@ var rexonamotion = function () {
                 var maleFirst = function () {
                     var swiper = function () {
                         unregisterEvent(swiper);
-                        app.tracker('E', 'pria_swipe');
+                        pria_swipe = true;
+                        if (pria_swipe) app.tracker('E', 'pria_swipe');
                         $('.male-run .action').css('opacity', 0);
                         playMolecule('.male-run .timeline .first .bubble', {
                             middle: function () {
