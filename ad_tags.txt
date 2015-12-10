@@ -16,7 +16,7 @@ var rma ={
 };
 </script>
 <img src='https://www.cdn.serving1.net/t?i=cf145409af49ecfe1a7cfce0dbe69a6b&cb=${mw_bid_id}&customId=${mw_exchange_id}&dsp=other&customId=noblock' width='1px' height='1px' style='display:none' onerror="this.src='https://track.richmediaads.com/t?i=cf145409af49ecfe1a7cfce0dbe69a6b&cb=${mw_bid_id}&customId=${mw_exchange_id}&dsp=other&customId=adblock'" /><script src='mraid.js'></script><script type='text/javascript' src='https://cdn.serving1.net/general.js'></script>
-<img src="__MW_IMPRESSION_URL__" width="1px" height="1px" style="display:none" />
+<img src="http://bs.serving-sys.com/BurstingPipe/adServer.bs?cn=tf&c=19&mc=imp&pli=15698405&PluID=0&ord=[timestamp]&rtu=-1" width="1px" height="1px" style="display:none" />
 
 <!--
 Rich Media Ad Tag
@@ -36,4 +36,4 @@ var rma ={
 };
 </script>
 <img src='https://www.cdn.serving1.net/t?i=f998f07736097a44d9d8b36b026e1079&cb=${mw_bid_id}&customId=${mw_exchange_id}&dsp=other&customId=noblock' width='1px' height='1px' style='display:none' onerror="this.src='https://track.richmediaads.com/t?i=f998f07736097a44d9d8b36b026e1079&cb=${mw_bid_id}&customId=${mw_exchange_id}&dsp=other&customId=adblock'" /><script type='text/javascript' src='https://cdn.serving1.net/general.js'></script>
-<img src="__MW_IMPRESSION_URL__" width="1px" height="1px" style="display:none" />
+<img src="http://bs.serving-sys.com/BurstingPipe/adServer.bs?cn=tf&c=19&mc=imp&pli=15698405&PluID=0&ord=[timestamp]&rtu=-1" width="1px" height="1px" style="display:none" />
