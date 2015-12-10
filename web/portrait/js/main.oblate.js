@@ -331,6 +331,7 @@ var rexonamotion = function () {
                 var maleFirst = function () {
                     var swiper = function () {
                         unregisterEvent(swiper);
+                        app.tracker('E', 'pria_swipe');
                         $('.male-run .action').css('opacity', 0);
                         playMolecule('.male-run .timeline .first .bubble', {
                             middle: function () {
@@ -409,6 +410,7 @@ var rexonamotion = function () {
                 };
                 var femaleFirst = function () {
                     var swiper = function () {
+                        app.tracker('E','wanita_swipe');
                         unregisterEvent(swiper);
                         $('.female-music .action').css('opacity', 0);
                         playMolecule('.female-music .timeline .first .bubble', {
