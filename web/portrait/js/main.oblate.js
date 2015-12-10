@@ -301,7 +301,8 @@ var rexonamotion = function () {
     var clicked = false,
         lp_clicked = false,
         pria_swipe = false,
-        wanita_swipe = false;
+        wanita_swipe = false,
+        vidvid = false;
     var $video = new ytComponent({
         'container': 'player',
         'width': '320',
@@ -310,6 +311,11 @@ var rexonamotion = function () {
         'autoplay': false,
         'tracker': app.tracker
     });
+    $('#player').on('click', function () {
+        vidvid = true;
+        if(vidvid)
+            app.tracker('e','rexona_video');
+        console.log('played')});
     var $pt = (window.PageTransitions || null)();
     $('.ra_click').on('click', function () {
         clicked = true;
