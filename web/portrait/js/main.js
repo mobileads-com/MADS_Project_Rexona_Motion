@@ -66,32 +66,30 @@ mads.prototype.tracker = function (tt, type, name, value) {
 
 
     console.log(type);
-    /* 
+    /*
      * name is used to make sure that particular tracker is tracked for only once
      * there might have the same type in different location, so it will need the name to differentiate them
      */
     name = name || type;
 
-
     if (typeof this.custTracker != 'undefined' && this.custTracker != '' && this.tracked.indexOf(name) == -1) {
-        if(type === 'rexona_video' || type === 'rexona_lp' || type === 'pria' || type === 'wanita' || type === 'pria_swipe' || type === 'wanita_swipe') {
-            if (type === 'pria' || type === 'wanita') {
-                var img = document.createElement('img');
-                if (typeof value == 'undefined') {
-                    value = '';
-                }
-                /* Insert Macro */
-                var src = this.custTracker[2].replace('{{type}}', type);
-                src = src.replace('{{tt}}', tt);
-                src = src.replace('{{value}}', value);
-                /* */
-                img.src = src + '&' + this.id;
-
-                img.style.display = 'none';
-                this.bodyTag.appendChild(img);
-                this.tracked.push(name)
+        if (type === 'pria' || type === 'wanita') {
+            var img = document.createElement('img');
+            if (typeof value == 'undefined') {
+                value = '';
             }
+            /* Insert Macro */
+            var src = this.custTracker[2].replace('{{type}}', type);
+            src = src.replace('{{tt}}', tt);
+            src = src.replace('{{value}}', value);
+            /* */
+            img.src = src + '&' + this.id;
 
+            img.style.display = 'none';
+            this.bodyTag.appendChild(img);
+            this.tracked.push(name)
+        }
+        if (type === 'rexona_video' || type === 'rexona_lp' || type === 'pria_swipe' || type === 'wanita_swipe') {
             for (var i = 0; i < this.custTracker.length; i++) {
                 if (this.custTracker[i] != '__MW_CLICK_URL__') {
                     var img = document.createElement('img');
