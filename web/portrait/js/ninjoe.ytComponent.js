@@ -17,11 +17,13 @@ var ytComponent = function (options) {
     this.height = options.height;
     this.videoId = options.videoId;
 
-    this.tracker = options.tracker || function () {};
+    this.tracker = options.tracker.tracker || function () {};
     this.autoplay = options.autoplay || false;
 
     this.realTime;
     this.playTimeDone = [];
+
+    this.once = false;
 
     this.loadAPI();
 };
@@ -104,8 +106,11 @@ ytComponent.prototype.onPlayerStateChange = function (event) {
         if (!this.replay) {
             /* Start RealTime */
             this.realTime = setInterval(this.curry(this.videoPlayLength, this), 100);
-            this.tracker('E','rexona_video');
-            console.log('rexona_video');
+            if (!this.once) {
+                this.once = true;
+                this.tracker('E','rexona_video');
+            }
+
             this.tracker('E', 'playing');
         } else {
             this.tracker('E', 'replay');
