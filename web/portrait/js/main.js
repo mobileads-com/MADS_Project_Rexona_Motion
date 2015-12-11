@@ -74,7 +74,6 @@ mads.prototype.tracker = function (tt, type, name, value) {
     name = name || type;
 
     if (typeof this.custTracker != 'undefined' && this.custTracker != '' && this.tracked.indexOf(name) == -1) {
-
         for (var i = 0; i < this.custTracker.length; i++) {
                 var img = document.createElement('img');
 
