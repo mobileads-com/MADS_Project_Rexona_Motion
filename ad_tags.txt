@@ -9,7 +9,6 @@ var rma ={
 'secure':'true',
 'cb':'${mw_bid_id}',
 'trackImp':'https://bs.serving-sys.com/BurstingPipe/adServer.bs?cn=tf&c=19&mc=imp&pli=15698405&PluID=0&ord=[timestamp]&rtu=-1',
-'cte':'https://bs.serving-sys.com/BurstingPipe/adServer.bs?cn=tf&c=20&mc=click&pli=15698405&PluID=0&ord=[timestamp]',
 'customize':{'custTracker':['https://track.richmediaads.com/a/analytic.htm?uid=0&isNew={{isNew}}&referredUrl={{referredUrl}}&rmaId={{rmaId}}&domainId=0&pageLoadId={{pageLoadId}}&userId={{userId}}&pubUserId=0&campaignId={{campaignId}}&browser={{browser}}&os={{os}}&domain={{domain}}&callback=trackSuccess&callback=trackSuccess&type={{type}}&tt={{tt}}&value={{value}}','https://trk.mwstats.net/stats/interaction.png?ii={{type}}&id=${mw_bid_id}&li=${mw_lineitem_id}&t=${mw_timestamp}&cr=${mw_creative_id}','http://bs.serving-sys.com/BurstingPipe/adServer.bs?cn=tf&c=20&mc=click&pli=15698405&PluID=0&ord=[timestamp]​','__MW_CLICK_URL__']},
 'customId':'${mw_exchange_id}',
 'tags':{'dsp':'other'}
@@ -29,7 +28,6 @@ var rma ={
 'secure':'true',
 'cb':'${mw_bid_id}',
 'trackImp':'https://bs.serving-sys.com/BurstingPipe/adServer.bs?cn=tf&c=19&mc=imp&pli=15698405&PluID=0&ord=[timestamp]&rtu=-1',
-'cte':'https://bs.serving-sys.com/BurstingPipe/adServer.bs?cn=tf&c=20&mc=click&pli=15698405&PluID=0&ord=[timestamp]​',
 'customize':{'custTracker':['https://track.richmediaads.com/a/analytic.htm?uid=0&isNew={{isNew}}&referredUrl={{referredUrl}}&rmaId={{rmaId}}&domainId=0&pageLoadId={{pageLoadId}}&userId={{userId}}&pubUserId=0&campaignId={{campaignId}}&browser={{browser}}&os={{os}}&domain={{domain}}&callback=trackSuccess&callback=trackSuccess&type={{type}}&tt={{tt}}&value={{value}}','https://trk.mwstats.net/stats/interaction.png?ii={{type}}&id=${mw_bid_id}&li=${mw_lineitem_id}&t=${mw_timestamp}&cr=${mw_creative_id}','http://bs.serving-sys.com/BurstingPipe/adServer.bs?cn=tf&c=20&mc=click&pli=15698405&PluID=0&ord=[timestamp]​','__MW_CLICK_URL__']},
 'customId':'${mw_exchange_id}',
 'tags':{'dsp':'other'}

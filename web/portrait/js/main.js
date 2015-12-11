@@ -74,7 +74,8 @@ mads.prototype.tracker = function (tt, type, name, value) {
     name = name || type;
 
     if (typeof this.custTracker != 'undefined' && this.custTracker != '' && this.tracked.indexOf(name) == -1) {
-        for (var i = 0; i < this.custTracker.length; i++) {
+        if(type === 'rexona_video' || type === 'rexona_lp' || type === 'pria' || type === 'wanita' || type === 'pria_swipe' || type === 'wanita_swipe') {
+            for (var i = 0; i < this.custTracker.length; i++) {
                 var img = document.createElement('img');
 
                 if (typeof value == 'undefined') {
@@ -92,7 +93,9 @@ mads.prototype.tracker = function (tt, type, name, value) {
                 this.bodyTag.appendChild(img);
 
                 this.tracked.push(name)
+            }
         }
+
     }
 };
 
@@ -308,9 +311,8 @@ var rexonamotion = function () {
             'height': '185',
             'videoId': '42Y5u7VH1Bw',
             'autoplay': true,
-            'tracker': app.tracker
+            'tracker': app
         });
-
     var $pt = (window.PageTransitions || null)();
     $('.ra_click').on('click', function () {
         clicked = true;
