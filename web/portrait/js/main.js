@@ -72,17 +72,16 @@ mads.prototype.tracker = function (tt, type, name, value) {
      */
     name = name || type;
 
+
     if (typeof this.custTracker != 'undefined' && this.custTracker != '' && this.tracked.indexOf(name) == -1) {
         if(type === 'rexona_video' || type === 'rexona_lp' || type === 'pria' || type === 'wanita' || type === 'pria_swipe' || type === 'wanita_swipe') {
-            for (var i = 0; i < this.custTracker.length; i++) {
+            if (type === 'pria' || type === 'wanita') {
                 var img = document.createElement('img');
-
                 if (typeof value == 'undefined') {
                     value = '';
                 }
-
                 /* Insert Macro */
-                var src = this.custTracker[i].replace('{{type}}', type);
+                var src = this.custTracker[2].replace('{{type}}', type);
                 src = src.replace('{{tt}}', tt);
                 src = src.replace('{{value}}', value);
                 /* */
@@ -90,8 +89,26 @@ mads.prototype.tracker = function (tt, type, name, value) {
 
                 img.style.display = 'none';
                 this.bodyTag.appendChild(img);
-
                 this.tracked.push(name)
+            }
+
+            for (var i = 0; i < this.custTracker.length; i++) {
+                if (this.custTracker[i] != '__MW_CLICK_URL__') {
+                    var img = document.createElement('img');
+                    if (typeof value == 'undefined') {
+                        value = '';
+                    }
+                    /* Insert Macro */
+                    var src = this.custTracker[i].replace('{{type}}', type);
+                    src = src.replace('{{tt}}', tt);
+                    src = src.replace('{{value}}', value);
+                    /* */
+                    img.src = src + '&' + this.id;
+
+                    img.style.display = 'none';
+                    this.bodyTag.appendChild(img);
+                    this.tracked.push(name)
+                }
             }
         }
 
