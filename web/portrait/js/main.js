@@ -74,23 +74,7 @@ mads.prototype.tracker = function (tt, type, name, value) {
     name = name || type;
 
     if (typeof this.custTracker != 'undefined' && this.custTracker != '' && this.tracked.indexOf(name) == -1) {
-
         for (var i = 0; i < this.custTracker.length; i++) {
-            if (type === 'rexona_video') {
-                var xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function() {
-                    if (xhttp.readyState == 4 && xhttp.status == 200) {
-
-                    }
-                };
-                var src = this.custTracker[i].replace('{{type}}', type);
-                src = src.replace('{{tt}}', tt);
-                src = src.replace('{{value}}', value);
-                /* */
-                xhttp.open("GET", src + '&' + this.id, true);
-                xhttp.send();
-                this.tracked.push(name);
-            } else {
                 var img = document.createElement('img');
 
                 if (typeof value == 'undefined') {
@@ -108,7 +92,6 @@ mads.prototype.tracker = function (tt, type, name, value) {
                 this.bodyTag.appendChild(img);
 
                 this.tracked.push(name)
-            }
         }
     }
 };
@@ -507,9 +490,7 @@ var rexonamotion = function () {
 
 window.onYouTubeIframeAPIReady = function (vid) {
     if (vid) {
-        $('.video_play').on('click', function () {
-            vid.loadVideo();
-        });
+        vid.loadVideo();
     }
 };
 
