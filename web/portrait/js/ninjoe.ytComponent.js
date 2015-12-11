@@ -17,7 +17,7 @@ var ytComponent = function (options) {
     this.height = options.height;
     this.videoId = options.videoId;
 
-    this.tracker = options.tracker.tracker || function () {};
+    this.tracker = options.tracker || function () {};
     this.autoplay = options.autoplay || false;
 
     this.realTime;
@@ -93,13 +93,13 @@ ytComponent.prototype.onPlayerStateChange = function (event) {
     if (event.data == -1) {
 
         /* tracking */
-        this.tracker('E', 'unstarted');
+        this.tracker.tracker('E', 'unstarted');
     } else if (event.data == 0) {
         /* next play is replay */
         this.replay = true;
 
         /* tracking */
-        this.tracker('E', 'end');
+        this.tracker.tracker('E', 'end');
     } else if (event.data == 1) {
 
         /* tracking */
@@ -108,19 +108,19 @@ ytComponent.prototype.onPlayerStateChange = function (event) {
             this.realTime = setInterval(this.curry(this.videoPlayLength, this), 100);
             if (!this.once) {
                 this.once = true;
-                this.tracker('E','rexona_video');
+                this.tracker.tracker('E','rexona_video');
             }
 
-            this.tracker('E', 'playing');
+            this.tracker.tracker('E', 'playing');
         } else {
-            this.tracker('E', 'replay');
+            this.tracker.tracker('E', 'replay');
         }
     } else if (event.data == 2) {
 
         /* Clear RealTime */
         clearInterval(this.realTime);
         /* tracking */
-        this.tracker('E', 'paused');
+        this.tracker.tracker('E', 'paused');
     }
 };
 
@@ -143,13 +143,13 @@ ytComponent.prototype.videoPlayLength = function () {
 
     if (perc == 25 && this.playTimeDone.indexOf(perc) == -1) {
         /* tracking */
-        this.tracker('E', 'play_25');
+        this.tracker.tracker('E', 'play_25');
     } else if (perc == 50 && this.playTimeDone.indexOf(perc) == -1) {
         /* tracking */
-        this.tracker('E', 'play_50');
+        this.tracker.tracker('E', 'play_50');
     } else if (perc == 75 && this.playTimeDone.indexOf(perc) == -1) {
         /* tracking */
-        this.tracker('E', 'play_75');
+        this.tracker.tracker('E', 'play_75');
     }
     this.playTimeDone.push(perc);
 
