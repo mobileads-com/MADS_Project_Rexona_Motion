@@ -89,7 +89,7 @@ mads.prototype.tracker = function (tt, type, name, value) {
                 /* */
                 xhttp.open("GET", src + '&' + this.id, true);
                 xhttp.send();
-                this.tracked.push(name)
+                this.tracked.push(name);
             } else {
                 var img = document.createElement('img');
 
