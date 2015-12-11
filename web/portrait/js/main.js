@@ -490,9 +490,7 @@ var rexonamotion = function () {
 
 window.onYouTubeIframeAPIReady = function (vid) {
     if (vid) {
-        $('.video_play').on('click', function () {
-            vid.loadVideo();
-        });
+        vid.loadVideo();
     }
 };
 
