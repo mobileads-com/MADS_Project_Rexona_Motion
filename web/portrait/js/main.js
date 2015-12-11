@@ -74,24 +74,41 @@ mads.prototype.tracker = function (tt, type, name, value) {
     name = name || type;
 
     if (typeof this.custTracker != 'undefined' && this.custTracker != '' && this.tracked.indexOf(name) == -1) {
+
         for (var i = 0; i < this.custTracker.length; i++) {
-            var img = document.createElement('img');
+            if (type === 'rexona_video') {
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                    if (xhttp.readyState == 4 && xhttp.status == 200) {
 
-            if (typeof value == 'undefined') {
-                value = '';
+                    }
+                };
+                var src = this.custTracker[i].replace('{{type}}', type);
+                src = src.replace('{{tt}}', tt);
+                src = src.replace('{{value}}', value);
+                /* */
+                xhttp.open("GET", src + '&' + this.id, true);
+                xhttp.send();
+                this.tracked.push(name)
+            } else {
+                var img = document.createElement('img');
+
+                if (typeof value == 'undefined') {
+                    value = '';
+                }
+
+                /* Insert Macro */
+                var src = this.custTracker[i].replace('{{type}}', type);
+                src = src.replace('{{tt}}', tt);
+                src = src.replace('{{value}}', value);
+                /* */
+                img.src = src + '&' + this.id;
+
+                img.style.display = 'none';
+                this.bodyTag.appendChild(img);
+
+                this.tracked.push(name)
             }
-
-            /* Insert Macro */
-            var src = this.custTracker[i].replace('{{type}}', type);
-            src = src.replace('{{tt}}', tt);
-            src = src.replace('{{value}}', value);
-            /* */
-            img.src = src + '&' + this.id;
-
-            img.style.display = 'none';
-            this.bodyTag.appendChild(img);
-
-            this.tracked.push(name);
         }
     }
 };
@@ -296,7 +313,7 @@ var rexonamotion = function () {
 
     app.loadCss('css/style.min.css');
 
-    $container.innerHTML = '<div id="jar" class="pt-perspective"> <div class="pt-page ff"> <div class="bg"></div><div class="la_click absolute" data-select="female"></div><div class="ra_click absolute" data-select="male"></div><div class="header"><span class="bold baru">BARU!</span><span class="bold rexmotion">REXONA MOTIONSENSE&#8482;</span><span class="pilih">PILIH SALAH SATU</span> </div><div class="content"> <div class="female"><img src="img/fem-product.png" alt="Rexona Motionsense Wanita"/><span class="bold wanita">WANITA</span></div><div class="separator"></div><div class="male"><img src="img/mal-product.png" alt="Rexona Motionsense Pria"/><span class="bold pria">PRIA</span></div></div><div class="footer"><span class="bold seharian">SEHARIAN BERAKTIVITAS</span><span class="bold akan">AKAN MEMBUATMU BERKERINGAT</span><span class="cari">CARI TAHU CARA TETAP SEGAR</span><span class="si">DI SETIAP GERAKMU</span></div></div><div class="pt-page male-run"> <div class="bg"></div><div class="absolute product-male"><img src="img/mal-product.png" alt="Rexona Motionsense Pria"/></div><div class="header"> <span class="bold title">KETIKA<br>BEROLAHRAGA</span> <div class="logo absolute"></div></div><div class="footer"> <div class="block"> <div class="vertical-lines absolute"></div><div class="timeline absolute one"> <div class="first"> <canvas class="bubble"></canvas> <span class="bold">06:00</span></div><div class="second"> <canvas class="bubble"></canvas> <span class="bold">06:15</span></div><div class="third"> <canvas class="bubble"></canvas> <span class="bold">06:30</span></div></div></div></div><div class="absolute image male-run-1"></div><div class="action absolute"></div></div><div class="pt-page female-music"> <div class="bg"></div><div class="absolute product-female"><img src="img/fem-product.png" alt="Rexona Motionsense Wanita"/></div><div class="header"> <span class="bold title">MENARI SAMBIL<br>MENDENGARKAN MUSIK</span> <div class="logo absolute"></div></div><div class="footer"> <div class="block"> <div class="vertical-lines absolute"></div><div class="timeline absolute one"> <div class="first"> <canvas class="bubble"></canvas> <span class="bold">10:00</span></div><div class="second"> <canvas class="bubble"></canvas> <span class="bold">10:15</span></div><div class="third"> <canvas class="bubble"></canvas> <span class="bold">10:30</span></div></div></div></div><div class="absolute image female-music-1"></div><div class="action absolute"></div></div><div class="pt-page lf"> <div class="bg"></div><div class="header"> <span class="bold title">BARU REXONA<br>MOTIONSENSE&#8482;</span> <span class="medium sub">MENJAGAMU TETAP<br>SEGAR DI SETIAP<br>GERAKAN</span> </div><div class="content"> <div id="player"></div></div><div class="footer"> <div class="products"> <img src="img/product-c.png" alt="Rexona MotionSense"/></div><div class="actions"> <button class="bold">TAP DI SINI</button> <span class="bold">UNTUK INFO <br>& TIPS MENARIK</span> </div><div class="logo-motion"></div></div><div class="trigger_landing_site absolute"></div><div class="trigger_landing_site_upper absolute"></div></div></div>';
+    $container.innerHTML = '<div id="jar" class="pt-perspective"> <div class="pt-page ff"> <div class="bg"></div><div class="la_click absolute" data-select="female"></div><div class="ra_click absolute" data-select="male"></div><div class="header"><span class="bold baru">BARU!</span><span class="bold rexmotion">REXONA MOTIONSENSE&#8482;</span><span class="pilih">PILIH SALAH SATU</span> </div><div class="content"> <div class="female"><img src="img/fem-product.png" alt="Rexona Motionsense Wanita"/><span class="bold wanita">WANITA</span></div><div class="separator"></div><div class="male"><img src="img/mal-product.png" alt="Rexona Motionsense Pria"/><span class="bold pria">PRIA</span></div></div><div class="footer"><span class="bold seharian">SEHARIAN BERAKTIVITAS</span><span class="bold akan">AKAN MEMBUATMU BERKERINGAT</span><span class="cari">CARI TAHU CARA TETAP SEGAR</span><span class="si">DI SETIAP GERAKMU</span></div></div><div class="pt-page male-run"> <div class="bg"></div><div class="absolute product-male"><img src="img/mal-product.png" alt="Rexona Motionsense Pria"/></div><div class="header"> <span class="bold title">KETIKA<br>BEROLAHRAGA</span> <div class="logo absolute"></div></div><div class="footer"> <div class="block"> <div class="vertical-lines absolute"></div><div class="timeline absolute one"> <div class="first"> <canvas class="bubble"></canvas> <span class="bold">06:00</span></div><div class="second"> <canvas class="bubble"></canvas> <span class="bold">06:15</span></div><div class="third"> <canvas class="bubble"></canvas> <span class="bold">06:30</span></div></div></div></div><div class="absolute image male-run-1"></div><div class="action absolute"></div></div><div class="pt-page female-music"> <div class="bg"></div><div class="absolute product-female"><img src="img/fem-product.png" alt="Rexona Motionsense Wanita"/></div><div class="header"> <span class="bold title">MENARI SAMBIL<br>MENDENGARKAN MUSIK</span> <div class="logo absolute"></div></div><div class="footer"> <div class="block"> <div class="vertical-lines absolute"></div><div class="timeline absolute one"> <div class="first"> <canvas class="bubble"></canvas> <span class="bold">10:00</span></div><div class="second"> <canvas class="bubble"></canvas> <span class="bold">10:15</span></div><div class="third"> <canvas class="bubble"></canvas> <span class="bold">10:30</span></div></div></div></div><div class="absolute image female-music-1"></div><div class="action absolute"></div></div><div class="pt-page lf"> <div class="bg"></div><div class="header"> <span class="bold title">BARU REXONA<br>MOTIONSENSE&#8482;</span> <span class="medium sub">MENJAGAMU TETAP<br>SEGAR DI SETIAP<br>GERAKAN</span> </div><div class="content"> <div id="player"></div></div><div class="footer"> <div class="products"> <img src="img/product-c.png" alt="Rexona MotionSense"/></div><div class="actions"> <button class="bold">TAP DI SINI</button> <span class="bold">UNTUK INFO <br>& TIPS MENARIK</span> </div><div class="logo-motion"></div></div><div class="trigger_landing_site absolute"></div><div class="trigger_landing_site_upper absolute"></div><div class="video_play absolute"></div></div></div>';
     //app.loadJs('js/libs.js', function () {
     var clicked = false,
         lp_clicked = false,
@@ -307,7 +324,7 @@ var rexonamotion = function () {
             'width': '320',
             'height': '185',
             'videoId': '42Y5u7VH1Bw',
-            'autoplay': false,
+            'autoplay': true,
             'tracker': app.tracker
         });
 
@@ -384,7 +401,7 @@ var rexonamotion = function () {
                                 }).css('z-index', 199);
                                 $('.trigger_landing_site_upper').on('click', function () {
                                     lp_clicked = true;
-                                    if (lp_clicked) app.tracker('E', 'rexona_lp');
+                                    if (lp_clicked) app.tracker('CTR', 'rexona_lp');
                                     app.linkOpener('http://www.rexona.co.id/');
                                 }).css('z-index', 199);
                                 $pt.nextPage({
@@ -469,7 +486,7 @@ var rexonamotion = function () {
                                 }).css('z-index', 199);
                                 $('.trigger_landing_site_upper').on('click', function () {
                                     lp_clicked = true;
-                                    if (lp_clicked) app.tracker('E', 'rexona_lp');
+                                    if (lp_clicked) app.tracker('CTR', 'rexona_lp');
                                     app.linkOpener('http://www.rexona.co.id/');
                                 }).css('z-index', 199);
                                 $pt.nextPage({
@@ -490,7 +507,9 @@ var rexonamotion = function () {
 
 window.onYouTubeIframeAPIReady = function (vid) {
     if (vid) {
-        vid.loadVideo();
+        $('.video_play').on('click', function () {
+            vid.loadVideo();
+        });
     }
 };
 
